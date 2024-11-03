@@ -232,6 +232,8 @@ class Bert(Base_Connector):
             log_probs = F.log_softmax(logits, dim=-1).cpu()
 
         token_ids_list = []
+        if not hasattr(np, 'array'):
+            raise RuntimeError("np is not available")
         for indexed_string in tokens_tensor.numpy():
             token_ids_list.append(self.__get_token_ids_from_tensor(indexed_string))
 

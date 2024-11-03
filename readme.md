@@ -16,7 +16,7 @@ pip install [package_name]
 ## Run experiments
 ```bash
 cd src/LAMA-main
-python -m scripts.run_experiments.py
+python -m scripts.run_experiments
 ```
 
 Further reading: 

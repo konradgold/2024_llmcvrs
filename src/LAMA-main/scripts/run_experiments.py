@@ -5,8 +5,8 @@
 # LICENSE file in the root directory of this source tree.
 #
 import argparse
-from scripts.batch_eval_KB_completion import main as run_evaluation
-from scripts.batch_eval_KB_completion import load_file
+from batch_eval_KB_completion import main as run_evaluation
+from batch_eval_KB_completion import load_file
 from lama.modules import build_model_by_name
 import pprint
 import statistics
@@ -14,19 +14,19 @@ from collections import defaultdict
 
 
 LMs = [
-    #{
-    #     "lm": "bert",
-    #     "label": "bert_base",
-    #     "models_names": ["bert"],
-    #     "bert_model_name": "bert-base-uncased",
-    #     "bert_model_dir": "./pre-trained_language_models/bert/uncased_L-12_H-768_A-12",
-    # },
+    {
+        "lm": "bert",
+        "label": "bert_base",
+        "models_names": ["bert"],
+        "bert_model_name": "bert-base-uncased",
+        "bert_model_dir": "./pre-trained_language_models/bert/uncased_L-12_H-768_A-12",
+     },
     {
         "lm": "gpt2",
         "label": "gpt2",
-        "models_names": ["gpt2"],
-        "gpt2_model_name": "gpt2",
-        "gpt2_model_dir": "./pre-trained_language_models/gpt2",
+        "models_names": ["openai-gpt"],
+        "gpt2_model_name": "openai-gpt",
+        "gpt2_model_dir": "./pre-trained_language_models/gpt/openai-gpt",
     },
 ]
 

@@ -4,11 +4,11 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 #
-from modules import build_model_by_name
+from lama.modules import build_model_by_name
 from tqdm import tqdm
 import argparse
 import spacy
-import modules.base_connector as base
+import lama.modules.base_connector as base
 
 
 CASED_MODELS = [
@@ -34,6 +34,13 @@ LOWERCASED_MODELS = [
    "bert_model_dir": None,
    "bert_vocab_name": "vocab.txt"
  },
+ {
+        "lm": "gpt",
+        "label": "gpt",
+        "models_names": ["openai-gpt"],
+        "gpt2_model_name": "openai-gpt",
+        "gpt2_model_dir": "./pre-trained_language_models/gpt",
+    },
 ]
 
 LOWERCASED_COMMON_VOCAB_FILENAME = "pre-trained_language_models/common_vocab_lowercased.txt"
