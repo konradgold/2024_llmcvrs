@@ -4,6 +4,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 #
+from pathlib import Path
 from lama.modules import build_model_by_name
 import lama.utils as utils
 from lama.utils import print_sentence_predictions, load_vocab
@@ -22,6 +23,7 @@ from multiprocessing.pool import ThreadPool
 import multiprocessing
 import lama.evaluation_metrics as metrics
 import time, sys
+from summarize_knowledge import summarize_knowledge
 
 
 def load_file(filename):
@@ -378,6 +380,10 @@ def main(args, shuffle_data=True, model=None):
     if args.lowercase:
         # lowercase all samples
         logger.info("lowercasing all samples...")
+        if "TREx" in args.dataset_filename:
+            data = [{'sub_label': d['evidences'][0]['sub_surface'],
+                     'obj_label': d['evidences'][0]['obj_surface'],
+                     'masked_sentences': [d['evidences'][0]['masked_sentence']]} for d in data]
         all_samples = lowercase_samples(
             data, use_negated_probes=args.use_negated_probes
         )
@@ -456,6 +462,8 @@ def main(args, shuffle_data=True, model=None):
     pool = ThreadPool(num_threads)
     list_of_results = []
 
+    summarizer = summarize_knowledge.Summarizer(args.label)
+
     for i in tqdm(range(len(samples_batches))):
 
         samples_b = samples_batches[i]
@@ -474,6 +482,7 @@ def main(args, shuffle_data=True, model=None):
             )
         else:
             filtered_log_probs_list = original_log_probs_list
+        
 
         label_index_list = []
         for sample in samples_b:
@@ -487,7 +496,7 @@ def main(args, shuffle_data=True, model=None):
                     )
                 )
             elif model.vocab[obj_label_id[0]] != sample["obj_label"]:
-                raise ValueError(
+                logging.warning(
                     "object label {} not in model vocabulary".format(
                         sample["obj_label"]
                     )
@@ -498,6 +507,8 @@ def main(args, shuffle_data=True, model=None):
                 )
 
             label_index_list.append(obj_label_id)
+        
+        summarizer.store_knowledge(samples_b, filtered_log_probs_list, model.vocab)
 
         arguments = [
             {
@@ -640,6 +651,7 @@ def main(args, shuffle_data=True, model=None):
                     Precision_positive += sample_P
 
             list_of_results.append(element)
+        
 
     pool.close()
     pool.join()
@@ -697,7 +709,7 @@ def main(args, shuffle_data=True, model=None):
 
     # dump pickle with the result of the experiment
     all_results = dict(
-        list_of_results=list_of_results, global_MRR=MRR, global_P_at_10=Precision
+        list_of_results=list_of_results, global_MRR=MRR, global_P_at_10=Precision, global_P_at_1=Precision1
     )
     with open("{}/result.pkl".format(log_directory), "wb") as f:
         pickle.dump(all_results, f)
