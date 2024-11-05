@@ -462,7 +462,7 @@ def main(args, shuffle_data=True, model=None):
     pool = ThreadPool(num_threads)
     list_of_results = []
 
-    summarizer = summarize_knowledge.Summarizer(args.label)
+    summarizer = summarize_knowledge.Summarizer(args.label, args.template)
 
     for i in tqdm(range(len(samples_batches))):
 
@@ -713,6 +713,12 @@ def main(args, shuffle_data=True, model=None):
     )
     with open("{}/result.pkl".format(log_directory), "wb") as f:
         pickle.dump(all_results, f)
+
+    summarizer.add_summary_to_json({
+        "global_MRR": MRR,
+        "global_P_at_10": Precision,
+        "global_P_at_1": Precision1
+    })
 
     return Precision1
 

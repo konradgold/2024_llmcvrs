@@ -10,8 +10,9 @@ import torch
 
 class Summarizer:
 
-    def __init__(self, model_name: str):
+    def __init__(self, model_name: str, template: str):
         current_datetime = datetime.now()
+        self.template = template
         # Format it as a string
         #datetime_string = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
         self.output_file = "./_knowledge" + model_name + ".json"
@@ -40,6 +41,7 @@ class Summarizer:
                 output.append({
                     'sentence': sample['masked_sentences'][0],
                     'subject': sample['sub_label'],
+                    'template:' : self.template,
                     'object_ground_truth_idx': predictions.index(sample['obj_label']),
                     'object_predicted': predictions[0],
                     'object_predicted_10': predictions,
@@ -73,6 +75,7 @@ class Summarizer:
             existing_data = {"knowledge": []}
 
         # Append new data
+        output['template'] = self.template
         existing_data['summary'] = output
 
         # Write back to the file
