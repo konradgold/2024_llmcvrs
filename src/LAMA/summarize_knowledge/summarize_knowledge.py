@@ -10,8 +10,9 @@ import torch
 
 class Summarizer:
 
-    def __init__(self, model_name: str, template: str):
+    def __init__(self, model_name: str, template: str, dataset: str):
         current_datetime = datetime.now()
+        self.dataset = dataset
         self.template = template
         # Format it as a string
         #datetime_string = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
@@ -42,6 +43,7 @@ class Summarizer:
                     'sentence': sample['masked_sentences'][0],
                     'subject': sample['sub_label'],
                     'template:' : self.template,
+                    'dataset': self.dataset,
                     'object_ground_truth_idx': predictions.index(sample['obj_label']),
                     'object_predicted': predictions[0],
                     'object_predicted_10': predictions,
@@ -76,7 +78,8 @@ class Summarizer:
 
         # Append new data
         output['template'] = self.template
-        existing_data['summary'] = output
+        output['dataset'] = self.dataset
+        existing_data['summary'] = [output] if 'summary' not in existing_data else existing_data['summary'].append(output)
 
         # Write back to the file
         with open(self.output_file, 'w') as f:

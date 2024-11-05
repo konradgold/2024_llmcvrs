@@ -462,7 +462,7 @@ def main(args, shuffle_data=True, model=None):
     pool = ThreadPool(num_threads)
     list_of_results = []
 
-    summarizer = summarize_knowledge.Summarizer(args.label, args.template)
+    summarizer = summarize_knowledge.Summarizer(args.label, args.template, args.dataset_filename)
 
     for i in tqdm(range(len(samples_batches))):
 
