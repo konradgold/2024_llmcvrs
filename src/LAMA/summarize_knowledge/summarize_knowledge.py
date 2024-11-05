@@ -13,8 +13,8 @@ class Summarizer:
     def __init__(self, model_name: str):
         current_datetime = datetime.now()
         # Format it as a string
-        datetime_string = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
-        self.output_file = "./_knowledge" + model_name + datetime_string + ".json"
+        #datetime_string = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+        self.output_file = "./_knowledge" + model_name + ".json"
         if not os.path.exists(self.output_file) and self.output_file.endswith('.json'):
             with open(self.output_file, 'w') as f:
                 f.write('{"knowledge": [],}')
@@ -27,19 +27,27 @@ class Summarizer:
     def store_knowledge(self, 
                     samples: Dict[str, str|int| List[str]], 
                     filtered_log_probs_list: torch.tensor, 
-                    vocab: List[str]):
+                    vocab: List[str],
+                    masked_indices: List[int],
+                    index_list: List[int]):
         output: List[Dict[str, str|int| List[str]]] = []
         for i, sample in enumerate(samples):
-            output.append({
-                'sentence': sample['masked_sentences'][0],
-                'subject': sample['sub_label'],
-                'object_ground_truth': sample['obj_label'],
-                'object_predicted': [vocab[j] for j in filtered_log_probs_list.argmax(2)[i]],
-                'filtered_log_probs': [j.item() for j in filtered_log_probs_list.max(2).values[i]]
-            })
+            mask_idx = masked_indices[i][0]
+            log_probs = filtered_log_probs_list[i][mask_idx]
+            predictions_ = torch.topk(log_probs, 10, 0)
+            predictions = [vocab[index_list[j]] for j in predictions_.indices]
+            if sample['obj_label'] in predictions:
+                output.append({
+                    'sentence': sample['masked_sentences'][0],
+                    'subject': sample['sub_label'],
+                    'object_ground_truth_idx': predictions.index(sample['obj_label']),
+                    'object_predicted': predictions[0],
+                    'object_predicted_10': predictions,
+                    'filtered_log_probs': predictions_.values.tolist(),
+                })
         self.append_knowledge_to_json(output)
 
-    def append_knowledge_to_json(self, output):
+    def append_knowledge_to_json(self, output: List[Dict[str, str|int| List[str]]]):
         try:
             # Read existing data
             with open(self.output_file, 'r') as f:
@@ -47,7 +55,7 @@ class Summarizer:
         except (FileNotFoundError, json.JSONDecodeError):
             # If the file is not found or empty, start with an empty list
             existing_data = {"knowledge": [],}
-
+        
         # Append new data
         existing_data['knowledge'].extend(output)
 

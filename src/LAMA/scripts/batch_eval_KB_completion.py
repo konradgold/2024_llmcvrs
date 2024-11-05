@@ -508,7 +508,7 @@ def main(args, shuffle_data=True, model=None):
 
             label_index_list.append(obj_label_id)
         
-        summarizer.store_knowledge(samples_b, filtered_log_probs_list, model.vocab)
+        summarizer.store_knowledge(samples_b, filtered_log_probs_list, model.vocab, masked_indices_list, index_list)
 
         arguments = [
             {
