@@ -1,0 +1,11 @@
+init_from: 'gpt2'
+write_file: "out/write_"
+out_dir: 'out'
+start: "\n"
+num_samples: 3
+max_new_tokens: 50
+temperature: 0.8
+top_k: 200
+seed: 1337
+device: 'cpu'
+compile: False
