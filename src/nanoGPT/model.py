@@ -7,9 +7,11 @@ https://github.com/openai/gpt-2/blob/master/src/model.py
 https://github.com/huggingface/transformers/blob/main/src/transformers/models/gpt2/modeling_gpt2.py
 """
 
+import json
 import math
 import inspect
 from dataclasses import dataclass
+from typing import List, Tuple
 
 import torch
 import torch.nn as nn
@@ -48,6 +50,7 @@ class CausalSelfAttention(nn.Module):
             # causal mask to ensure that attention is only applied to the left in the input sequence
             self.register_buffer("bias", torch.tril(torch.ones(config.block_size, config.block_size))
                                         .view(1, 1, config.block_size, config.block_size))
+        self.register_buffer('head_mask', torch.ones(config.n_head))
 
     def forward(self, x):
         B, T, C = x.size() # batch size, sequence length, embedding dimensionality (n_embd)
@@ -69,6 +72,11 @@ class CausalSelfAttention(nn.Module):
             att = F.softmax(att, dim=-1)
             att = self.attn_dropout(att)
             y = att @ v # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
+        
+        if hasattr(self, 'head_mask'):
+            # Apply the head mask to zero out specified heads
+            y = y * self.head_mask.view(1, -1, 1, 1)
+
         y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
 
         # output projection
@@ -257,8 +265,9 @@ class GPT(nn.Module):
                 assert sd_hf[k].shape == sd[k].shape
                 with torch.no_grad():
                     sd[k].copy_(sd_hf[k])
-
         return model
+    
+
 
     def configure_optimizers(self, weight_decay, learning_rate, betas, device_type):
         # start with all of the candidate parameters
@@ -301,6 +310,49 @@ class GPT(nn.Module):
         flops_promised = 312e12 # A100 GPU bfloat16 peak flops is 312 TFLOPS
         mfu = flops_achieved / flops_promised
         return mfu
+    
+    def disable_heads(self, disable: List[Tuple[int, int]] | str):
+        if isinstance(disable, str):
+            with open(disable, 'r') as f:
+                disable_list = json.load(f)
+        else:
+            disable_list = disable
+        assert isinstance(disable_list, list), "disable must be a list of tuples"
+        assert len(disable_list) > 0, "disable must be a list of tuples"
+        assert isinstance(disable_list[0], tuple), "disable must be a list of tuples"
+        assert isinstance(disable_list[0][0], int), "disable must be a list of tuples of ints"
+        assert isinstance(disable_list[0][1], int), "disable must be a list of tuples of ints"
+        for (layer_idx, head_idx) in disable_list:
+            assert 0 <= layer_idx < self.config.n_layer, f"layer index {layer_idx} out of bounds"
+            assert 0 <= head_idx < self.config.n_head, f"head index {head_idx} out of bounds"
+            # Access the specific layer
+            block = self.transformer.h[layer_idx]
+            # Access the attention module within the block
+            attn = block.attn
+            # Set the head mask for the specified head to zero
+            attn.head_mask[head_idx] = 0
+    
+    def enable_heads(self, enable: List[Tuple[int, int]] | str):
+        if isinstance(enable, str):
+            with open(enable, 'r') as f:
+                enable_list = json.load(f)
+        else:
+            enable_list = enable
+        assert isinstance(enable_list, list), "disable must be a list of tuples"
+        assert len(enable_list) > 0, "disable must be a list of tuples"
+        assert isinstance(enable_list[0], tuple), "disable must be a list of tuples"
+        assert isinstance(enable_list[0][0], int), "disable must be a list of tuples of ints"
+        assert isinstance(enable_list[0][1], int), "disable must be a list of tuples of ints"
+        for (layer_idx, head_idx) in enable_list:
+            assert 0 <= layer_idx < self.config.n_layer, f"layer index {layer_idx} out of bounds"
+            assert 0 <= head_idx < self.config.n_head, f"head index {head_idx} out of bounds"
+            # Access the specific layer
+            block = self.transformer.h[layer_idx]
+            # Access the attention module within the block
+            attn = block.attn
+            # Set the head mask for the specified head to zero
+            attn.head_mask[head_idx] = 1
+
 
     @torch.no_grad()
     def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None):

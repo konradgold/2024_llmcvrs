@@ -24,7 +24,6 @@ class SampleModel:
     compile = False # use PyTorch 2.0 to compile the model to be faster
 
     def __init__(self, init_from: str = 'gpt2', config_file: str | None = None):
-
         if config_file:
             with open(config_file, 'r') as f:
                 config = yaml.safe_load(f)
@@ -103,7 +102,6 @@ class SampleModel:
                     output.append({s: self.decode(y[0].tolist())})
         
         return output
-
         
     
     def generate_verbose(self, text: str):
