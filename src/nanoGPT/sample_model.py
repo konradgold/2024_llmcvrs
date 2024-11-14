@@ -76,6 +76,18 @@ class SampleModel:
             self.encode = lambda s: enc.encode(s, allowed_special={"<|endoftext|>"})
             self.decode = lambda l: enc.decode(l)
 
+    
+    
+    def update_blocked(self, blocked: list):
+        if self.deactivate_blocks:
+            unblock = [b for b in self.deactivate_blocks if b not in blocked]
+            self.model.model.enable_heads(unblock)
+        self.deactivate_blocks = blocked
+        self.model.model.disable_heads(self.deactivate_blocks)
+
+        
+
+
     def generate(self, text: str):
         text = self._get_text(text)
         output = []
