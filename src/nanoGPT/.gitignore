@@ -11,3 +11,5 @@ input.txt
 env/
 venv/
 data/openwebtext/
+out/*
+*.pth

@@ -1,5 +1,5 @@
-from sample_model import SampleModel
+from .sample_model import SampleMutableModel
 
 __all__ = [
-    'SampleModel',
+    'SampleMutableModel',
 ]

@@ -5,13 +5,15 @@ from contextlib import nullcontext
 import torch
 import tiktoken
 import yaml
-from model import GPTConfig, GPT
+from .model import CausalSelfAttention, GPTConfig, GPT
 import json
 
 
-class SampleModel:
+class SampleMutableModel:
+    activations = {}
     init_from = 'gpt2' # either 'resume' (from an out_dir) or a gpt2 variant (e.g. 'gpt2-xl')
     write_file = "out/write_"
+    deactivate_blocks = None
     out_dir = 'out' # ignored if init_from is not 'resume'
     start = "\n" # or "<|endoftext|>" or etc. Can also specify a file, use as: "FILE:prompt.txt"
     num_samples = 3 # number of samples to draw
@@ -75,18 +77,14 @@ class SampleModel:
             enc = tiktoken.get_encoding("gpt2")
             self.encode = lambda s: enc.encode(s, allowed_special={"<|endoftext|>"})
             self.decode = lambda l: enc.decode(l)
-
-    
     
     def update_blocked(self, blocked: list):
-        if self.deactivate_blocks:
+        if self.deactivate_blocks is not None:
             unblock = [b for b in self.deactivate_blocks if b not in blocked]
-            self.model.model.enable_heads(unblock)
+            if len(unblock) > 0:
+                self.model.enable_heads(unblock)
         self.deactivate_blocks = blocked
-        self.model.model.disable_heads(self.deactivate_blocks)
-
-        
-
+        self.model.disable_heads(self.deactivate_blocks)
 
     def generate(self, text: str):
         text = self._get_text(text)
@@ -127,16 +125,6 @@ class SampleModel:
                     y = self.model.generate(x, self.max_new_tokens, temperature=self.temperature, top_k=self.top_k)
                     print({s: self.decode(y[0].tolist())})
 
-        
-    def _get_text(self, text: str) -> list:
-        if isinstance(text, str) and text.startswith('FILE:'):
-            with open(text[5:], 'r', encoding='utf-8') as f:
-                text = f.read()
-    
-        if not isinstance(text, list):
-            text = [text]
-        
-        return text
 
     def write_output(self, output: list):
         if os.path.exists(self.write_file):
@@ -154,3 +142,25 @@ class SampleModel:
         # Write the updated content back to the file
         with open(self.write_file, 'w', encoding='utf-8') as f:
             json.dump(existing_content, f, ensure_ascii=False, indent=4)
+
+
+    def get_activations(self):
+
+        def get_activation(name):
+            def hook(model, input, output):
+                self.activations[name] = output.detach()
+            return hook
+
+        for name, block in self.model.named_modules():
+            if isinstance(block, CausalSelfAttention):
+                block.register_forward_hook(get_activation(name))
+        
+    def _get_text(self, text: str) -> list:
+        if isinstance(text, str) and text.startswith('FILE:'):
+            with open(text[5:], 'r', encoding='utf-8') as f:
+                text = f.read()
+    
+        if not isinstance(text, list):
+            text = [text]
+        
+        return text
