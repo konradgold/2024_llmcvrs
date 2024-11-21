@@ -1,5 +1,5 @@
 import datetime
-import sys
+from typing import Any
 from transformers import pipeline
 import json
 import yaml
@@ -8,21 +8,21 @@ class JudgeGPT:
     pipe: pipeline
     judge_model: str = 'meta-llama/Llama-3.2-1B'
     write_to_file: str
-    probe_prompts: list
+    probe_prompts: list|None
     judge_prompt: str
     deactivate_blocks: list = []
 
-    def __init__(self, model, config_file: str|None, probe_prompts: list, judge_prompt: str, write_dir: str = "judgements/out"):
-        if config_file:
-            with open(config_file, 'r') as f:
-                config = yaml.safe_load(f)
-                for key, value in config.items():
-                    setattr(self, key, value)
+    def __init__(self, model: Any|None = None, config_file: str|None = None, probe_prompts: list|None = None, judge_prompt: str = "", write_dir: str = "judgements/out"):
         self.model = model
         self.write_to_file = write_dir + str(datetime.datetime.now().strftime("%Y%m%d_%H%M%S")) + ".json"
         self.probe_prompts = probe_prompts
         self.judge_prompt = judge_prompt
         self.pipe = pipeline("text-generation", model=self.judge_model, max_length=10_000)
+        if config_file:
+            with open(config_file, 'r') as f:
+                config = yaml.safe_load(f)
+                for key, value in config.items():
+                    setattr(self, key, value)
 
         # Deactivate blocks if specified
         if len(self.deactivate_blocks)>0:
@@ -34,6 +34,8 @@ class JudgeGPT:
         self.model.model.enable_heads(unblock)
 
     def judge(self):
+        if self.model is None:
+            return None
         judgements = {
             "judgements": [],
             "queries": self.probe_prompts,
@@ -47,3 +49,8 @@ class JudgeGPT:
         with open(self.write_to_file, 'w') as file:
             json.dump(judgements, file)
         return judgements
+    
+    def judge_output(self, output):
+        PROMPT = self.judge_prompt.format(query=output)
+        judgement = self.pipe(PROMPT)
+        return judgement

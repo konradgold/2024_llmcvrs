@@ -100,7 +100,7 @@ class SampleMutableModel:
         # Load existing content if the file already exists
         self.write_output(output)
     
-    def generate_output(self, text: str):
+    def generate_output(self, text: str) -> list:
         text = self._get_text(text)
         output = []
         for s in text:
@@ -109,8 +109,7 @@ class SampleMutableModel:
             with torch.no_grad():
                 with self.ctx:
                     y = self.model.generate(x, self.max_new_tokens, temperature=self.temperature, top_k=self.top_k)
-                    output.append({s: self.decode(y[0].tolist())})
-        
+                    output.append(self.decode(y[0].tolist()))
         return output
         
     
