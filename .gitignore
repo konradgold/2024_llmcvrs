@@ -1,0 +1,3 @@
+*.pth
+src/.env
+*.png

@@ -75,6 +75,8 @@ class CausalSelfAttention(nn.Module):
         
         # Apply the head mask to zero out specified heads
         y = y * self.head_mask.view(1, -1, 1, 1)
+        # Store y here
+        self.saved_y = y.detach()
 
         y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
 
@@ -110,7 +112,7 @@ class Block(nn.Module):
     def forward(self, x):
         x = x + self.attn(self.ln_1(x))
         x = x + self.mlp(self.ln_2(x))
-        return x
+        return x, self.attn.saved_y
 
 @dataclass
 class GPTConfig:
@@ -129,6 +131,7 @@ class GPT(nn.Module):
         assert config.vocab_size is not None
         assert config.block_size is not None
         self.config = config
+        self.attentions = {i: [] for i in range(config.n_layer)} # store attentions for visualization
 
         self.transformer = nn.ModuleDict(dict(
             wte = nn.Embedding(config.vocab_size, config.n_embd),
@@ -184,8 +187,9 @@ class GPT(nn.Module):
         tok_emb = self.transformer.wte(idx) # token embeddings of shape (b, t, n_embd)
         pos_emb = self.transformer.wpe(pos) # position embeddings of shape (t, n_embd)
         x = self.transformer.drop(tok_emb + pos_emb)
-        for block in self.transformer.h:
-            x = block(x)
+        for i, block in enumerate(self.transformer.h):
+            x, y_saved = block(x)
+            self.attentions[i].append(y_saved.detach())
         x = self.transformer.ln_f(x)
 
         if targets is not None:
@@ -265,8 +269,6 @@ class GPT(nn.Module):
                 with torch.no_grad():
                     sd[k].copy_(sd_hf[k])
         return model
-    
-
 
     def configure_optimizers(self, weight_decay, learning_rate, betas, device_type):
         # start with all of the candidate parameters
@@ -325,11 +327,7 @@ class GPT(nn.Module):
             assert 0 <= layer_idx < self.config.n_layer, f"layer index {layer_idx} out of bounds"
             assert 0 <= head_idx < self.config.n_head, f"head index {head_idx} out of bounds"
             # Access the specific layer
-            block = self.transformer.h[layer_idx]
-            # Access the attention module within the block
-            attn = block.attn
-            # Set the head mask for the specified head to zero
-            attn.head_mask[head_idx] = 0
+            self.transformer.h[layer_idx].attn.head_mask[head_idx] = 0.
     
     def enable_heads(self, enable: List[Tuple[int, int]] | str):
         if isinstance(enable, str):
@@ -360,6 +358,7 @@ class GPT(nn.Module):
         the sequence max_new_tokens times, feeding the predictions back into the model each time.
         Most likely you'll want to make sure to be in model.eval() mode of operation for this.
         """
+        self.attentions = {i: [] for i in range(self.config.n_layer)} # store attentions for visualization
         for _ in range(max_new_tokens):
             # if the sequence context is growing too long we must crop it at block_size
             idx_cond = idx if idx.size(1) <= self.config.block_size else idx[:, -self.config.block_size:]

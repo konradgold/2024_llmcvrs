@@ -17,7 +17,7 @@ class SampleMutableModel:
     out_dir = 'out' # ignored if init_from is not 'resume'
     start = "\n" # or "<|endoftext|>" or etc. Can also specify a file, use as: "FILE:prompt.txt"
     num_samples = 3 # number of samples to draw
-    max_new_tokens = 50 # number of tokens generated in each sample
+    max_new_tokens = 100 # number of tokens generated in each sample
     temperature = 0.8 # 1.0 = no change, < 1.0 = less random, > 1.0 = more random, in predictions
     top_k = 200 # retain only the top_k most likely tokens, clamp others to have 0 probability
     seed = 1337
@@ -141,18 +141,6 @@ class SampleMutableModel:
         # Write the updated content back to the file
         with open(self.write_file, 'w', encoding='utf-8') as f:
             json.dump(existing_content, f, ensure_ascii=False, indent=4)
-
-
-    def get_activations(self):
-
-        def get_activation(name):
-            def hook(model, input, output):
-                self.activations[name] = output.detach()
-            return hook
-
-        for name, block in self.model.named_modules():
-            if isinstance(block, CausalSelfAttention):
-                block.register_forward_hook(get_activation(name))
         
     def _get_text(self, text: str) -> list:
         if isinstance(text, str) and text.startswith('FILE:'):

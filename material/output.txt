@@ -1,0 +1,548 @@
+mp2024konradgoldenbaum@MacBook-Pro-Konrad LLMCVRS % cd src 
+mp2024konradgoldenbaum@MacBook-Pro-Konrad src % python -m tracing_activation    
+loading weights from pretrained gpt: gpt2
+forcing vocab_size=50257, block_size=1024, bias=True
+overriding dropout rate to 0.0
+number of parameters: 123.65M
+No meta.pkl found, assuming GPT-2 encodings...
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and an extracurricular activity."
+Response: So, the fact that we might have just learned how to write is probably a sign that you have some experience in the field." "We're dealing with a group that wasn't really at the top of the class last year by a significant margin." "We hope to keep the attention of the class in a good way." "As for the relationship, this is a very delicate issue. We do know that we do have some good work to do right
+Prompt: "Write a short paragraph about a typical day in school, including lunch, classes, and hanging out with friends."
+Response: This was not the first time that the school had been attacked. The first time the school was attacked was in 2005, when a group of six young men chased teachers at a public school in the Bronx, knocking on the doors of students. The school was subsequently shut down for three days, but students could still attend school. By this time, the police department had taken steps to try to find out what was going on. In April of this year, the
+Prompt: "Write about a typical day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: Now that we've seen how far we can go in some of the most intimate online spaces, the "real world" is no longer enough to convince you the internet is just for nerds. We need more of them. But what happens when you're a high school student writing? Or when you're a high school student being your body secretary? Or when you're a high school student being an astronaut. Have you ever wondered, "What would happen
+Prompt: "Write a short paragraph about a typical day at school, including friends, classes, and any fun activities."
+Response: The letter didn't specify if Trump was a "specialist," "teacher" or "research fellow." It pointed to a class of 100 students at the University of Florida. The school included "the same class as the average graduate student." Trump's letter was more about he — the "specialist" — with his children. "As the president's son-in-law and his wife, I take great pleasure in allowing my grandson Ivanka and my daughter-
+vocabulary=2 grammar=2 mechanics=2
+5
+Prompt: "Write a few sentences about a typical day at school, including classes, friends, and any sports activities."
+Response: The student who wrote the article says that being a journalist is an important part of becoming a good writer. In fact, for most journalists, the most important thing to know about their job is what they write. No more worrying about what they write than a scientist. Twitter: @sarahkirby<|endoftext|>You might have heard of Adrian and Alex. These two are the two defining and best-known comics of the '
+Prompt: "Write a short paragraph about a typical day in school, including classes, friendships, and after-school activities."
+Response: The draft from the National Council on Education's "Fact Sheet" referenced a study by the National Commission on Longitudinal Health Studies that found "that the prevalence of substance-drug and illicit drug use in high school was significantly higher than the prevalence of childhood drug use among students in traditional public schools." "However, the study found that children who were aware of their substance-drug use were more likely to report it and report it more than children who weren't aware of it," the
+Prompt: "Write a short paragraph about a typical day in school, focusing on a favorite subject and a fun moment with friends."
+Response: Which is a lot of things, especially for a math fiction show. I wish I had to write an op-ed on that in the first place, but I don't know how I'd rather do it for a book that's basically a bunch of mini books that have been edited into a single volume. It sure is a lonely place, filled with empty spaces and empty sentences, but I'm hopeful and hopeful for the future of science fiction. In any case, let
+Prompt: "Write a short paragraph about a typical day at school, including interactions with friends and a favorite class activity."
+Response: And at some point during that article in the newspaper, let's compare what he wrote to what he wrote at the top of the article. "The article in question covers about 15 years of schoolwork. It is a short 10-word-long piece by someone so dedicated to getting the best out of the school system, that it is often the only source to show how he became an elite schoolteacher who has promoted performance as a student. "It is a
+vocabulary=2 grammar=2 mechanics=2
+10
+Prompt: "Write a short paragraph about a typical day in school, including friendships, classes, and after-school activities."
+Response: 
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and after-school activities."
+Response: This is a very short paragraph, but there are plenty of it. If you're going to do this, you need to produce that." "This is just not as relevant to the next sentence. You can't repeat the same paragraph many times. Here's an example." "This is a long paragraph, so it will be over in a minute, but if you can just take away a few more lines, it will do much more for your performance scores.
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and a favorite activity."
+Response: For some critics, this could be a dangerous word, as it suggests that all our school life is about what kids do with the words "Couples." Some parents are worried that these statements might even misstate the actual impact of the words, but they're not alone. "When reading about this I often hear the word couples as if that's the only thing that could possibly describe it," says Katie. "Are these people having a wonderful time? Are they
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing schoolwork, sports practice, and hanging out with friends."
+Response: The essay is entitled "The Glamour." And it isn't an easy reading. It's not perfect satire of how school matters. It's not even flattering. But it's not bad. According to the New York Times, "There are fewer than 35,000 children in the United States who attend public and private schools. A lot of them are poor, the children have trouble with their futures, and are often discouraged from enrolling." In this case,
+vocabulary=1 grammar=2 mechanics=2
+Judgement was too low, stopping reduction
+mp2024konradgoldenbaum@MacBook-Pro-Konrad src % python -m tracing_activation
+loading weights from pretrained gpt: gpt2
+forcing vocab_size=50257, block_size=1024, bias=True
+overriding dropout rate to 0.0
+number of parameters: 123.65M
+No meta.pkl found, assuming GPT-2 encodings...
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and any sports or activities."
+Response: So, the fact that we might have just learned how to write is probably a sign that you have some experience in the field of Writing," he said. "It's remarkable how much effort you sacrifice for the best results," added Strawn. For more reading on this story, click here.<|endoftext|>J.P., who has three children of his own, said he had no regrets about following the decision to take his children to the Red Cross on June 12.
+Prompt: "Write a short paragraph about a typical day in school, including subjects, friends, and extracurricular activities."
+Response: This was not the first time that the school had been attacked. The attack on the second day of school in 2005 had left five students with broken bones in their teachers' classrooms. The school also had a "homosexual attack" where a boy who had left his teacher's classroom attacked him and his friends in the hallway. The entire school began to take students to separate rooms. This was not the first time that the school was attacked. In 1961, a student was stabbed to
+Prompt: "Write a short paragraph about a typical day in school and one memorable moment with friends."
+Response: Now that we've seen how far we can go in this situation and how many words need to be written, let's go over how we can use the short paragraph to explain better how our daily life is going to look for us. Example 2: Decide What To Write first. Now that we've decided what to write, try to think about the specifics of the day. At the start of the day, you should know the person's name.
+Prompt: "Write a short paragraph about a typical day at school, focusing on a fun moment with friends during lunch."
+Response: Oh I didn't have any friends in my class. I just knew I had to do it. If you knew you had to do it, when you knew you had to do it, you might as well have been a college cook. I had begun my college cooking, I'm sure that's what makes it so important. This is simply the best way to make changes that make your life easier. If you are not only building a life and a life
+vocabulary=2 grammar=2 mechanics=2
+5
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing schoolwork, sports practice, and hanging out with friends."
+Response:  — Peter E. O'Toole, The Wall Street Journal, May, 2002 The good news is that it does. A decade ago, in 2007, the average student graduating from college took some 80 hours to complete. Today it takes up to three years, and most of those are spent in the classroom. A study out today from the National Association of College and University Teaching and Learning have found that college students who take the SAT scores and ACT scores a lot more.
+Prompt: "Write a short paragraph about a typical day at school, highlighting an interesting moment with friends."
+Response: *** On a recent day, my family were on their way to work, and as we headed out, I found a table reserved for the usual subject. I took a seat at a table with four of my parents, and we sat down at the table for a quick 30 minutes to chat. "My family isn't that great," I said quietly, his face so somber and surprised. "But I've found that there's something my school can't possibly do
+Prompt: "Write a few sentences about a typical day at school, including classes, friends, and a favorite after-school activity."
+Response: Writing a one-line summary of your homework and math problems will allow you to memorize your lessons and gain confidence in your learning. The final work of your day will help you achieve your goal of becoming a better math teacher." "The thought of writing your notes and taking them out of your notebook will help you recognize your ideas, and allow you to move on to the next step." "The learning of math and science is one of the greatest experiences you will
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: And at some point during that conversation, the student's parents talked about possible consequences. The story is written at the conclusion of the essay. "Which brings me to my next point of contention," the essay says. "In my opinion, the most important thing to remember is that one day, we will all be learning, and we'll all have our children to learn. And the key is to never change who you are, as long as you're not changing anyone you love
+vocabulary=2 grammar=2 mechanics=2
+10
+Prompt: "Write a short story about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response:  Continue Reading | Connect with us | Get the latest from Short Stories. Writer Beth Anderson wrote the story with a mix of snark and humor. "Once upon a time I'd always thought
+Prompt: "Write a short story about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: This is a story about a kid who is learning to play football today and who lives in a small community in an area that has recently been devastated by the deadly violence in Charlottesville, Virginia. He has been surrounded by friends and his life has been enriched by the experience. He has a role to play in the world today, but it will continue to be in the future, and he can be the first person to bring people together to make sense of the senseless violence that has taken place
+Prompt: "Write a short paragraph about a typical day at school and how it feels to hang out with friends after class."
+Response: For some, this does not surprise them. According to a survey by the University of Michigan, those involved in online social media profiles feel like they are constantly discovering new things and engaging in conversation. "I feel like [this is] all part of [their] life," says Michael Mati, 24, who works in the production department at a local restaurant. "We develop our knowledge by watching YouTube videos and listening to our friends' texts, especially when they ask questions and
+Prompt: "Write a short story about a day in the life of a high school student balancing school, sports, and friendships."
+Response: The story is about a day on the job when you're told that you could bring about the biggest transformation in your life by being a baseball player. And so with a story about a day in the life of a high school student balancing school, sports, and friendships, that's that story. It's a hard story. A lot of people can relate to it, and it gives you a sense of life and a sense of meaning. In this case,
+vocabulary=3 grammar=3 mechanics=3
+15
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and a fun activity after school."
+Response: That is it in my opinion. My preferred course will be "The Theory of Education." If you are looking for a class for general education, then check out my teaching tips and lessons there. If you are looking for a class for education and want to learn more about this topic and more, then read my posts on education. I am also here for educational outreach! Click here for more of my post in "How to Get More Information for Education." [photo credit
+Prompt: "Write a short paragraph about a typical day in high school, including classes, friends, and a fun after-school activity."
+Response: Familiar The book "Clue: The Story of a Student Forced into Debt," by Harvard Business School professor David Elgar, is available only through a credit-card company. It is an award-winning and highly readable collection of interviews with students, business leaders, and school leaders. It is the debut volume of a new series on college students and college finance, "The College Money Myth," by Elgar, co-authored with Harvard Business School undergraduate and colleague
+Prompt: "Write a short paragraph about a typical school day and what activities you enjoy with friends afterward."
+Response: Don't date students, write a letter to a neighbor You are the young, energetic young girl who has only just begun to learn to read. If you have the motivation and courage to write a letter to someone, you could use your position as a writer to encourage their interest in your story. One of the most common opportunities to write letters and receive academic support is a school meeting. It's a way for the student to express their support for your story, and they
+Prompt: "Write a short paragraph about a memorable day at school, including a fun activity with friends and a lesson learned."
+Response: Hemingway then continued, "Like so many other writers, I had a favorite moment when I was growing up that made me realize that our children may not always have the same opportunities as I do. I never thought I'd be writing one of those in a full time job, but my family had gotten into things first. And I had such a sweet, caring child that I could make more than a couple of hundred dollars a week with my life. And I loved it.
+vocabulary=2 grammar=2 mechanics=2
+20
+Prompt: "Write a brief story about a day in the life of a high school student balancing classes, sports practice, and hanging out with friends."
+Response:  — Michael Klein — Michael Klein in the Dec. 16, 2016, edition of Scout Magazine: The 50 Most Influential People In Science and Technology — Neil Seery is the editor of Science, The Future of Science, and other writers. His email is nshay@science.top.]<|endoftext|>*Last Updated: 7/28/17* - UPDATE: You can receive a list of upcoming events on our blog After the fatal shooting in Las Vegas last week,
+Prompt: "Write a short paragraph about a typical day at school, including activities with friends, classes, and any sports you might play."
+Response: That would be a nice feature, says Paul, but it's probably just a matter of time before the technology takes off. If you need to know what social media helps you learn and how to stop it for good, perhaps the answer is to read a book. That's certainly what we're talking about.<|endoftext|>Signup to receive a daily roundup of the top LGBT+ news stories from around the world A lesbian couple who married to a man in a US court has
+Prompt: "Write a short paragraph about a typical day in school, including subjects, friends, and a fun moment."
+Response: 1. How do you organize your day? "Go to the gym. Make sure that you make sure that you have some physical activity, and take your time. Spend time with your family or with your friends. The more time you have in your life, the more you will feel connected to the things you need to do. Do not forget to have fun and have fun. This is a good start because it gives you a purposeful motivation to stay motivated and do something positive
+Prompt: "Write about a day in the life of a high school student, focusing on their classes, friendships, and after-school activities."
+Response: The list of top 10 most important things to learn in college is compiled from the following. (From the above list, you can read more.) 0. Read a book and think about it 1. Know little things, but remember who you are 2. Learn to read 3. Learn to watch TV 4. Learn to read for fun 5. Learn to use cars 6. Use "empathy" to escape boredom
+vocabulary=1 grammar=2 mechanics=2
+Judgement was too low, stopping reduction
+mp2024konradgoldenbaum@MacBook-Pro-Konrad src % python -m tracing_activation
+loading weights from pretrained gpt: gpt2
+forcing vocab_size=50257, block_size=1024, bias=True
+overriding dropout rate to 0.0
+number of parameters: 123.65M
+No meta.pkl found, assuming GPT-2 encodings...
+Prompt: "Write a short paragraph about a typical day in school, including interactions with friends and what subjects are being studied."
+Response: So, the fact that we might have just learned how to write is probably a sign that you have some experience in the field." "We're dealing with a group that wasn't really at the top of the class last year by a significant margin." "We hope that our next article will make the difference in one way or another." "We're really excited about creating a new category for sports in general." "We noticed that more college students
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and any sports activities."
+Response: This was not the first time that the NFL had attempted to throw an NFL football (or any other team's football), but it was the first time that the league had attempted to limit communication with media. The league's policy for dealing with media is that if someone calls you "in the middle of the night," they will be prosecuted. It's also unclear if this is a practice or a policy for the league that is enforced. The NFL did not respond to THR's request to clarify
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and a sports activity after school."
+Response: This is not an easy task to write. It almost always involves an overly long paragraph, or the "he said" part. It's a personal statement of who you are, and is completely subjective. I do not feel comfortable labeling a comment as "liked" because the writing is emotionally charged and uncomfortable. I believe that people who make your body feel uncomfortable sometimes won't like it. I feel that the "Liked" portion of a sentence is the real "liked
+Prompt: "Write a short story about a typical day in the life of a high school student balancing homework, friends, and a sports practice."
+Response: The concept didn't live up to expectations. The article cited a study conducted by the National Education Association at the time that found that high school students often had the most academically demanding jobs. "Today, students from average grades and high schools with little or no homework or other academic activity do well on standardized tests, with a student taking the SAT in sixth grade," the study noted. "But they are not always doing well in school, often only receiving a pass on a reading
+vocabulary=2 grammar=2 mechanics=2
+5
+Prompt: "Write a short paragraph about a typical day at school, including friends, classes, and an interesting event that happened."
+Response: The student also wrote of growing up in two very different cities: "I'm in the city of Minneapolis. And on the train from Minnesota to Iowa and back….The best part is I live in Twin Cities so I can't possibly describe how happy I am. And of course, the best part is I live in Joliet, IL, United States." Read more about the 2017 Presidential Debates: The Globe's 10 greatest moments from presidential debate.
+Prompt: "Write a brief paragraph about a typical day at school, including interactions with friends and a favorite subject."
+Response: I take less of a part-time job as an advisor to executives of large corporations and brief workers who are concerned about word processor safety. However, I do consider myself fortunate to be around many smaller companies in this industry, and so do they benefit from my comments and observations. Please weigh the following carefully, but note that I am not an electric-company spokesman and cannot vouch for the reliability or availability of ad blocking software overseas. In conclusion, as
+Prompt: "Write a short story about a day in the life of a high school student balancing classes, sports practice, and hanging out with friends."
+Response:  $13.99 A bit of something for everyone, a part-time job, or just an occasional trip to the animal shelter? The WAF Catalog by KQED - Open Contact 936 Lavinia Moore A History of Sexual Harassment For many years, Lavinia Moore has been a great advocate for the free speech rights of everyone. From her work experience as a journalist to her public service, she has always striven to advance understanding of what it is
+Prompt: "Write a short paragraph about a typical day in school, including relationships with friends and a favorite subject."
+Response: And at some point during that article you may wish to write to the editor and quote everything that has written wrong with this article. For example: "I just want to thank you, Mr. President. Opinions are my own. And when I write to you, I never instruct you to meet my partner's opinions or make public their privately made (non profit making) " Being self-critical, how should I act?<|endoftext|>http://tvtropes.
+vocabulary=2 grammar=2 mechanics=2
+11
+Prompt: "Write a short paragraph about a typical school day, focusing on friendships and a funny moment during class."
+Response: There are hundreds of small schools in the US with an alumni body that is larger and more diverse. Why do we have so many different religions, and how can we be proud of them? Why couldn't there be more? Why not all the monuments on our site are public. Why didn't people come to our site to take these statistics? Why not all the free events leading to our info page At least 17 high school students are often accused of witchcraft, according to a
+Prompt: "Write a short paragraph about a typical weekend day in your life, focusing on activities you enjoy with friends or hobbies you pursue."
+Response: <|endoftext|>This week, the last chapter of our 6e journey will see us travel to alternate futures in which case No. the writer is currently living can be viewed/King George V, Hong Kong A member China has broken the fourth wall and the Internet has taken back the national currency of the United States. The world was stolen From: The Tomlinson Chronicles no longer.r This article is a browser error has occurred. The internet has become a free country
+Prompt: "Write a short paragraph about a typical day at school, including a favorite class, a fun moment with friends, and any challenges faced."
+Response: For some unknown reason, President Trump's campaign website has deleted some of his tweets with the hashtag #DeleteTrump hashtag. The most important member of the Republican National Convention, held on Sunday, was declared the "King of Korea" by the Korean Central News Agency after Trump's Twitter feed was suspended. The president's secretary of state, Rex Tillerson, quickly dismissed the situation, saying: "I am deeply shocked by the violence in Charlottesville, especially the violence in Charlottesville this
+Prompt: "Write a short paragraph about a typical day in school, including subjects, friends, and a favorite lunch."
+Response: The proposal is for children, and the number one problem facing the country is its president. When there is a major medical crisis, the response is critical: the White House keeps a tally of emergency food deliveries, not including Syrian refugees; and instead of taking in any refugees, we send in food and water. The money is tied using these instructions: 1. Call the White House: "SUNRoughness 101: USA" 2. Enter your hex: 0 and click the hex
+vocabulary=1 grammar=1 mechanics=1
+Judgement was too low, stopping reduction
+mp2024konradgoldenbaum@MacBook-Pro-Konrad src % python -m tracing_activation
+loading weights from pretrained gpt: gpt2
+forcing vocab_size=50257, block_size=1024, bias=True
+overriding dropout rate to 0.0
+number of parameters: 123.65M
+No meta.pkl found, assuming GPT-2 encodings...
+Prompt: "Write a short paragraph about a typical day in school, focusing on a memorable moment with friends."
+Response: So, the first day of school, I learned how to sign myself off on social media." "But the second day of school, I learned to self-promote." "So, I practiced in class for two days, and then I won the year's first Miss America award." "So, I started tweeting that day. But then, after class, I tweeted that following the election, that I'd learned how to retweet on Facebook.
+Prompt: "Describe a typical day in the life of a high school student, including school, sports, and hanging out with friends."
+Response: This was not the first time his mother had to wonder about his father's life (or if it was a dream that had been "forgotten"). "When he first married in 1981, his father was an alcoholic who abused his wife," she recalls. "His mother told him and his father that she was pregnant with her first child, but no one ever knew." The couple eventually moved in with their father's girlfriend. "He was then more or less
+Prompt: "Write a short paragraph about a typical day at school, including subjects, friends, and a fun after-school activity."
+Response: This is not an easy task to write. It almost always involves an overly long paragraph, or the "he said" part of the sentence. If you make this step, you're going to need to put a lot of time and effort into writing your essay. The best first step is to make a list of the topics that make your topic important. For example, I'll start off with some thoughts on education, the American way of life, the US government, etc.
+Prompt: "Write a short paragraph about a typical day in a high school student's life, including classes, friends, and after-school activities."
+Response: The letter didn't specify if Trump was a student or a faculty member, but the tweet was about his recent decision to release his tax returns. Read: Trump's 'ludicrous' claims of 'rigged' election Trump is trying to pass a tax plan — but the actual plan doesn't exist: study What is lying about Trump's tax returns?<|endoftext|>What is a 'Top Psi' – Or, Not Your 'Top Psi'?
+vocabulary=2 grammar=2 mechanics=2
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/konradgoldenbaum/Developement/LLMCVRS/src/tracing_activation.py", line 120, in <module>
+    for norms in reduce_model(model, 144, 4, 5):
+  File "/Users/konradgoldenbaum/Developement/LLMCVRS/src/tracing_activation.py", line 109, in reduce_model
+    reduce_list.append((min_norm[0][0], min_norm[0][1]))
+                        ~~~~~~~~~~~^^^
+IndexError: string index out of range
+mp2024konradgoldenbaum@MacBook-Pro-Konrad src % python -m tracing_activation
+loading weights from pretrained gpt: gpt2
+forcing vocab_size=50257, block_size=1024, bias=True
+overriding dropout rate to 0.0
+number of parameters: 123.65M
+No meta.pkl found, assuming GPT-2 encodings...
+Prompt: "Write a short paragraph about a typical day in school, including subjects, friends, and any fun activities you have during breaks."
+Response: So, the fact that we might have just learned how to write is probably a sign that you have some experience in the field." "We're dealing with a group that wasn't really at the top of the class last year by a significant margin." "We hope that our next article will make the difference in one way or another." "We're really excited about creating a new category for sports in general." "We noticed that more college students
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and an after-school activity."
+Response: This was not the first time that the NFL had attempted to throw an NFL football (or any other football) into actual competition. In 1995, the league told teachers at a public school in Florida that their "homework time" would be cut off during school breaks, forcing them to "consult with their principal, which may prevent them from participating in any student activities." However, in 2006, the NFL apparently learned of this program and started throwing all its NFL games to the
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: Now that we've seen how far we can go in this situation and how many words need to be written about it, let's make some improvements: Tell the story of your day - all of your words should be about the day. That's it! When you write about your day, please tell people about it your way. What you can say to people who do respond: "What day was it?" "What day was
+Prompt: "Write a brief paragraph about a typical day in school, including classes, friends, and a favorite after-school activity."
+Response: The National Center for Education Statistics (NCES) has a table of data on the percentage of students at public schools in the states that did not have a high percentage of high-performing public schools. For this study, the average percentage of high schools with a high percentage of public schools was 50 percent, and had an average percentage of children of 50 percent. As the chart shows, this is the highest percentage of public schools with a high percentage of public schools. For more information
+vocabulary=2 grammar=2 mechanics=2
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/konradgoldenbaum/Developement/LLMCVRS/src/tracing_activation.py", line 120, in <module>
+    for norms in reduce_model(model, 144, 4, 5):
+  File "/Users/konradgoldenbaum/Developement/LLMCVRS/src/tracing_activation.py", line 109, in reduce_model
+    reduce_list.append(name[0], name[1])
+TypeError: list.append() takes exactly one argument (2 given)
+mp2024konradgoldenbaum@MacBook-Pro-Konrad src % python -m tracing_activation
+loading weights from pretrained gpt: gpt2
+forcing vocab_size=50257, block_size=1024, bias=True
+overriding dropout rate to 0.0
+number of parameters: 123.65M
+No meta.pkl found, assuming GPT-2 encodings...
+Prompt: "Write a short paragraph about a typical day at school, including subjects, friends, and any interesting events."
+Response: So, the fact that we might have just learned how to write is probably a good thing," she added. "This is simply because we know it's the easiest way to write or write about a day."<|endoftext|>Still loading... A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 3 4 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+Prompt: "Write a short paragraph about a typical day in school, focusing on a favorite subject and a memorable moment with friends."
+Response: This was not the first time that the LCPB's approach was adapted for the kids. The LCPB had two models that responded to the parent's needs: a first-grade English class and a second class. The first wore a large, dark blue-and-green suit and the second wore a red-and-white suit, both of which I noticed was less intrusive than the first. The LCPB's approach was similar to the first, it was less intrusive
+Prompt: "Write a short paragraph about a typical day in school, including subjects, friends, and a fun after-school activity."
+Response: This is not an easy task to write. It almost always involves an overly long paragraph, or the "he said" part of the sentence. If you make this step, you're going to need to put a lot of time and effort into writing your essay. The best first step is to make a list of the topics that make your topic important. For example, I'll start off with some thoughts on my favorite subject, music, a hobby, and the importance of writing
+Prompt: "Write a short paragraph about a day in the life of a high school student managing homework, sports practice, and hanging out with friends."
+Response: Oh I didn't mean writing so much as you did. I was doing it the old fashioned way. I was throwing away my time and money for a life of leisure. I was looking for a job. I am a brilliant cook. I am a talented photographer. I am a very talented musician. I am a very talented craftsman. I am passionate about life itself and how it affects us all. I'm passionate about music and dance and sound and sports and
+vocabulary=2 grammar=2 mechanics=2
+5
+Prompt: "Write a short paragraph about a typical day at school, including a favorite class, a fun interaction with friends, and preparing for an upcoming sports game."
+Response:  — Peter E. Smith Read More:<|endoftext|>Prohibition is an ever-more-dangerous weapon. Whether it's to combat crime, police brutality, or even to punish students for their "bad" behavior, the so-called "prohibition" is more dangerous than it seems. There's often a whiff of paranoia in "prohibition" rhetoric In the 1970s, in the wake of the mass incarceration riots in the U.S., some of Hollywood's most prolific
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and a sports activity."
+Response: The draft from the National Council on Education's "Fact Sheet" referenced a study by the National Commission on Longitudinal Health Studies that found higher levels of non-alcoholic fatty liver disease in school children. While parents, teachers, and others who read the report said they will not be pressured to tell their children that they have been exposed to alcohol since the age of seven, those who read the document expressed concern that the article would be misinterpretated. But, they said, 
+Prompt: "Write a short paragraph about a typical day at school, including a favorite subject, a fun moment with friends, and an after-school activity."
+Response: Writing a short article about your daily schedule for 12-14 months is a smart idea, but it's not magic," she wrote in the January issue of Inverse. The team also found that "readers who spent multiple hours per day on the internet post different work habits and spent a lot of time thinking about reading or doing something else." The research suggests that "reading is a bigger contributing factor to a strong working memory than reading," wrote the researchers.
+Prompt: "Write a short paragraph about a typical day at school, including interactions with friends, a favorite subject, and an after-school activity."
+Response: And at dinner, parents can ask what students are doing that day. By the end of the interview, the respondent was asked what he liked most about that day. For about 15 seconds, the respondent told the interviewer that he was taking a break from reading a book in order to read something for lunch, before concluding "You didn't read any books at the end of your two-hour lunch break." Of course, as with most questions about college life, you might
+vocabulary=2 grammar=2 mechanics=3
+10
+Prompt: "Write about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: Write about the latest business and financial news, starring, starring or doing real life stories. Search for 'Kelley L. Bialystq, known for his starring role as a high school sweetheart on ER's 'Real Housewives of Atlanta' series, in the US ... more<|endoftext|>President Donald Trump is set to take on another major challenge in his new term, leaving one of his most polarizing lawmakers and friends with a unique view of the world.
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and time with friends."
+Response: But its content is what really gets me there," he says. "When people ask me how to do that, I tell them that I don't think they're clever or smart enough to take me seriously. And they're wrong. They're wrong-headed. They're wrong." It's a way of thinking, one that tells people what they need to know to help them make final cuts with big studies. Zhegler has worked at several universities,
+Prompt: "Write a short story about a day in the life of a high school student balancing homework, hanging out with friends, and playing soccer."
+Response: For some critics, the comparison of the two worlds makes them think the same thing. "I like to think of the student as the one dealing with the problem and the academic as the problem," says Dr. Mary Ellen O'Connell, a professor of communication and social work at the University of Texas at Austin. "This is not to say that every student should never read the /r/aww/ students, but rather, ask themselves: Are they different? And are
+Prompt: "Write a short story about a day in the life of a high school student juggling school, sports, and spending time with friends."
+Response:  -SneakyCities "It's the age of the Internet where the people speak for one another, so if you're not careful, you can be accused of being a leader, and that's because I'm sure pretty much every day there is a mistake, but my specialty is keeping tall people dry." - Neil M. Raymond, Ph.D. You can read our Privacy Policy here.<|endoftext|>With the release of the first SteamVR firmware, the Rift has been
+vocabulary=2 grammar=2 mechanics=2
+15
+Prompt: "Write a short paragraph about a typical day at school, including details about classes, friends, and any extracurricular activities."
+Response: That is it? She's a "very, very good girl." "She did just that," says Rebecca, a regular at the Gitter Library in which she began her undergraduate studies. "She was gorgeous… but she also had a horrible sense of self-doubt." Though gifted and hard-to-treat, the Girls' Generation queen has been accused of numerous times of flopping herself at various points in her senior year (she was in her 20
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and an after-school activity."
+Response: Fifty-two percent of students said they would like to read the rest of their lives. A further 20 percent said they are interested in learning more about the issues that exist in their community. The survey, conducted by K-12 public schools in Luckston, drew a total of 1,739 responses, or 39.6 milieverts across all registered fields of the continent so far, of which 79 percent were self-selected. On average
+Prompt: "Write a short paragraph about a typical day at school, focusing on classes, lunch, and interactions with friends."
+Response: Liked this story? Sign up for our Daily Recap and get the latest updates from The New York Times, Youtube, and of course, here A friend shared the story on Twitter. "She said one day, 'If you make it out of Class I-C, you have to go back to college,' " the friend said. "I told her, 'No, I can't, I can't do that. It's not worth it, but I
+Prompt: "Write a short paragraph about a typical day at school and how friends make it more enjoyable."
+Response:  Free View in iTunes 107 Clean Episode 49 - The Good, the Bad, and the Ugly The good is over! And the U.S. and the world celebrate it with us. Because in politics, the media are just as important as the actual states. In sports, the stakes are even more so. This week's episode of The Good Guys is a must-do for theory and reflection, as Joel & Ethan join forces with some college sweethearts to discuss... Free View
+vocabulary=2 grammar=2 mechanics=2
+20
+Prompt: "Write a short story about a day in the life of a high school student balancing homework, practice for a sports team, and spending time with friends."
+Response:  — Michael Klein — Michael Klein in the Huffington Post: "How much longer until the last child?" – When this book leaves the page, it mentions a movie on Netflix. The author at the time, Michael Katerlein, feels compelled to speak of the world. – "It's a world where the world is changing," he describes it and then, "I'm sitting there, watching it unfold," – "From prison to heaven — I'm sorry
+Prompt: "Write a short story about a typical day in the life of a high school student balancing classes, sports practice, and spending time with friends."
+Response: <|endoftext|>BALTIM A Alaska woman has accused the GOP presidential hopeful of kissing her, a move that could leave her with a condition known as 'Papill' syndrome Joel says she's back on her feet after being "cunt-ejected" NEW YORK - A Seattle mother has been denied permission to return to Alaska after missing a scheduled meeting with Donald Trump, a Donald Trump supporter, after a speech she made on television and later rejected. Joel said
+Prompt: "Write a short paragraph about a typical day in school, including a favorite subject, a funny moment with friends, and a conversation about an upcoming sports event."
+Response: All in all, though, the majority of these young intellectuals are overwhelmingly middle-aged in most points of their careers. Among those who attended college, those with a college degree earn an average of $75,000 to $110,000 a year or more; those with a master's degree or above earn an average of $100,000 and the overwhelming majority (95% of all) earn less than $100,000. For that reason, a wealth gap of less than one
+Prompt: "Write a short paragraph about a typical day at school, including friends, classes, and an unexpected event."
+Response: The list of top 10 most important stories from The Fiscal Times is compiled from detailed FEC data. The stories below are selected based on a combination of Veen, the rare event that produced or was about (1) The father, an IT specialist (2) The son, an IT specialist (and somehow) (3) The country's political analyst For political analysts, the first 30 days of a presidency are just a week to a month.
+vocabulary=1 grammar=1 mechanics=1
+Judgement was too low, stopping reduction
+mp2024konradgoldenbaum@MacBook-Pro-Konrad src % python -m tracing_activation
+loading weights from pretrained gpt: gpt2
+forcing vocab_size=50257, block_size=1024, bias=True
+overriding dropout rate to 0.0
+number of parameters: 123.65M
+No meta.pkl found, assuming GPT-2 encodings...
+Prompt: "Write a short paragraph about a typical day at school, including subjects, friends, and a fun moment during lunch."
+Response: So, the fact that we might have just learned how to write is probably a sign that you have some experience in the field." "We're dealing with a very high-powered population at the moment." "That's not too bad." "We hope to have a solution to this problem in a few months." "As for the others, this is a very limited group. We do know that there are some things that we can do that
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and lunch."
+Response: This was not the first time that the school had been attacked. The attack on the second day of school in 2005 had left five students injured and three injured in the attack. The most recent incident happened on Sept. 5th, 2009 when four students were left in the attack. The most recent attack on the school in 2013 was on September 7th, when an eight-year-old boy was injured in a vicious cross-examination. He was taken to the hospital to be
+Prompt: "Write a brief paragraph about a typical day in your life, including school, friends, and any hobbies or activities you enjoy."
+Response: Now that you've chosen to read, go read about some of the most important words in your typical day. (And remember, this will help you understand the importance of getting better at your daily life!) What to Say When You're Saying "I've met a lot of first time moms and dads" "Mom, I've learned so much about the way I interact with my daughters. It's been a lot of fun." -Eileen M.
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing schoolwork, sports practice, and hanging out with friends."
+Response: Oh I didn't mean writing so much as you did. I was doing it the old fashioned way. I was throwing up in class and trying to read the professors and think. The teacher was looking at my grades and making odd notes. It made me feel like I was more screwed than I was, and had more to worry about. Not just because my grades were improving but because I was learning how to read and write. I didn't want to spend all day sitting there and reading
+vocabulary=2 grammar=2 mechanics=2
+5
+Prompt: "Write a brief paragraph about a day in the life of a high school student balancing school, sports practice, and hanging out with friends."
+Response:  — Peter E. O'Toole on his Facebook page "A student with a B.S. in economics was just able to hang out in the studio for an hour and spend time with some students while they were away and he was thrilled at how happy they were. " — Jay Yager, B.S. Analyst "How great was it when I met this two-year-old kid, who has been a teacher for 7 years and is showing a real passion for math
+Prompt: "Write a brief paragraph about a typical day at school, highlighting interactions with friends and a favorite subject."
+Response: *** On a recent day, my family were on our way to work, and as we left, I saw one of Steve's friends. He found me, and I told him to try and tell his daughter what to expect. "What are you going to do with me?" he asked, and he looked at me with suspicion. "You're not going to deal with me," I said. "I'm going to try and protect you." But he was wrong. I
+Prompt: "Write a short paragraph about a typical day at school, including favorite subjects, interactions with friends, and any after-school activities."
+Response: Writing a short article about your daily schedule for 12-14 months is a smart idea, but it's not magic," she wrote in the January issue of Inverse. The team also found that "readers who spent multiple hours per day on the internet post different work habits and spent a lot of time thinking about reading or doing something else." The research suggests that "reading is a very pleasant task," but that working out is "more challenging than reading.
+Prompt: "Write a short paragraph about a day in school, focusing on a memorable moment with friends during lunch."
+Response: And at dinner, we'd watch a story featuring the same group of kids. As the story went on, the tension intensified. Why couldn't we just get that story out before it started? We kept making sure it was clear who was the problem, and just how much we could "understand" what was going on. But didn't it seem like we had to put so much focus on what we knew wasn't good to know as well as it did? Which is why we
+vocabulary=2 grammar=2 mechanics=2
+10
+Prompt: "Write a brief paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends." Continue Reading Recent posts on this topic are here.<|endoftext|>The report by the European Commission on the UK's relationship with the WTO found that the UK's trade with the EU achieved "significant progress", but a "smooth transition in terms of economic growth in one year". The report published today by the Commission noted that the UK has been 
+Prompt: "Write about a typical day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: But imagine if you read Shakespeare, and there was a teacher who watched you practice that day and laughed when you looked at your homework that day. Think of the teacher in Shakespeare as an egotistical, self-absorbed buffoon, with no real perspective on life." "Tell me about your own school day, please," said Tom. "No, I was really just enjoying life as much as part of it. It was a way to spend time with
+Prompt: "Write a short story about a student balancing school, sports, and time spent with friends."
+Response: For some critics, this will be a refreshing change, as it shows that, with a little work done, no matter how hard you try, you can often still find children in trouble. But for the parents of children who don't like reading, this will be a testament to their love for books and not just that. "It's challenging to find someone who doesn't want to do that," said Mark. "I've read a lot of books that are fairly
+Prompt: "Write a short paragraph about a memorable day at school, including details about your classes, interactions with friends, and any sports or activities you participated in."
+Response: The proposal was drafted by a group led by writer Andres S. Arnoto. He said there was no cost to having the language used in the original version. "The original version of the paper was less than $100,000 for a five-year review, and the authors probably asked for a reduced budget and put in a couple of hundred dollars for that article, but it's a great start," he said. Although the report is a great start for the
+vocabulary=2 grammar=2 mechanics=2
+15
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing schoolwork, sports practice, and hanging out with friends."
+Response: That is it in my opinion. My opinion. And if you've ever been to a university just as I did, this will give you the idea what an amazing life it will be. The only difference between Harvard and Yale is that their degree is such a long one that even the most accomplished and academically accomplished graduates can only describe an average life from afar. For me, that is exactly what I witnessed at Harvard. From the time I saw it my first year of college, I
+Prompt: "Write a short story about a typical day in the life of a high school student balancing classes, sports practice, and spending time with friends."
+Response: Fifty-two-year-old Aisha Coughney has published her book "The True Story of Katie" in celebration of the 50th birthday of writer, former Hewlett Pack CEO and reality TV star. Read more Please enable Javascript to watch this video The full text of the book, which has 5.8 million views, can be found here. A friend who lost her life to cancer said on Twitter last night, "It was a very
+Prompt: Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends.
+Response:  You can check out countless thousands of them by clicking the button below. The current NFL schedule includes what is expected to be a very busy first few weeks of football. It will be nice, but the league plans to give us all the breaks and don't we deserve something? There's always going to be a catch, and it's actually best to have a break before the break. Late into the night, find a game and show off your skills. The NFL announced Wednesday that
+Prompt: "Write a short paragraph about a typical day at school, including friends, classes, and activities."
+Response: Even as he was leaving, I stopped to take a seat with his other friend. The only way I knew to get that one was to listen to his stories and see what it was like to live with him. Then I went to speak to one of his friends in college. Someone I'd never met -- I've lived with him for seven years -- told me about the day-long conference in Cairo, where he was asked what "most important" life was. He said it was
+vocabulary=2 grammar=2 mechanics=2
+20
+Prompt: "Write a short paragraph about a memorable day at school involving friends and a surprising event during a sports game."
+Response:  — Michael, Michael Show, February 1, 2017 "In this case, it's also important to remember that the question this is not about is the answer. It's a question of politics. And when we come back from the future and look back on our own, which we have so far, we may be seeing our share of tragedy," said Ayn Warren and other presidential candidates on stage ahead of Thursday's debate in Manchester, N.H. The question was an attempt
+Prompt: "Write a short paragraph about a typical day in school, including friends, classes, and any memorable moments."
+Response: <|endoftext|>Branch growth is positively associated with high blood. This independent, household-based study examined the risk of heart disease for adults of all ages, races, and social classes: results were reported. of Cases examined Median age (years) by cause was 25.3 (15.5–29.9) Minnesota average: 19.4 (7.3) 21 (19.9–38) Missouri average: 23.4 (6.1 to 23.6) 25 (19
+Prompt: "Write a short paragraph about your favorite school memory and how it made you feel."
+Response: All in all, though, the majority of these phrases for someone who grew up in a suburban village in the South can be found in the same article as a few Facebook posts, blog posts or tweets. The common theme is that life in their town is better when you share these things with people. 3/16 Tweet BALTIMA — Almost as many people have studied the world from a childhood perspective as "a lot of people" do, according to a new French study
+Prompt: "Write a short paragraph about a typical day at school, including subjects, friends, and a fun event."
+Response: The list of top 10 most important things to read in today's media you need to know (and nothing to do in this article) The list of top 10 most important and most important reasons to live (or die) your entire adult days seems up to today's professional and personal pages with a touch of the electronic alphabet. The most recently published is sourced from A to Z, with a magnifier. Its numbers may be higher or lower in our data. If all
+vocabulary=2 grammar=2 mechanics=2
+25
+Prompt: "Write about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: The law says anyone who doesn't have children must be fired. The ban on gay and lesbian activities has all been lifted. That's including people who engage in sexual relationships with minors under 18 and other groups who might be at risk of persecution under the law. The ban took effect on October 4 to take effect from the White House. It comes as a backlash against President Trump, and in an attempt to rein-invent him, he's attacking the constitution
+Prompt: "Write a short paragraph about a memorable day at school, including details about friends, a favorite subject, and a fun activity."
+Response: Newspire's blog includes fun, science, technical news, provocative authors and help spread the word Facebook The New York Times February 26, 2013 President Obama once again spoke out against the media on Monday after being accused of using social media to promote his brand, The Washington Post, to which he was referring. At a White House event in Washington earlier this month, Obama took on the following on Twitter, saying that only "a few dozen things have
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: Some children were offended. "What do the Christians say?" reads the caption on Reddit just before Christmas. A little over a week before Christmas, the Daily Mail called out "atheist activists" for its call for a "post-truth" America, which is now at the center of a national debate over the Christian right. This is not the first time a political article has called out Christianity for its "blaspy beliefs," and then called out Christians for being
+Prompt: "Write about a typical day in the life of a high school student balancing classes, sports, and friendships."
+Response: <|endoftext|>The new new Google News data center has launched. The article "The Edge of Summer" is now available to watch for free, with the same rights as any other user doing so. The news site said it was "one of the first ever to take users into the world of the news": Google's "new year" data center, Google News, its affiliated news agency.com, will be "opening for a new year in January, "about" all
+vocabulary=2 grammar=2 mechanics=2
+30
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework and sports."
+Response: The college girl found guilty in Tennessee must be considered innocent of all the charges in that the law prohibits abortion, even if she were a man, and the law prohibits same-sex marriage, for a period of 1 week, and some damage to life. The Washington governor said that his "laws" would apply tomorrow. In a video broadcast on social media, that day the Russians could take over the White House, he was arrested and detained by the US government,
+Prompt: "Write a short paragraph about a typical day at school, including friends, classes, and a favorite activity."
+Response: If you are reading this, you can do IT A-style. But in the future, the problem is maybe a bit much worse than you'll see. You will be teleported to a country that's or state-controlled disaster-stricken persons. Ils. But I could do without recourse), and they could be fined under health care law for a couple hundred thousand dollars. But I would be very badly injured (I). No. 96 is trying to fix
+Prompt: Write a short paragraph about a typical day in school, including classes, friends, and an unexpected event.
+Response: The most productive of places for students and the U.S. is $11. Here, in a month. And the prices are going to go up. That's a trip. Add some is a lot. with only a few days, but who is the entire world? If they can't, this is what the government would do. A government is going to do what it can. and you have your cake! Go! I am. You become a country
+Prompt: "Write a short piece about a day in the life of a high school student balancing schoolwork, sports practice, and hanging out with friends."
+Response: You would be crazy to think of a school for 10,000 years. Even a school's life would not die. You'd be, I'd love you to join in that. But this would be a miracle (sic): you'd be an unimaginable. I'd like to be all but I would be most amazing: this would be to have a bullet within an inch of s and I'd look like that, then I'd like to join me in the internet! " What
+vocabulary=1 grammar=1 mechanics=1
+35
+Prompt: "Write a short paragraph about a typical day in school, focusing on a favorite subject, a fun moment with friends, and an interesting conversation during lunch."
+Response: <|endoftext|>This summer's superstorms are getting hotter, and the Centers for Emergency Management Agency (CEMA) is now suffering record winds which could be as cold as 200 in Turkey, forcing officials said Sunday, Dec. 13th, as bad as in Russia, with its high level of humidity, alds and the possibility of a man on the other side of the world, causing it to collapse, the Associated Fire Centre, killing at least 15 people, the Russian coast, and the United States
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing classes, sports practice, and hanging out with friends."
+Response: They'll still be punished from the same way. They'll still be punished for the rest of the world if they do it. The world will continue on until the criminal justice system is abolished, and the message will get turned on, one could talk about "free trade, and the other could talk about the police and the former), but the real world in effect would be closed. Instead of the new tactic of preventing crime, the US will be a free
+Prompt: "Write a short paragraph about a typical day in school, including friends, classes, and a fun activity after school."
+Response: If you want to read about, then read this page: "Why did all the Muslims attack? Why did we do not see it in the video? Because of a lone wolf? then what happened in the movie?" - remember the video? The shooting had no real effect on Tuesday, however the media made a number of incidents in France and Russia. Which is the incident claimed by the French government. Or so. for President Barack: It must have been
+Prompt: "Write a short paragraph about a typical day at school, including subjects, friends, and a favorite activity."
+Response:  >> Social media may be the most popular social media site in the world, but it may require some extra security to be used. However, it is always prohibited and is subject to be searched in some places. The US and the international community have a national court that has set the standard for defamation, a court has issued a judge's amnesty for people convicted of war crimes, and they are now free to carry out their children, among other laws, so it should be an
+vocabulary=1 grammar=1 mechanics=1
+40
+Prompt: "Write a short paragraph about a memorable day at school, focusing on a fun activity with friends and what you learned from the experience."
+Response: The fact in question is a convenient way to find the facts. It can be used to converse people and of the right to be searched at will, with one exception for a person's right to be arrested. And at least 50 S. Dallas and hundreds of thousands "terrorists" in a major measure on Sunday, the Texas Department said, on Friday. And why don't you pick the rainbow to a post that has been declared by Muslims around the world every day is a holiday
+Prompt: "Write a short story about a typical day in the life of a high school student balancing school, sports, and time with friends."
+Response: The conservative movement's opposition may fall on Aug. 15, the first significant loss blaze that claimed the lives of 168 people, people across the world, and countless people being taken from across the globe in a horrific terrorist attack claimed by a US government military, which has been blamed by multiple nations, are forces and some governments), the chaos-related death toll in New York City on Saturday, as claimed by police is "an-terrorist attacks" that killed at least 133 people and claimed by
+Prompt: "Write about a typical day in a high school student's life, including school, friends, and an after-school activity."
+Response:  It's a fairly large enterprise, but with a steep learning curve, and students may be less likely to make and fewer accidents, but some of these attempts have raised concerns about individual liberty and, and others a different issue. The "Choose" brand name should be considered a symbol of choice Getty Images 4/50/Kylans vote "Choose" rally in Manchester, New Hampshire, November 8, and other nationalities) while giving away small donations. U.S. President Donald
+Prompt: "Write a short story about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: As he's done, the "Great Recession is under way." The key in the ignition of the Nissan Leaf logo, in question, I-V, is holding a few thousand more than $10 million, a day in exchange, this latest in line of Nissan Leaf is hardly the first time a couple has taken a bank's S-X, but no one has ever claimed to have more than $1 million in all those hands), many thought experiments have been suspended by a court judge
+vocabulary=1 grammar=1 mechanics=1
+45
+Prompt: "Write a short paragraph about a memorable day at school, including your favorite subject, an activity with friends, and a fun moment during lunch."
+Response: Have you ever wondered what happened to our three wonderful Americans? Did it happen: A, L, or MIA? A post shared by Arman Malays-Sen. Robert and Charles (CC) kills all people and adds at a count of over 757 Azhwiana's law enforcement officials have been blamed in a terrorist attack that occurred while investigating a suicide bombing, a police officer and Capitol Police officer stand next to speak , Puerto Rico Gov. Ricardo Mire, D.C
+Prompt: "Write a short paragraph about a typical day in school, including interactions with friends and a favorite class."
+Response: — and if they look like this, they're probably a scam. A police officer is killed in Chicago after an apparent terrorist attack at a checkpoint in Saint-Thames only on May 15, 2014. A pair of police officers at a checkpoint in Saint-Antoine-Mercie International Airport in St. Louis on Wednesday, April 17, 2015. Police say the suspect was on drugs, and a Missouri State trooper standing next to assist a passing dog killed in a
+Prompt: "Write a short paragraph about a typical day in school, including friends, a favorite subject, and an after-school activity."
+Response:  We draw in millions of fans a day a week, and our comments can be rated by hundreds of thousands of reviews. Is that a fair use? Your Comment. Please consider just for proof. Your planet is registered. Please verify you're not a robot by clicking the box. Invalid #1 million (inc.) We have another problem, but keep in mind, please. When it comes to technology and financial services, conflict-torn nations it is my expertise is American a status: Ins
+Prompt: "Write a short paragraph about a typical day in school and how it feels to hang out with friends afterward."
+Response: Bucking, a popular culture phenomenon that spanned around the world in 2011, has become a global phenomenon. While some believe some of the people killed in the Monday's tragedy may have been militants, there is no official evidence to support that theory. The Islamic State group claimed responsibility for the attack, claimed responsibility for any of the victims, and a new wave of violence has hit the United States on June 11th, it's not surprising that no of the events that
+vocabulary=1 grammar=1 mechanics=1
+50
+Prompt: "Write a short paragraph about a typical day at school, including highlights from classes, sports activities, and interactions with friends."
+Response: When is your last day? The subject of the transcription error you are reading is completely up to and none is 100% This text is provided by Middle East Media's TV channel We rely on QR.com and affiliated networks in part of AClick for —with Your subscription registered to keep donation HTML or check://%3.q%7.com website user "icky.com domain owner.com The Blackout Motley Co.
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: <|endoftext|>The House's new White House unveiled the new MacBook Pro This item S3 S6 Z3 S4 S6 Plus The R9 M: The new Surface Book E S 6 Z and X user R5 E3 was launched on January 29, 29, Nov. 8, 2017, according to the manufacturer. While some may not all details have been determined, it is not to be used by / its encryption pidders to be specific but a for | if they
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: The group has condemned the post as a hate crime organization "inaction of laws that tramples will be fine", but, in a separate statement, it would be for the states to decide). Following the attacks of September 11, 2001, there are currently no known laws to make this crime warning database page or handle:Lahabans for Immigration and the border, the local authorities have been unable to independently verify. The Muslim-majority nations of Pakistan have long denied charges
+Prompt: "Write a short paragraph about a typical day in school, including subjects studied, interactions with friends, and an after-school activity."
+Response: The test failure had been reported as about as much as a hundred incidents per day, but the numbers were relatively small as the severity of the incident, and perhaps it was related to protests, rather than random events), and so the severity of the incident may have been averted. But a different interpretation is yet to be confirmed. Authorities have confirmed the death toll from all-related crimes to be at least 200, but not known to them All persons are known to
+vocabulary=1 grammar=1 mechanics=1
+55
+Prompt: "Write a paragraph about your typical day at school, including classes, friends, and any sports activities you participate in."
+Response:  We don't. cams do ... to .gov-dot-n ..mi<|endoftext|>Video Our Prowloo_2 is tmc_t As go to t As the Sintra, CA (dno2 phi – t. S And t.e.. From:l T-M pr) – p/o.ni-m
+Prompt: "Write a short paragraph about a memorable day at school, focusing on a fun activity with friends and how it made you feel."
+Response: The following site pictures. YVy.com — Posted By Donald Trump and Donald Trump Jr. -tor.com The comment style storm.com , which the mods of a guest list: http://www.g-forum-t.se/en, which it. The original :corrc.com, from the tmdota module thread in the russian (i tagu.co as something
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing schoolwork, sports practice, and hanging out with friends."
+Response: In = l/index_wiki A title =55+":88 ::/n:t.php --- ال The b.sh + kot_u |lib and mc="lib_t;p.q mat3:ng= gak-i.gov (@z/ macromedia : n:t ,t. obj xk
+Prompt: "Write a brief paragraph about a typical day in school, including subjects, friends, and any fun activities."
+Response: With Posted by.<|endoftext|>K I (NOTMODIS: I - 1 T AS: M-ABT: SIL: -- molds be my-claxy mbs: + l/em : mpg-in.com ▶ @[PIC : ‎Deck_
+vocabulary=1 grammar=1 mechanics=1
+60
+Prompt: "Write a short paragraph about a typical day at school, including interactions with friends, a fun class activity, and how sports practice fits into the day."
+Response:  For all the point of the world.com/r, plus, which { . . and + @ @ @ @s , @e : : - (w: at :: : | A:m. s-o A and :z #t like p/t - @at , u
+Prompt: "Write a short paragraph about a typical day at school, including what subjects you have, a fun moment with friends, and any after-school activities."
+Response: It Part I (aka) Please, M.R.B TS N: #<|endoftext|>Wellies # —and isl n :tl: (iT. Zinedrive_ ɹ= The A:MPU SPC: h_t:: : ;the KDF-43
+Prompt: "Write a short paragraph about a typical day at school, focusing on friendships, classes, and extracurricular activities."
+Response: To, that's. One, both =0. #T: Moo:ś, can koo<|endoftext|> Every a, and - i_m Ij t- Ze Please an: in. # | ##x A :I tjos. Please Tne
+Prompt: "Write a short story about a day in the life of a high school student balancing classes, sports practice, and hanging out with friends."
+Response: COLUM: Prophecy IS NOT CORR SO PHIL (CONFER Full HMI- Special Operations STDEVOTA Please All HIGTA STDEVO A+ (SAF) station, Lek No.q+ MES DA STDEVIC DA: BE OF A+ - VIRI SI RO: I suspect(SV TUN The HOTTOP P/Tunes: A/
+vocabulary=1 grammar=1 mechanics=1
+65
+Prompt: "Write a short paragraph about a typical day in a high school student’s life, including classes, sports activities, and hanging out with friends."
+Response: Add it:^ from beyond:vv-af ..vi-vvi _ @p. more @y; it.. zn: +a. This:^ Eo j)g tpa.cc: @m.b m:ca, i.z
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and spending time with friends."
+Response:  If the Jets, the show. Add: p.sp @wik #us.icio.eu.com 1: — ... A. The world of gens, quil+ tes. The main @m, soi.dign .f.co: ~k f -l oia, p.q deq = something
+Prompt: "Write a paragraph about a typical day at school, including subjects, friends, and an after-school activity."
+Response: Posted by // Tt: Is +T Posted by @tweet :post taboola:q @_ z: = 01: , 't: |lz@: http://i. ... "Metho: index:^T:t: field:g :r a a.mc:r+ tn: ,
+Prompt: "Write a short paragraph about a typical day at school, focusing on a favorite subject, friends, and after-school activities."
+Response:  Is not a: p/, contrib.com, plus: To p.k:e-t =m: iM.org Is my: in a The world of p.s of vlad.. ken, and s/ Tag: A.: What is: F:A , p.r-e, mq:o, and tag... 
+vocabulary=1 grammar=1 mechanics=1
+70
+Prompt: "Write a short paragraph about a typical school day for a student and include something about their favorite subject, a friend they hang out with, and a sport they enjoy."
+Response:  It's : Add': The list of the very vote being.co.com.com if@. .com, like, or-: jid. a: 9+-k.org, where.re.v: s a. -7-jm.j: 1: r -gki -m.
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing sports, homework, and friendships."
+Response: No.<|endoftext|>The book to the author's (name from a guest, by k | The moderator, the answer of the United States @l , f s - so, to (s .ne-<|endoftext|>For and that.ko On International Sign_b: Subject:69 hɑk h/c so | part q. The self-expiry: b/
+Prompt: "Write a short paragraph about a typical day at school, including a favorite subject, a fun moment with friends, and any homework due."
+Response:  I like the world at peter. Posted by @in.ca a reply: I had a reply tag = Posted by it; @example.png it x , p/f into_m.t: The file. share. As-i , c: 'x k-ut:x Vvy ☕:3:x 2016-A++-x.
+Prompt: "Write a short paragraph about a typical day at school, including subjects, friends, and a memorable moment."
+Response:  link here Posted by k0; pak@ -19/x description. from , from_db: @de8_t: This as b.com . prefix = z:host:3 , where itz A: to.t .env. -vii: -q like in:b: tl, can-
+vocabulary=1 grammar=1 mechanics=1
+75
+Prompt: "Write a short paragraph about a memorable day at school, including interactions with friends and a favorite class activity."
+Response: Schools are trying to do so in keeping with the worst of the worst. When a lot of our own thought processes for student to do so, with a short list of top picks, and on the use of the term "white-knucklehead" at some point, and that's exactly what I was surprised to see. – Rapporte: "It's fine, boy! Another day in the big deal. If you don't want to be a little bit
+Prompt: "Write a short paragraph about a typical school day and how it feels to hang out with friends afterward."
+Response: …But, they are not very happy." "I don't care who's left behind them. Advertisements<|endoftext|>The number of new book-related articles By J.D. Strom nelson was the first to mention the fact that the "happiness" is a terrible use of "go to" a "snowflake" in the dictionary. The only way to do it is that "I don't take it too
+Prompt: "Write a short paragraph about a typical day at school, including subjects studied, interactions with friends, and a favorite moment."
+Response:  – The National Review.com "You have to remember that we're not going to do all of that bad. "A lot of what it once was good at being a cuckoo with your imagination as to how it is in the making of "real" topic with which you can hold the fickle little, and that's what it is. So what? Don't you watch the line and the has a's and he thinks about something. That's for his
+Prompt: "Write a short paragraph about a typical day at school, including interactions with friends, a favorite subject, and a memorable moment."
+Response: As long as I'm telling you, the history of the world and the book I've been reading."<|endoftext|>0:00:00-7:00 A couple of years ago I had an old house. Before that house can be lost. I was really looking forward to the building that I'm going to sell my books. I went out of town for an hour on a different theme (thanks to the author's email address for the case study.
+vocabulary=1 grammar=1 mechanics=1
+80
+Prompt: "Write a short story about a day in the life of a high school student balancing school, sports, and friendships."
+Response: There is usually a possibility that the students who had to go. "If you think 'the power of achievement'. In fact, some of the only source for this post will be at the end of this year, but it's the fact that his school is not going to tell you a good one-sidedly. "For the first time in a long-term student of what to believe. - "The student is
+Prompt: "Write a short paragraph about a day in the life of a high school student, including their classes, sports practice, and hanging out with friends after school."
+Response: It remains a major problem with the experience that the last time you're actually in the know. - "Being a mom. It's so hard for the ol' fashioned. - "We are all in this together: what do they say?" I went this is an important point. - "What is going to get you the best thing to see this?" The last thing they call it. I
+Prompt: "Write a short paragraph about a typical day at school, including a class you like, time spent with friends, and any after-school activities you enjoy."
+Response:  (The link is broken away like this to the rest of the page.) Hudson, S. D. S, I wonder if I'm left with a long list of people's favorite things to do in this post. The first one on my top three, the "Greeting, talk of the home" is a good idea. Dissatisfactionalism, the first time I knew about it at one of the most
+Prompt: "Write a short paragraph about a typical day in school, including interactions with friends, classes, and an unexpected event."
+Response: The only thing that cannot be said about your girlfriend isn't the one with him you're interested in them. (a.k.a. the most important part of it) "because of my wife. They are going to get upset that the most important thing to you were able to do is "I'm sorry, he went to school, so, it's a bit like… what?" "I think I just want to change school." " He's not
+vocabulary=1 grammar=1 mechanics=1
+85
+Prompt: "Write a short paragraph about a typical day at school, including moments with friends, a favorite subject, and an after-school activity."
+Response: I would be able to show them with a well-established story. "In the summer of 2003, the Chinese martial arts. "Treat them all the way up to the grave. "You know that same-sex marriage is too, we're not using that. Thanks to the fact that men with boys from the same gender assigned to the same sex are able to be attracted to talk openly about. "That's
+Prompt: "Write a short paragraph about a typical day in your life, focusing on school, friends, and hobbies."
+Response: For decades, there are no longer "most" are simply their jobs. In the past, he realized that all those who work for him a bit more than a little extra time to readjusted. There's also a lot of research in and off the ground. - I'll be honest I guess that's how many of those I know. I know exactly what I am going to do is in the middle. Every year, they don't really work
+Prompt: "Write a short paragraph about a day at school that includes a favorite subject, a sports activity during recess, and a memorable moment with friends."
+Response: So, why not just some kid with a knife-jacking day? Where will you be? It was a coincidence, indeed. Dr. J. Kamal. It's not every day. Or a year, or even every day. And there's a lot of it. Read article on J.J.C.<|endoftext|>1; the best place to keep in touch with them.
+Prompt: "Write a short paragraph about a typical day in school, focusing on a favorite subject and interactions with friends."
+Response: Habit 5 is a critical part of the future. Answers an additional five-star review of the value of the day being described by John Kennedy, a former student in the USMC to the point of sale of a single currency of the kind that will stand for more than $100 million. A complete list of the different ways and methods that are responsible for the successful two is not all that different from the average! No one has a copy
+vocabulary=1 grammar=1 mechanics=1
+90
+Prompt: "Write a short story about a typical day in high school, focusing on classes, friends, and after-school sports activities."
+Response: If you're a high schooler who wants to take an axe against it, you cannot use the name "Kohagiri" from the school from the time it took to carry out its work, or the way that is the best way to make for that exact moment in high school. "When I go to school, it is not a "school of dreams." —Bowls to read/write—a study in the long-anticipated
+Prompt: "Write a short story about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: After the end of the mid-1980s, a year and a half-length extension. Here's a little bit about the previous year's results. X-linked student visas are already expired. So far the primary reason why are they are, and here in the school year 2016. "You Are Like Us, Stupid," and then there is a lot of it; it's nowhere. Culture 101 is
+Prompt: "Write about a typical day in a student's life, including school, friends, and a sport they enjoy."
+Response: The VLAD is a common goal of note for all of them, and I simply feel like it's not a good time to pass on what the actual effects of the day to end on their program. "The idea of and the book was all over the top of my head: the whole country. The question isn't going to matter.<|endoftext|>Trouble a guest: (1) It's a small part of the
+Prompt: "Write a short paragraph about your typical day at school, including classes, friends, and any activities you enjoy."
+Response: Related Links: The Associated Press, "Students Rejected-A/Students" - Lesson: The Science and Politics of the Student: A Brief History of a Word and the World's Most Powerful Scientist said, "No particular account of the student (i.e. a.k.a. the "wires", "handbinder" and "tweres" are just what I use to be an outstanding source for this one. Lite
+vocabulary=1 grammar=1 mechanics=1
+95
+Prompt: "Write a short paragraph about a typical day at school, including interactions with friends and a favorite activity."
+Response: The very best we wanted to go about meeting her." "I just want that they could not even give you that, and it's a work in progress. We recommend learning more about a few other things you should know about. 2.1. Overview "I have a story on the other hand, "Sheik" or "finally" is very well known in many ways. 4.2.2.4:
+Prompt: "Write a short story about a day in the life of a high school student juggling classes, sports, and friendships."
+Response: In the end, the law firm is a problem, but more than enough is enough time to try to do it." This story originally appeared on the same story. "You heard what, the public eye-watcher part?" "The fact that you are. And, as it will be "in fact, a great deal of course, the result of her." (e.r) "I think that's a bit
+Prompt: "Write a short paragraph about a typical day in school, including interactions with friends, classes, and a funny moment that happened."
+Response: Blizzard: Why are you? If you're a school official, he was too sick and even more so Erickson not only gets to do things, but it keeps the other side of the world. "The story of the week is the same as aiatic. "Somebody's a-sit has been in that it's the one that's been given to me! " So what drives it
+Prompt: "Write a short paragraph about a typical day for a high school student balancing homework, sports practice, and hanging out with friends."
+Response:  (p. 12) The day after that, the student is not the first one who sits and sits it (only to talk to them). Junk, in fact, is the best way to keep your research-related activities. (If you can't get a copy of the article in the above. (Full Storyteller is a regular story about the letter. "The day before I am as a student, I'm going
+vocabulary=1 grammar=1 mechanics=1
+100
+Prompt: "Write a short paragraph about a typical day at school, including a class you enjoy, a friend you hang out with during lunch, and an upcoming sports event."
+Response: It is their favorite, but not surprisingly, you can't quite. I know that there is a lot of education. I think the experience was not pleasant. "In the event of the other hand, we have really, really needs to be able to learn. Getting those who do not yet know who needs to be able to be a teacher, however, when you can't even go after it seems like a miracle to teach and a half because it's been awhile since sent to the
+Prompt: "Write a short paragraph about a typical day at school, focusing on a favorite class and a fun moment with friends."
+Response: 5. J.L.G.T. is one of the boys. Reading the boys do not. It teaches, however, using much of the same for teachers. Also, I'll leave you my favorite. 5. The boy from-Class I had an interview with Professor of Mathematics: WK-Class for students will be delighted at the a 4. I mean school may not yet be surprised that when we learn about learning to use the school system in
+Prompt: "Write a short paragraph about a typical school day, including your favorite subjects, interactions with friends, and any activities you enjoy after class."
+Response: Buckhreeves: "What is a "Shade" "Miscurious, it's an interesting thing for students. It was a fascinating and beautiful day. It's been a long time, but not a time. [url: "What really? Actually?" [ edit ] While eating a good day before joining, a student by contrast, to be sure. [T] not. How to sleep? Well, actually? Well, not enough to
+Prompt: "Write a short paragraph about a typical day in school, focusing on a favorite subject and interactions with friends."
+Response:  This one: From the other, no doubt about the friends of the country, however, is that there is a large enough to be a friend. Let's take a look at what you want to see / From: Daniel Beaullelinski was part of the friends of a different day."I just don't know how to use the friends."I've tried to find out that the... "These days are the days of the friends are the days of course, however, are mostly
+vocabulary=1 grammar=1 mechanics=1
+105
+Prompt: "Write a brief paragraph about a typical day at school, including interactions with friends and thoughts on a favorite subject."
+Response: There are a few that — is — "You know how it takes a. Nobody's not quite enough. "You've heard of ... or ... "The Story of Me: ... The problem is also ... the ... No mean ... especially ... "We want to ... so ... "It's the ... "When ... the ... The only one who ... not only ... also began to ... The first ... I am not going to
+Prompt: "Write a short paragraph about a typical day at school, including a funny moment during class and a highlight from lunch with friends."
+Response:  "Hey, there're only a?" A typical day, says the "closer" means "well, so that". Cherry is made up by my favorite "It's a pity that's not, "I'm not really doing so." Virtually implies that "when you can "Hey, "Hey there is "If you're not enough to be sufficient for, "The next class is a class will use again, again
+Prompt: "Write a short paragraph about a typical day at school, including interactions with friends and a favorite subject."
+Response: Maternal Stages: Magician: I don't know if they're not, again? It's a lot. [...]<|endoftext|>Happiness: 3: The first thing you're not Please note The worst thing about the franchise is a "This is how many? Hollywood has been. With so many. In fact in. The other = Game is. To the rest of .... Harmory to
+Prompt: "Write a short paragraph about a typical day in a teenager's life, including school, friends, and a favorite sport."
+Response: Greatest." - Grunt left the "that is"?<|endoftext|>Description : An average number of them : A few days ago (Image via Shutterstock. Facebook/Jalapeño Sorry, for example, "Obviously"Got it is a "So" TODCY on? Dennis has posted about. "And do you can't"I do it to "If you like, "We can still use it anyway".
+vocabulary=1 grammar=1 mechanics=1
+110
+Prompt: "Write a short paragraph about a typical day in school, including classes, friends, and a favorite after-school activity."
+Response: So, the story is that does not matter."-- 1. L. Losing a guy is a human being to be the following is the news that says... The world "I'm sorry... "You can't..." * *He was...<|endoftext|>The Dyls have realized that is... Azero12. "As with D. . The following is a group... A very small amount of... 1
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends."
+Response: We're looking at the first-party does not include this to. 7. Dot Laws 10. You will be sure, with all of that . It's not sure how to survive. 727. It's a. Thank you want to the latest You don't need to be a person… Sporting good? You can't have When the other, however,
+Prompt: "Write a short paragraph about a typical day at school, focusing on the subjects, friends, and any interesting events that happen."
+Response: You may remember him. In the past 10 days only Alarmed by her, however, I remember how. For a lot of her that has nothing to be like a "How are you sure?"<|endoftext|>Looking for a good idea? So is it? Thinking? A, as Wanted ... and ... What are your systems? Some of ......? This is ... FIND README is a "T,
+Prompt: "Write a short paragraph about a typical day in school, including friends, classes, and any interesting events."
+Response: A short-haired Jack is not a corpse. "I also gave up a 4 (...) The NIST_ADT is a standard error The main thrust of this is probably just to be a. "We are not. How to be a game is: 8) Rig One of the Tory of them is . A. . . Look at the A few days will act accordingly. 2
+vocabulary=1 grammar=1 mechanics=1
+115
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and activities."
+Response: BENWEB the director of life is about how long it is. 3 a. (usually) This is because of (...) There are a number of theming is (1) 1 (… >Falling is not… Nothing else …I don't. are not… (…) Dennis…when…? He also…but… I don't even want to… …to… If you want me….. Just
+Prompt: "Write a brief paragraph about a typical day at school, focusing on friendships, favorite subjects, and any fun activities."
+Response:  When I will not, he says "I'm not so. It's because they're not. Forgetting is not enough to be enough to the only way to go is enough. That's a *se: "We're not enough to be . It's possible that is right. 745.Sgt. Then see more How to Stop and Not Enough: Do not enough to . It's not enough to Be? The only way to
+Prompt: "Write a short paragraph about a typical day at school, including a favorite subject, a fun moment with friends, and any upcoming tests or assignments."
+Response: Are you, the... There are various configurations are also allow... The title... Some of the other is... I don't... AP... We're still in Distant or T... PERSONAL... No. ???? No, just... ... <3... and ...and .... There's more than enough. ... and/No need to ... and no... ... More... less ...more... ...
+Prompt: "Write a short paragraph about a typical day in your life, focusing on school, friends, or sports."
+Response: $5, the "Navylanding is NOT the only way is "You might also...<|endoftext|>Image taken from http://www.www.youtube.com 382 A B2 allows you to be a man, it seems that. ... You can also..... This article is theory is not... 4. ...and ...to ensure... ...and it is... ... and... ...And ... Garrying is still... to... To go with
+vocabulary=1 grammar=1 mechanics=1
+120
+Prompt: "Write a short paragraph about a typical day at school, including subjects, friends, and any activities or events that happen."
+Response: Let the "I'm too many more" )" , "Misc. If they are "too. By the bs. Too many. (too) too "Too much more." "A"I have been." The S." Too much more "Too much "Too Much "Too much "Too" too "Too much "Too little "Too" (………." "Too"Too small … "Too much?" Too many more "… however, … … –
+Prompt: "Write a short paragraph about a typical day at school, including subjects studied, interactions with friends, and a memorable moment."
+Response:  that has been a "that." "I remember that she's . "Let's." "It lets you can be sure?" "Ameria is ... and "That's ... he's not." ... is it is really good? ... and ... the "non-non-non-non-non-... This is ... and? .... ... and, ... more... ‎... Last two...<|endoftext|>The question is ... You see it is ... and so that.
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and a fun moment during lunch."
+Response: They're not. Still, this is ... The only ... we're not. ... Also, like ...and that. ... See also a small...<|endoftext|>The second most comfortable? ... and more. [email] • I am not ... and Diam ... more ...Then it's a bit more. ... L = ... and not ... More than ... And all ... more. 9 U. a quarter ... Continue with...<|endoftext|>Agency is for ... I also, ... The ... ...
+Prompt: "Write a short paragraph about a typical day in the life of a high school student, including their classes, friends, and any extracurricular activities they might participate in."
+Response: We are now that "When you can't…" "If the I'm not… (also…" "Why do it is…?" " I can't…"", "…more…more…like… "…". 1… Note: The only…<|endoftext|>Still loading… If you still… or… Learn… "I don't".… "They don't…and… "No matter…" "… or…" {BASE …. Why not
+vocabulary=1 grammar=1 mechanics=1
+125
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and an after-school activity."
+Response: The discussion) E-? "The story and get . How does this event "From a medium is not really? " "You can only." (1. "He's some "You can't help meld_... Now send a, and ... you can so. ... "Grief ... " ...is ... " ... " ... " ... " ... "I ... "If you ... still ... Fitz ... and ... ... ...
+Prompt: "Write a short story about a typical day in the life of a high school student balancing classes, sports practice, and hanging out with friends."
+Response: Hi your own, huh." "I like this one- ". . .". BASED!" ) = "Because of the Tribute is not just: . . . "Bart "It's not a lot"? Really! The hell! This is a heck! ... So many more ... to ... END AP The WALLEN---I'm... to ... more... S... "BETA2), ... He then you..."... Lazy
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing school, sports practice, and hanging out with friends after classes."
+Response:  "So that); "If you can't Nova): "When you should have been a) cannot do is a) The author of course is working on . The answer to continue to be a . Advertisement Saying is not with a . Possible. (Featuring: And if not, "WAS) Have you see is still unclear ... to be. . . 9 XIV. Some of ... and s... (I suggest).
+Prompt: "Write a short paragraph about a typical day in school, including a fun interaction with friends and a challenging assignment."
+Response: The other people are not that. Please don't. If you don't? "Stam. What should not. Come to look up. ... You might even thinks it would also she thinks that. THE MACH ZER: Who doesn't want to ... more! ... and be ... I don't ... to ... The difference is ... more than ... more ... is ... more ... A bit and ... then, ... and more ...<|endoftext|>Every other ... more ...
+vocabulary=1 grammar=1 mechanics=1
+130
+Prompt: "Write a short story about a typical day in the life of a high school student, including their classes, interactions with friends, and any extracurricular activities."
+Response: 1 . Phew, and not. It's "Please note *And try of the "Go + So the long lost are really, they were? - I hate the momentary ? Now, and Time to be a short. I didn't. It is. . That's the long, and long periods by b: This is a longer than if they aren't? "Now try, you can't? R- Then there is not only being long
+Prompt: "Write a short paragraph about a typical day at school, including subjects you enjoy, friends you hang out with, and any sports or activities you participate in."
+Response:  1. The amount of "I can't show that. "A, "I don't. 3. This is? The American leaders. D. "Unsuccessful. Nothing? Free View 1833 He didn't take off. I'd be a bit. "Haul? "Noise"? W: "You may the "The most interesting, "I don't…"Dios?" Walking? The same as much more than "The other than when one of
+Prompt: "Write a short paragraph about a typical day at school, including interactions with friends and participation in a sport."
+Response:  This is. N. The thing that when his ability to do something else and 'Dia Does not be able to have been a place, go on that. "We now we need to get rid of the free He also was removed from the new you view Photo: Robert<|endoftext|>The "To be a good? (Wagreement contains him and HUG <$5) Good luck. 6. Have a lot of O? 1. . I don't
+Prompt: "Write a short paragraph about a typical day in school, including a favorite subject, a fun interaction with friends, and a challenging moment."
+Response: That's not not give her company they don't. "I was like to her I'm not in H, You can't. "No, "Our findings<|endoftext|>This is the LACK - Kris Bono DIMA lot of Hint … and (5) (J. "GoBinding? From a great? The "But here.<|endoftext|>The first, "I know that, with…I can be a "I'm not providing
+vocabulary=1 grammar=1 mechanics=1
+135
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and a fun moment during lunch."
+Response:  (6) "Ain: The following that's, "Your ability, To get some , 23: 29/g. In the other events of the day. Permann. The 'The The same company: A lot? I am I will not be sure, "Most important: 0. Although we will be sure, a 'Chronictit and out.<|endoftext|>The first time: An image He explains the end of "My favorite
+Prompt: "Write a short paragraph about a typical day at school, including aspects like classes, friends, and any activities after school."
+Response: The first he said what country. The problem is known as much like, "If your favorite (1. " Drew a case in order. Holly, (A few of the first of the old man, [Update. The fact: "The actuality B/1 664 The book them: 8 - [13 5. We have died many of the US- Imit- Advertisement 5. Even more details and
+Prompt: "Write a short story about a typical day in the life of a high school student balancing homework, sports practice, and spending time with friends."
+Response: Inspect the week after I think of the very much more: New other guys, "If you have the first of a 32 We are our favorite A couple of the T A mother's. I think about the event in townspecs is the "I'm. "I've got what is for I'm with some of the middle of the beginning of course, a way through the video of th... well, p/ (1 We have a little more<|endoftext|>
+Prompt: "Write a short paragraph about a day in the life of a student balancing schoolwork, sports, and hanging out with friends."
+Response: But it's not wanted me. Unle. "In the other games the bottom (C. The British TV - 1 p. Andrv. The Man can doppelhusi: What is not only the top of course, "What could actually do you said:5 /uB: "The latest article's and I now, in his own? I am I don't know that, that, "Nothing to follow suit of his own no. On July 12
+vocabulary=1 grammar=1 mechanics=1
+140
+Prompt: "Write a short paragraph about a typical day in school, including classes, friends, and a favorite after-school activity."
+Response: It also, "It looks at least six months ago: Forbes's story is that is the second-1. " It's of the future installments are not be stopped by @scopes has done by Richard Gwenu- Advertisement One of a close<|endoftext|>More on it's of course, The most recent studies are not- Advertisement P. This story Gravity 6 of The other people and how the end of all butchemicronzo What
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and extracurricular activities."
+Response: The former Americanized by the show off-in'N.5, by Bruce Miley's are from The Pertzack Wyden and following is a former school of 80 Wasting baritone wastweetedison is the last word- No, "The "I don'tk. In this section of 2. It's "We have not- Advertisement The current UPM By now, a nutshell, 10 4: "God, "I
+Prompt: "Write a short paragraph about a day at school, highlighting an interesting class, a fun interaction with friends, and an after-school activity."
+Response: I amitya. The state of the current affairs of the other measures of M. * " I don't have her husband-20 Azeron's by The "Manualtweetingardis a large enough say "A great- by Sinekulph. A question:00. "We do the first word and byt/ To be said that, , and in "I have been in charge should, "Where do is
+Prompt: "Write a short paragraph about a typical day in school, including classes, friendships, and a favorite activity afterward."
+Response: Ebegrace. The New S. I will be aware that's a group you have found out of 1. Photo: See http://www. NARROW, and V. Managex] I would, and the next we have entered the BibleMinnocastriafshocked. Fiat- Advertisement The other than a "A "Ohm. Related In the bookmarks of the National. A Wager's.
+vocabulary=1 grammar=1 mechanics=1
+144
+Prompt: "Write a short paragraph about a typical day at school, including classes, friends, and activities."
+Response: It is the old men's the company's fdell, looking, the group, too early in one, I should be back down in the government is all be aware she had to-7 1 The official - to use it is that the Uddelm, you put their number one of a) This article# In September 11/' in India's I read more people that's it is re-3 (red from 4. It's right?
+Prompt: "Write a short story about a day in the life of a high school student balancing classes, sports practice, and spending time with friends."
+Response:  and to the bureau chief executives from his as a few weeks in his or where possible on the team meekl A) The game had toilbert "G_E-2 This property and/2) Of course, of a) and point, and/4), 3/4"],"W says in a first- it's and point of the government of the government. The former "The US: "[O-fold, of a) https://www.
+Prompt: "Write a short paragraph about a typical day at school, including a favorite subject and a fun moment with friends."
+Response: B4) and more effectively rex2) F (6) A) and going to meet his. 1 ( Cus has a.E-0) and point.u.5) F (?) " of the judge the CIA: So also includes a--," say the hospital bills that was the children get this year roundly are likely to the New York was I don't work, in your home, they are needed to answer that
+Prompt: "Write a short paragraph about a typical day at school, including interactions with friends, a favorite subject, and a sport or activity after classes."
+Response: If your phone from schooled up to get on the Fedor the government, The following the agency Copyright 2013-27 In the government of the group access to come in high school had a for most people can to some people with the authorities are not run. a) And the government oversight by a) and some of the state his/2) The only those of a) and point. (W, once, shepherding the party and state, in the government offices
+vocabulary=1 grammar=1 mechanics=1
+144
+Prompt: "Write a short paragraph about a day in the life of a high school student balancing homework, sports practice, and hanging out with friends after school."
+Response: Aunt to get the Department of the government to be aware that is . In the NFL.5 0) The reason to look at the USDA/55) A1 0 1) A.5 kg of the researchers try to the people get a. Sheet, the Senate - R. . . On Tuesday 2/prox other that's a. the FBI T: http://vents. . . There are expected. . . I(TM
+Prompt: "Write a brief paragraph about a typical day in a high school student's life, including school, friends, and any activities they enjoy."
+Response: In the group, to the ACLU, in the government. that wasp.5) In the president of about to the FBI agents under the state a. .5 % This video Despite this is to do is. the kids with the government, a) " … " "We asked Wils can (as an to the woman was not to come to become the world peace or women are either ignored and many of the House and point, as a) #
+Prompt: "Write a short paragraph about a typical day in school, including classes, friends, and a funny moment during lunch."
+Response: (F was only slightly less than most people actually be sure I wishy for a." Mr.4 Also, I was a.5 " by my favorite. r/2 | (3><|endoftext|>The current affairs. — # This is almost certainly is the New Testament of an individual posts on the public from New Zealand First published by the media relations are going early this week The list and point. [Petrading and/prox. .
+Prompt: "Write a short paragraph about a typical day in your life, including school, friends, and a favorite sport you play."
+Response: How? The first. I have read more afford the federal prosecutors agreed when he did. dons are not bothered by the Ulliums in a.g1115] But what your base size. . (A was a--, for the court record of a) JAN: "I called it is, for an initial for health. For more difficult, on and point of a week 1/fallin R. I have no-9 9 10/
+vocabulary=1 grammar=1 mechanics=1
+144
