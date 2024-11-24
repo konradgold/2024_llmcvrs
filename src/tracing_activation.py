@@ -73,7 +73,6 @@ def reduce_model(model, number_of_blocks=10, repetitions=5, kill_simultaneously=
     reduce_list = []
     try:
         for _ in range(number_of_blocks):
-            min_norm = ("", float("inf"))
             output: List[str] = []
             prompts: List[str] = []
             activation_norms = {}
@@ -114,10 +113,10 @@ def reduce_model(model, number_of_blocks=10, repetitions=5, kill_simultaneously=
             model.update_blocked(reduce_list)
             yield activation_norms
     except GeneratorExit:
-        torch.save(model.model.state_dict(), 'model.pth')
+        torch.save(model.model.state_dict(), 'model_fresh.pth')
 
 k = 0
-for norms in reduce_model(model, 144, 4, 5):
+for norms in reduce_model(model, number_of_blocks=30, repetitions=4, kill_simultaneously=5):
     data_arr = np.zeros((12,12))
     for (i,j), norm in norms.items():
         data_arr[i,j] = norm

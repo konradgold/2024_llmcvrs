@@ -22,6 +22,15 @@ LMs = [
         "cased": False
     },
     {
+        "lm": "nanogpt",
+        "label": "nanogpt",
+        "models_names": ["nanogpt"],
+        "gpt_model_name": "nanogpt",
+        "gpt_model_dir": "pre-trained_language_models/gpt/nano-gpt/",
+        "cased": True
+    },
+    """
+    {
         "lm": "elmo",
         "label": "elmo",
         "models_names": ["elmo"],
@@ -57,6 +66,7 @@ LMs = [
         "bert_model_dir": "pre-trained_language_models/bert/cased_L-24_H-1024_A-16",
         "cased": True,
     },
+    """
 ]
 
 

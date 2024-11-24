@@ -5,8 +5,9 @@ from contextlib import nullcontext
 import torch
 import tiktoken
 import yaml
-from .model import CausalSelfAttention, GPTConfig, GPT
+from model import GPTConfig, GPT
 import json
+from torch.nn import functional as F
 
 
 class SampleMutableModel:
@@ -99,6 +100,16 @@ class SampleMutableModel:
                 
         # Load existing content if the file already exists
         self.write_output(output)
+
+    def generate_top_k(self, text: str, samples: int):
+        text = self._get_text(text)
+        for s in text:
+            start_ids = self.encode(s)
+            x = (torch.tensor(start_ids, dtype=torch.long, device=self.device)[None, ...])
+            with torch.no_grad():
+                with self.ctx:
+                    out, probs = self.model.generate_top_k(x, temperature=self.temperature, top_k=self.top_k, samples=samples)
+        return out, probs
     
     def generate_output(self, text: str) -> list:
         text = self._get_text(text)

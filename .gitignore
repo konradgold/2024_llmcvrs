@@ -1,3 +1,7 @@
 *.pth
 src/.env
 *.png
+*.jsonl
+*.json
+*.bin
+*.txt

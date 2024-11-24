@@ -1,0 +1,3 @@
+top_k: 20
+max_new_tokens: 1
+device: mps
