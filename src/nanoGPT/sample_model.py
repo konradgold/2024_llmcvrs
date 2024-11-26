@@ -108,8 +108,8 @@ class SampleMutableModel:
             x = (torch.tensor(start_ids, dtype=torch.long, device=self.device)[None, ...])
             with torch.no_grad():
                 with self.ctx:
-                    out, probs = self.model.generate_top_k(x, temperature=self.temperature, top_k=self.top_k, samples=samples)
-        return out, probs
+                    out = self.model.generate_top_k(x, temperature=self.temperature, top_k=self.top_k, samples=samples)
+        return out
     
     def generate_output(self, text: str) -> list:
         text = self._get_text(text)
