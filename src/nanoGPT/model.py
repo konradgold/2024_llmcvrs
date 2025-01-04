@@ -11,7 +11,7 @@ import json
 import math
 import inspect
 from dataclasses import dataclass
-from typing import List, Tuple
+from typing import List, Tuple, Any
 
 import torch
 import torch.nn as nn
@@ -379,7 +379,7 @@ class GPT(nn.Module):
 
         return idx
 
-    def generate_top_k(self, idx, temperature=1.0, top_k=None, samples=10):
+    def generate_top_k(self, idx, temperature=1.0, top_k=None, samples=10) -> dict[int, Any]:
         """
         Take a conditioning sequence of indices idx (LongTensor of shape (b,t)) and complete
         the sequence max_new_tokens times, feeding the predictions back into the model each time.
@@ -405,6 +405,5 @@ class GPT(nn.Module):
                 # append sampled index to the running sequence and continue
                 idx_samples[i] = torch.cat((idx, idx_next), dim=1)
 
-            
         return idx_samples
 

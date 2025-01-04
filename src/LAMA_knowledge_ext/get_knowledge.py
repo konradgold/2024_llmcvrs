@@ -1,6 +1,5 @@
 import json
 import sys
-import torch
 sys.path.append("/Users/konradgoldenbaum/Developement/LLMCVRS/src/nanoGPT")
 from sample_model import SampleMutableModel
 import random

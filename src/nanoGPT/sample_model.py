@@ -5,9 +5,11 @@ from contextlib import nullcontext
 import torch
 import tiktoken
 import yaml
-from model import GPTConfig, GPT
+from .model import GPTConfig, GPT
 import json
 from torch.nn import functional as F
+from torch.amp.autocast_mode import autocast
+from typing import List
 
 
 class SampleMutableModel:
@@ -25,6 +27,7 @@ class SampleMutableModel:
     device = 'cpu' # examples: 'cpu', 'cuda', 'cuda:0', 'cuda:1', etc.
     dtype = 'bfloat16' if torch.cuda.is_available() and torch.cuda.is_bf16_supported() else 'float16' # 'float32' or 'bfloat16' or 'float16'
     compile = False # use PyTorch 2.0 to compile the model to be faster
+    model: torch.nn.Module
 
     def __init__(self, init_from: str = 'gpt2', config_file: str | None = None):
         if config_file:
@@ -41,7 +44,8 @@ class SampleMutableModel:
         torch.backends.cudnn.allow_tf32 = True # allow tf32 on cudnn
         device_type = 'cuda' if 'cuda' in self.device else 'cpu' # for later use in torch.autocast
         ptdtype = {'float32': torch.float32, 'bfloat16': torch.bfloat16, 'float16': torch.float16}[self.dtype]
-        self.ctx = nullcontext() if device_type == 'cpu' else torch.amp.autocast(device_type=device_type, dtype=ptdtype)
+        self.ctx = nullcontext() if device_type == 'cpu' else autocast(device_type, dtype=ptdtype)
+        checkpoint = dict()
         if init_from == 'resume':
             ckpt_path = os.path.join(self.out_dir, 'ckpt.pt')
             checkpoint = torch.load(ckpt_path, map_location=self.device)
@@ -59,7 +63,7 @@ class SampleMutableModel:
         self.model.eval()
         self.model.to(self.device)
         if compile:
-            self.model = torch.compile(self.model)
+            torch.compile(self.model)
         self.load_meta = False
         if init_from == 'resume' and 'config' in checkpoint and 'dataset' in checkpoint['config']: # older checkpoints might not have these...
             self.meta_path = os.path.join('data', checkpoint['config']['dataset'], 'meta.pkl')
@@ -87,8 +91,8 @@ class SampleMutableModel:
         self.deactivate_blocks = blocked
         self.model.disable_heads(self.deactivate_blocks)
 
-    def generate(self, text: str):
-        text = self._get_text(text)
+    def generate(self, itext: str):
+        text = self._get_text(itext)
         output = []
         for s in text:
             start_ids = self.encode(s)
@@ -101,8 +105,9 @@ class SampleMutableModel:
         # Load existing content if the file already exists
         self.write_output(output)
 
-    def generate_top_k(self, text: str, samples: int):
-        text = self._get_text(text)
+    def generate_top_k(self, itext: str, samples: int):
+        text = self._get_text(itext)
+        out = dict()
         for s in text:
             start_ids = self.encode(s)
             x = (torch.tensor(start_ids, dtype=torch.long, device=self.device)[None, ...])
@@ -111,8 +116,8 @@ class SampleMutableModel:
                     out = self.model.generate_top_k(x, temperature=self.temperature, top_k=self.top_k, samples=samples)
         return out
     
-    def generate_output(self, text: str) -> list:
-        text = self._get_text(text)
+    def generate_output(self, itext: str) -> list:
+        text = self._get_text(itext)
         output = []
         for s in text:
             start_ids = self.encode(s)
@@ -124,8 +129,8 @@ class SampleMutableModel:
         return output
         
     
-    def generate_verbose(self, text: str):
-        text = self._get_text(text)
+    def generate_verbose(self, itext: str):
+        text = self._get_text(itext)
 
         for s in text:
             start_ids = self.encode(s)
@@ -153,12 +158,14 @@ class SampleMutableModel:
         with open(self.write_file, 'w', encoding='utf-8') as f:
             json.dump(existing_content, f, ensure_ascii=False, indent=4)
         
-    def _get_text(self, text: str) -> list:
+    def _get_text(self, text: str) -> List[str]:
         if isinstance(text, str) and text.startswith('FILE:'):
             with open(text[5:], 'r', encoding='utf-8') as f:
                 text = f.read()
     
         if not isinstance(text, list):
-            text = [text]
+            ltext = [text]
+        else:
+            ltext = text
         
-        return text
+        return ltext

@@ -1,12 +1,11 @@
 import numpy as np
-import seaborn as sns
-import matplotlib.colors as mcolors
 import matplotlib.pylab as plt
 from typing import List
 from dotenv import load_dotenv
 import torch
 from nanoGPT import SampleMutableModel
 import openai
+
 from nanoGPT.judgeGPT.judge_instructor import JudgeInstructor
 
 load_dotenv()
@@ -55,7 +54,7 @@ model = SampleMutableModel()
 
 client = openai.OpenAI()
 
-def generate_prompt():
+def generate_prompt() -> str:
     response = client.chat.completions.create(
     model= "gpt-4o-mini",
     messages=[
@@ -66,7 +65,9 @@ def generate_prompt():
         },
     ],
     )
-    return response.choices[0].message.content
+    message = response.choices[0].message.content
+    assert isinstance(message, str)
+    return message
 
 
 def reduce_model(model, number_of_blocks=10, repetitions=5, kill_simultaneously=5):
@@ -77,7 +78,7 @@ def reduce_model(model, number_of_blocks=10, repetitions=5, kill_simultaneously=
             prompts: List[str] = []
             activation_norms = {}
             for _ in range(repetitions):
-                prompt = generate_prompt()
+                prompt: str = generate_prompt()
                 prompts.append(prompt)
                 output += model.generate_output(prompt)
                 for block_nr, activations in model.model.attentions.items():
@@ -121,7 +122,7 @@ for norms in reduce_model(model, number_of_blocks=30, repetitions=4, kill_simult
     for (i,j), norm in norms.items():
         data_arr[i,j] = norm
     masked_data = np.ma.masked_where(data_arr == 0., data_arr)
-    cmap = plt.cm.viridis.copy()
+    cmap = plt.get_cmap('viridis').copy()
     cmap.set_bad(color='red')
 
 # Plot heatmap with masking
