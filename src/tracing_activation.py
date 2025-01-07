@@ -5,8 +5,22 @@ from dotenv import load_dotenv
 import torch
 from nanoGPT import SampleMutableModel
 import openai
-
+import random
+import wandb
+from eval import eval
+import json
 from nanoGPT.judgeGPT.judge_instructor import JudgeInstructor
+
+EVAL_DS = "goodreads"
+
+wandb.init(
+    project="llmcvrs2024",
+    config={
+        "dataset": EVAL_DS,
+        "model": "GPT-2-small",
+        "sample_size": 0.1,
+    }
+)
 
 load_dotenv()
 
@@ -61,7 +75,7 @@ def generate_prompt() -> str:
         { "role": "system", "content": "You are a helpful assistant." },
         {
             "role": "user",
-            "content": "Write very short prompt to test a language model's ability to generate text. Let it write about everyday stuff, like school, sports, friends, taxes, work, ...",
+            "content": f"Write very short prompt to test a language model's ability to generate text. Let it write about everyday stuff, like school, sports, friends, taxes, work, ... By the way, I am calling you a lot with the same prompt, and you are pretty repetitive (not your fault). So here is a random number, perhabs that will give you some ideas: {random.randint(0, 1000)}",
         },
     ],
     )
@@ -70,10 +84,10 @@ def generate_prompt() -> str:
     return message
 
 
-def reduce_model(model, number_of_blocks=10, repetitions=5, kill_simultaneously=5):
+def reduce_model(model, data, knowledge_prompt, number_of_blocks=10, repetitions=5, kill_simultaneously=5):
     reduce_list = []
     try:
-        for _ in range(number_of_blocks):
+        for _ in range(number_of_blocks//kill_simultaneously):
             output: List[str] = []
             prompts: List[str] = []
             activation_norms = {}
@@ -90,8 +104,16 @@ def reduce_model(model, number_of_blocks=10, repetitions=5, kill_simultaneously=
                                 activation_norms[(block_nr,j)] += float(a[0, j, :].view(s*64).norm())
                             else:
                                 activation_norms[(block_nr,j)] = float(a[0, j, :].view(s*64).norm())
-                            
+            
+            eval(model, data, knowledge_prompt)
             judgement = judge.judge_output(output, prompts)
+            wandb.log({
+                "judgement": {
+                    "vocabulary": judgement.vocabulary,
+                    "grammar": judgement.grammar,
+                    "mechanics": judgement.mechanics,
+                },
+            })
             print(judgement)
             
             #if judgement.mechanics + judgement.grammar + judgement.vocabulary < 6:
@@ -112,12 +134,20 @@ def reduce_model(model, number_of_blocks=10, repetitions=5, kill_simultaneously=
                         break
             print(len(reduce_list))
             model.update_blocked(reduce_list)
+            wandb.log({
+                "blocked_heads": len(reduce_list),
+            })
             yield activation_norms
     except GeneratorExit:
         torch.save(model.model.state_dict(), 'model_fresh.pth')
 
+with open('head-to-tail-main/head_to_tail_goodreads.json', 'r') as f:
+    data = json.load(f)
+
+prompt = "This is a question to test your factual knowledge. Answer it as concise as possible. Question: "
+
 k = 0
-for norms in reduce_model(model, number_of_blocks=30, repetitions=4, kill_simultaneously=5):
+for norms in reduce_model(model, data = data, knowledge_prompt=prompt, number_of_blocks=30, repetitions=4, kill_simultaneously=5):
     data_arr = np.zeros((12,12))
     for (i,j), norm in norms.items():
         data_arr[i,j] = norm
