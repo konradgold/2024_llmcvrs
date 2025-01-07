@@ -6,3 +6,4 @@ src/.env
 *.bin
 *.txt
 *.zip
+*.gz
