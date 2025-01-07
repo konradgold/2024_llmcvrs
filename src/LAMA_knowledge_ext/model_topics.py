@@ -4,7 +4,7 @@ from bertopic.representation import OpenAI
 from dotenv import find_dotenv, load_dotenv
 import openai
 from sentence_transformers import SentenceTransformer
-from umap import UMAP
+import matplotlib.pyplot as plt
 
 model = SentenceTransformer("Alibaba-NLP/gte-base-en-v1.5", trust_remote_code=True)
 load_dotenv(find_dotenv())
@@ -28,10 +28,9 @@ embeddings = model.encode(documents, show_progress_bar=False)
 topic_model = topic_model.fit(documents, embeddings)
 
 # Run the visualization with the original embeddings
-topic_model.visualize_documents(documents, embeddings=embeddings)
+fig = topic_model.visualize_document_datamap(documents, embeddings=embeddings)
 
-# Reduce dimensionality of embeddings, this step is optional but much faster to perform iteratively:
-reduced_embeddings = UMAP(n_neighbors=10, n_components=2, min_dist=0.0, metric='cosine').fit_transform(embeddings)
+## Reduce dimensionality of embeddings, this step is optional but much faster to perform iteratively:
+#reduced_embeddings = UMAP(n_neighbors=10, n_components=2, min_dist=0.0, metric='cosine').fit_transform(embeddings)
 
-fig = topic_model.visualize_document_datamap(documents, reduced_embeddings=reduced_embeddings)
 fig.savefig("/Users/konradgoldenbaum/Developement/LLMCVRS/src/LAMA_knowledge_ext/output/datamap-full_model.png", bbox_inches="tight")
