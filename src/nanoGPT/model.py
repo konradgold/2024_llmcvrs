@@ -59,8 +59,7 @@ class CausalSelfAttention(nn.Module):
         q, k, v  = self.c_attn(x).split(self.n_embd, dim=2)
         k = k.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
         q = q.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
-        v = v.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
-
+        v = v.view(B, T, self.n_head, C // self.n_head)
         # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
         if self.flash:
             # efficient attention using Flash Attention CUDA kernels
@@ -74,11 +73,11 @@ class CausalSelfAttention(nn.Module):
             y = att @ v # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
         
         # Apply the head mask to zero out specified heads
-        y = y * self.head_mask.view(1, -1, 1, 1)
+        #y = y * self.head_mask.view(1, -1, 1, 1)
         # Store y here
-        self.saved_y = y.detach()
+        #self.saved_y = y.detach()
 
-        y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
+        # y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
 
         # output projection
         y = self.resid_dropout(self.c_proj(y))
@@ -98,6 +97,7 @@ class MLP(nn.Module):
         x = self.gelu(x)
         x = self.c_proj(x)
         x = self.dropout(x)
+        self.saved_y = x
         return x
 
 class Block(nn.Module):
@@ -112,7 +112,7 @@ class Block(nn.Module):
     def forward(self, x):
         x = x + self.attn(self.ln_1(x))
         x = x + self.mlp(self.ln_2(x))
-        return x, self.attn.saved_y
+        return x, self.mlp.saved_y
 
 @dataclass
 class GPTConfig:

@@ -12,7 +12,3 @@ for file in data_files:
         data["head"].append(json.load(f)["head"])
         data["torso"].append(json.load(f)["torso"])
         data["tail"].append(json.load(f)["tail"])
-
-## 2. preprocess data
-## 3. get topics
-## 4. save topics

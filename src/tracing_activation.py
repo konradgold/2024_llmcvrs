@@ -146,6 +146,8 @@ with open('head-to-tail-main/head_to_tail_goodreads.json', 'r') as f:
 
 prompt = "This is a question to test your factual knowledge. Answer it as concise as possible. Question: "
 
+print(model.model)
+
 k = 0
 for norms in reduce_model(model, data = data, knowledge_prompt=prompt, number_of_blocks=30, repetitions=4, kill_simultaneously=5):
     data_arr = np.zeros((12,12))
@@ -158,7 +160,7 @@ for norms in reduce_model(model, data = data, knowledge_prompt=prompt, number_of
 # Plot heatmap with masking
     plt.imshow(masked_data, cmap=cmap, interpolation='none')
     plt.colorbar(label='Value')
-    plt.savefig(f'/Users/konradgoldenbaum/Developement/LLMCVRS/material/heatmap_{k}.png')
+    plt.savefig(f'material/heatmap_{k}.png')
     plt.close()
     k+=1
 
