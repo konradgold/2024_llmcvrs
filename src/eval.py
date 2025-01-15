@@ -1,8 +1,6 @@
 import json
 from rouge_score import rouge_scorer
 import wandb
-import torch
-from nanoGPT import SampleMutableModel
 from tqdm import tqdm
 import random
 
@@ -46,6 +44,10 @@ def eval(model, data, prompt, select=0.1):
     wandb.summary["Mean rougeL-fmeasure"] = sum(scores) / len(scores)
     model.model.max_new_tokens = 100
 
+
+def eval_similarity(true_story, generated_story):
+    scorer = rouge_scorer.RougeScorer(['rougeL', "rouge1"], use_stemmer=True)
+    return scorer.score(true_story, generated_story)
 
 
 

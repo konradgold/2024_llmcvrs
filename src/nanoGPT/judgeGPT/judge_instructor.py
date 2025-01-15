@@ -8,6 +8,7 @@ class Judgement(BaseModel):
     vocabulary: int = 0
     grammar: int = 0
     mechanics: int = 0
+    
 
 class JudgeInstructor:
     def __init__(self, judge_model: str = "gpt-4o-mini", judge_prompt: str = ""):

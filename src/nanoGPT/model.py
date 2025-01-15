@@ -59,7 +59,7 @@ class CausalSelfAttention(nn.Module):
         q, k, v  = self.c_attn(x).split(self.n_embd, dim=2)
         k = k.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
         q = q.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
-        v = v.view(B, T, self.n_head, C // self.n_head)
+        v = v.view(B, T, self.n_head, C // self.n_head).transpose(1, 2)
         # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
         if self.flash:
             # efficient attention using Flash Attention CUDA kernels
@@ -77,7 +77,7 @@ class CausalSelfAttention(nn.Module):
         # Store y here
         #self.saved_y = y.detach()
 
-        # y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
+        y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
 
         # output projection
         y = self.resid_dropout(self.c_proj(y))
@@ -87,6 +87,8 @@ class MLP(nn.Module):
 
     def __init__(self, config):
         super().__init__()
+        self.config = config
+        self.c_fc_activations = None
         self.c_fc    = nn.Linear(config.n_embd, 4 * config.n_embd, bias=config.bias)
         self.gelu    = nn.GELU()
         self.c_proj  = nn.Linear(4 * config.n_embd, config.n_embd, bias=config.bias)
@@ -97,11 +99,14 @@ class MLP(nn.Module):
         x = self.gelu(x)
         x = self.c_proj(x)
         x = self.dropout(x)
-        self.saved_y = x
+        if self.config.store_mlp_activations:
+            if self.c_fc_activations is None:
+                self.c_fc_activations = x.clone()
+            else:
+                self.c_fc_activations = torch.cat([self.c_fc_activations, x.clone()], dim=0)
         return x
 
 class Block(nn.Module):
-
     def __init__(self, config):
         super().__init__()
         self.ln_1 = LayerNorm(config.n_embd, bias=config.bias)
@@ -112,7 +117,7 @@ class Block(nn.Module):
     def forward(self, x):
         x = x + self.attn(self.ln_1(x))
         x = x + self.mlp(self.ln_2(x))
-        return x, self.mlp.saved_y
+        return x
 
 @dataclass
 class GPTConfig:
@@ -123,6 +128,7 @@ class GPTConfig:
     n_embd: int = 768
     dropout: float = 0.0
     bias: bool = True # True: bias in Linears and LayerNorms, like GPT-2. False: a bit better and faster
+    store_mlp_activations: bool = False
 
 class GPT(nn.Module):
 
@@ -187,9 +193,8 @@ class GPT(nn.Module):
         tok_emb = self.transformer.wte(idx) # token embeddings of shape (b, t, n_embd)
         pos_emb = self.transformer.wpe(pos) # position embeddings of shape (t, n_embd)
         x = self.transformer.drop(tok_emb + pos_emb)
-        for i, block in enumerate(self.transformer.h):
-            x, y_saved = block(x)
-            self.attentions[i].append(y_saved.detach())
+        for block in self.transformer.h:
+            x = block(x)
         x = self.transformer.ln_f(x)
 
         if targets is not None:
@@ -358,7 +363,6 @@ class GPT(nn.Module):
         the sequence max_new_tokens times, feeding the predictions back into the model each time.
         Most likely you'll want to make sure to be in model.eval() mode of operation for this.
         """
-        self.attentions = {i: [] for i in range(self.config.n_layer)} # store attentions for visualization
         for _ in range(max_new_tokens):
             # if the sequence context is growing too long we must crop it at block_size
             idx_cond = idx if idx.size(1) <= self.config.block_size else idx[:, -self.config.block_size:]
@@ -376,34 +380,4 @@ class GPT(nn.Module):
             idx_next = torch.multinomial(probs, num_samples=1)
             # append sampled index to the running sequence and continue
             idx = torch.cat((idx, idx_next), dim=1)
-
         return idx
-
-    def generate_top_k(self, idx, temperature=1.0, top_k=None, samples=10) -> dict[int, Any]:
-        """
-        Take a conditioning sequence of indices idx (LongTensor of shape (b,t)) and complete
-        the sequence max_new_tokens times, feeding the predictions back into the model each time.
-        Most likely you'll want to make sure to be in model.eval() mode of operation for this.
-        """
-        idx_samples = {i:idx for i in range(samples)}
-        for _ in range(samples):
-            # if the sequence context is growing too long we must crop it at block_size
-            for i, idx in idx_samples.items():
-                idx_cond = idx if idx.size(1) <= self.config.block_size else idx[:, -self.config.block_size:]
-                # forward the model to get the logits for the index in the sequence
-                logits, _ = self(idx_cond)
-                # pluck the logits at the final step and scale by desired temperature
-                logits = logits[:, -1, :] / temperature
-                # optionally crop the logits to only the top k options
-                if top_k is not None:
-                    v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
-                    logits[logits < v[:, [-1]]] = -float('Inf')
-                # apply softmax to convert logits to (normalized) probabilities
-                probs = F.softmax(logits, dim=-1)
-                # sample from the distribution
-                idx_next = torch.multinomial(probs, num_samples=1)
-                # append sampled index to the running sequence and continue
-                idx_samples[i] = torch.cat((idx, idx_next), dim=1)
-
-        return idx_samples
-

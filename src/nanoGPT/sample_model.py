@@ -29,7 +29,7 @@ class SampleMutableModel:
     compile = False # use PyTorch 2.0 to compile the model to be faster
     model: torch.nn.Module
 
-    def __init__(self, init_from: str = 'gpt2', config_file: str | None = None):
+    def __init__(self, init_from: str = 'gpt2', config_file: str | None = None, store_activations: bool = False):
         if config_file:
             with open(config_file, 'r') as f:
                 config = yaml.safe_load(f)
@@ -50,6 +50,7 @@ class SampleMutableModel:
             ckpt_path = os.path.join(self.out_dir, 'ckpt.pt')
             checkpoint = torch.load(ckpt_path, map_location=self.device)
             gptconf = GPTConfig(**checkpoint['model_args'])
+            gptconf.store_mlp_activations = store_activations
             self.model = GPT(gptconf)
             state_dict = checkpoint['model']
             unwanted_prefix = '_orig_mod.'
@@ -131,7 +132,6 @@ class SampleMutableModel:
     
     def generate_verbose(self, itext: str):
         text = self._get_text(itext)
-
         for s in text:
             start_ids = self.encode(s)
             x = (torch.tensor(start_ids, dtype=torch.long, device=self.device)[None, ...])

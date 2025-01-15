@@ -5,9 +5,10 @@ from dotenv import load_dotenv
 import torch
 from nanoGPT import SampleMutableModel
 import openai
+from nanoGPT.prune_model import prune_model
 import random
 import wandb
-from eval import eval
+from eval import eval_similarity
 import json
 from nanoGPT.judgeGPT.judge_instructor import JudgeInstructor
 
@@ -61,108 +62,39 @@ Output Format:
 	2.	Grammar (G): Score = X
 	3.	Mechanics (M): Score = X
 """
-
+model = SampleMutableModel()
 judge = JudgeInstructor(judge_prompt=judge_prompt)
 
-model = SampleMutableModel()
+def reduce_model_activation_based(model, prune_percent, runs: int = 1):
+    for _ in range(runs):
+        prompt = "Finish this story:\n\n"
+        storie_start = "Once upon a time"
+        model.generate_output(prompt + storie_start)
+    model.model = prune_model(model.model, prune_percent, True)
+    return model
 
-client = openai.OpenAI()
+def check_model_language_performance(model, judge, runs = 10):
+    for _ in range(runs):
+        prompt = "Finish this story:\n\n"
+        storie = "once upon a time, there was a princess who lived in a castle"
+        storie_start = " ".join(storie.split(" ")[:len(storie.split(" "))//2])
+        print(storie_start)
+        output = model.generate_output(prompt + storie_start)
+        rouge_score = eval_similarity(storie, output[0])
+        print(rouge_score)
+        judgement = judge.judge_output(output, [prompt])
+        print(judgement.model_dump())
 
-def generate_prompt() -> str:
-    response = client.chat.completions.create(
-    model= "gpt-4o-mini",
-    messages=[
-        { "role": "system", "content": "You are a helpful assistant." },
-        {
-            "role": "user",
-            "content": f"Write very short prompt to test a language model's ability to generate text. Let it write about everyday stuff, like school, sports, friends, taxes, work, ... By the way, I am calling you a lot with the same prompt, and you are pretty repetitive (not your fault). So here is a random number, perhabs that will give you some ideas: {random.randint(0, 1000)}",
-        },
-    ],
-    )
-    message = response.choices[0].message.content
-    assert isinstance(message, str)
-    return message
+def store_judgement(judgement):
+    with open("judgements.json", "r") as f:
+        judgements = json.load(f)
+    judgements.append(judgement)
+    with open("judgements.json", "w") as f:
+        json.dump(judgements, f)
+    
 
-
-def reduce_model(model, data, knowledge_prompt, number_of_blocks=10, repetitions=5, kill_simultaneously=5):
-    reduce_list = []
-    try:
-        for _ in range(number_of_blocks//kill_simultaneously):
-            output: List[str] = []
-            prompts: List[str] = []
-            activation_norms = {}
-            for _ in range(repetitions):
-                prompt: str = generate_prompt()
-                prompts.append(prompt)
-                output += model.generate_output(prompt)
-                for block_nr, activations in model.model.attentions.items():
-                    for activation in activations:
-                        s = activation.shape[2]
-                        a = activation.reshape(1, 12, s*64)
-                        for j in range(12):
-                            if (block_nr, j) in activation_norms:
-                                activation_norms[(block_nr,j)] += float(a[0, j, :].view(s*64).norm())
-                            else:
-                                activation_norms[(block_nr,j)] = float(a[0, j, :].view(s*64).norm())
-            
-            eval(model, data, knowledge_prompt)
-            judgement = judge.judge_output(output, prompts)
-            wandb.log({
-                "judgement": {
-                    "vocabulary": judgement.vocabulary,
-                    "grammar": judgement.grammar,
-                    "mechanics": judgement.mechanics,
-                },
-            })
-            print(judgement)
-            
-            #if judgement.mechanics + judgement.grammar + judgement.vocabulary < 6:
-            #    print("Judgement was too low, stopping reduction")
-            #    yield activation_norms
-            #    break
-            
-            norm_list = list(activation_norms.items())
-            norm_list.sort(key=lambda x: x[1])
-            kill_nr = 0
-            for name, _ in norm_list:
-                if (name[0], name[1]) in reduce_list:
-                    continue
-                else:
-                    reduce_list.append((name[0], name[1]))
-                    kill_nr += 1
-                    if kill_nr >= kill_simultaneously:
-                        break
-            print(len(reduce_list))
-            model.update_blocked(reduce_list)
-            wandb.log({
-                "blocked_heads": len(reduce_list),
-            })
-            yield activation_norms
-    except GeneratorExit:
-        torch.save(model.model.state_dict(), 'model_fresh.pth')
-
-with open('head-to-tail-main/head_to_tail_goodreads.json', 'r') as f:
-    data = json.load(f)
-
-prompt = "This is a question to test your factual knowledge. Answer it as concise as possible. Question: "
-
-print(model.model)
-
-k = 0
-for norms in reduce_model(model, data = data, knowledge_prompt=prompt, number_of_blocks=30, repetitions=4, kill_simultaneously=5):
-    data_arr = np.zeros((12,12))
-    for (i,j), norm in norms.items():
-        data_arr[i,j] = norm
-    masked_data = np.ma.masked_where(data_arr == 0., data_arr)
-    cmap = plt.get_cmap('viridis').copy()
-    cmap.set_bad(color='red')
-
-# Plot heatmap with masking
-    plt.imshow(masked_data, cmap=cmap, interpolation='none')
-    plt.colorbar(label='Value')
-    plt.savefig(f'material/heatmap_{k}.png')
-    plt.close()
-    k+=1
+model.model = prune_model(model.model, 0.1)
+check_model_language_performance(model, judge, runs = 1)
 
 
 
