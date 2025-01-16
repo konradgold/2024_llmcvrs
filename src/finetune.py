@@ -1,0 +1,71 @@
+import json
+import tiktoken
+import torch
+from nanoGPT.sample_model import SampleMutableModel
+from torch.utils.data import Dataset, DataLoader
+from torch.optim import AdamW
+from transformers import get_scheduler
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+epochs = 10
+
+class CustomDataset(Dataset):
+    def __init__(self, texts, max_length=300):
+        self.max_length = max_length
+        self.enc = tiktoken.get_encoding("gpt2")
+        self.examples = [self.tokenise(text) for text in texts]
+
+    def __len__(self):
+        return len(self.examples)
+
+    def __getitem__(self, idx):
+        return self.examples[idx]
+    
+    def tokenise(self, text):
+        encoded = self.enc.encode(text, allowed_special={"<|endoftext|>"})
+        encoded = encoded[:self.max_length] if len(encoded)>self.max_length else encoded
+        attention = torch.ones((self.max_length), dtype=torch.long)
+        attention[len(encoded):] = 0
+        token_pad = torch.zeros((self.max_length), dtype=torch.long)
+        token_pad[:len(encoded)] = torch.tensor(encoded, dtype=torch.long)
+        return token_pad
+
+
+# Path to the JSON file
+file_path = 'lernerstories/data/generated_stories.json'
+
+# Load the JSON data
+with open(file_path, 'r') as file:
+    data = json.load(file)
+texts = []
+for lists in data.values():
+    texts += [text["happy"][0] for text in lists]
+    texts += [text["sad"][0] for text in lists]
+    texts += [text["open"][0] for text in lists]
+
+dataset = CustomDataset(texts)
+dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
+
+
+sample_model = SampleMutableModel()
+model = sample_model.model
+
+for param in model.transformer.wte.parameters():
+    param.requires_grad = False
+
+optimizer = AdamW(model.parameters(), lr=1e-5)
+scheduler = get_scheduler("linear", optimizer=optimizer, num_warmup_steps=500, num_training_steps=len(dataloader)*epochs)
+
+
+model.train()
+for epoch in range(epochs):
+    for batch in dataloader:
+        optimizer.zero_grad()
+        inputs = batch.to(device)
+        outputs, loss = model(inputs, inputs)
+        print(loss)
+        loss.backward()
+        optimizer.step()
+        scheduler.step()
+
+torch.save(model.state_dict(), "finetuned_gpt.pth")
