@@ -11,7 +11,7 @@ import json
 import math
 import inspect
 from dataclasses import dataclass
-from typing import List, Tuple, Any
+from typing import List, Tuple
 
 import torch
 import torch.nn as nn
@@ -381,3 +381,38 @@ class GPT(nn.Module):
             # append sampled index to the running sequence and continue
             idx = torch.cat((idx, idx_next), dim=1)
         return idx
+
+    def generate_top_k(self, idx, max_new_tokens, temperature=1.0, top_k=None, samples=10):
+        """
+        Take a conditioning sequence of indices idx (LongTensor of shape (b,t)) and complete
+        the sequence max_new_tokens times, feeding the predictions back into the model each time.
+        Most likely you'll want to make sure to be in model.eval() mode of operation for this.
+        """
+        idx_samples = {i: idx for i in range(samples)}
+        out_probs = torch.empty(size=(samples, max_new_tokens, self.config.vocab_size if top_k is None else top_k), device=idx.device)
+        tokens = torch.empty(size=(samples, max_new_tokens, self.config.vocab_size if top_k is None else top_k), dtype=torch.long, device=idx.device)
+
+        for i, idx in idx_samples.items():
+            # if the sequence context is growing too long we must crop it at block_size
+            for tk in range(max_new_tokens):
+                idx_cond = idx if idx.size(1) <= self.config.block_size else idx[:, -self.config.block_size:]
+                # forward the model to get the logits for the index in the sequence
+                logits, _ = self(idx_cond)
+                # pluck the logits at the final step and scale by desired temperature
+                logits = logits[:, -1, :] / temperature
+                # optionally crop the logits to only the top k options
+                if top_k is not None:
+                    v, top_k_idx = torch.topk(logits, min(top_k, logits.size(-1)))
+                    logits[logits < v[:, [-1]]] = -float('Inf')
+                    out_probs[i, tk,:] = F.softmax(v, dim=-1)
+                    tokens[i, tk, :] = top_k_idx
+                else:
+                    out_probs[i,tk,:] = F.softmax(logits, dim=-1)
+                    tokens[i, tk, :] = torch.arange(logits.size(-1))
+                # apply softmax to convert logits to (normalized) probabilities
+                probs = F.softmax(logits, dim=-1)
+                # sample from the distribution
+                idx_next = torch.multinomial(probs, num_samples=1)
+                # append sampled index to the running sequence and continue
+                idx_samples[i] = torch.cat((idx, idx_next), dim=1)
+        return idx_samples, out_probs, tokens

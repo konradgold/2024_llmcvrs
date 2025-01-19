@@ -4,7 +4,6 @@ from bertopic.representation import OpenAI
 from dotenv import find_dotenv, load_dotenv
 import openai
 from sentence_transformers import SentenceTransformer
-import matplotlib.pyplot as plt
 
 model = SentenceTransformer("Alibaba-NLP/gte-base-en-v1.5", trust_remote_code=True)
 load_dotenv(find_dotenv())

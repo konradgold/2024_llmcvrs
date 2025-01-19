@@ -1,12 +1,6 @@
-import numpy as np
-import matplotlib.pylab as plt
-from typing import List
 from dotenv import load_dotenv
-import torch
 from nanoGPT import SampleMutableModel
-import openai
 from nanoGPT.prune_model import prune_model
-import random
 import wandb
 from eval import eval_similarity
 import json

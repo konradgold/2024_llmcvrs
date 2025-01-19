@@ -106,16 +106,18 @@ class SampleMutableModel:
         # Load existing content if the file already exists
         self.write_output(output)
 
-    def generate_top_k(self, itext: str, samples: int):
+    def generate_top_k_samples(self, itext: str, samples: int):
         text = self._get_text(itext)
         out = dict()
+        probs = torch.tensor([], device=self.device)
+        tokens = torch.tensor([], device=self.device)
         for s in text:
             start_ids = self.encode(s)
             x = (torch.tensor(start_ids, dtype=torch.long, device=self.device)[None, ...])
             with torch.no_grad():
                 with self.ctx:
-                    out = self.model.generate_top_k(x, temperature=self.temperature, top_k=self.top_k, samples=samples)
-        return out
+                    out, probs, tokens = self.model.generate_top_k(x, max_new_tokens=self.max_new_tokens, temperature=self.temperature, samples=samples)
+        return out, probs, tokens
     
     def generate_output(self, itext: str) -> list:
         text = self._get_text(itext)

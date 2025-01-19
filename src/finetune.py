@@ -32,7 +32,7 @@ class CustomDataset(Dataset):
 
 
 # Path to the JSON file
-file_path = 'lernerstories/data/generated_stories.json'
+file_path = 'lernerstories/data/generated_instructions.json'
 
 # Load the JSON data
 with open(file_path, 'r') as file:
@@ -68,4 +68,34 @@ for epoch in range(epochs):
         optimizer.step()
         scheduler.step()
 
-torch.save(model.state_dict(), "finetuned_gpt.pth")
+torch.save(model.state_dict(), "finetuned_gpt.pt")
+
+def finetune(model, model_orig, dataloader=dataloader, epochs=10):
+    for param in model.transformer.wte.parameters():
+        param.requires_grad = False
+    model_orig.eval()
+    for param in model_orig.parameters():
+        param.requires_grad = False
+    optimizer = AdamW(model.parameters(), lr=1e-5)
+    scheduler = get_scheduler("linear", optimizer=optimizer, num_warmup_steps=500, num_training_steps=len(dataloader)*epochs)
+    model.train()
+    for _ in range(epochs):
+        for batch in dataloader:
+            optimizer.zero_grad()
+            inputs = batch.to(device)
+            logits, loss = model(inputs, inputs)
+            print(loss)
+            if model_orig is not None:
+                logits_orig, _ = model_orig(inputs, inputs)
+                kl_loss = torch.nn.functional.kl_div(
+                    input=torch.nn.functional.softmax(logits, dim=-1),
+                    target=torch.nn.functional.softmax(logits_orig, dim=-1),
+                    reduction="batchmean"
+                )
+                loss += kl_loss * 0.01
+            loss.backward()
+            optimizer.step()
+            scheduler.step()
+    return model
+
+    

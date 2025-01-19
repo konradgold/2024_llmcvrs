@@ -422,7 +422,7 @@ def main(args, shuffle_data=True, model=None):
             sample = {}
             sample["sub_label"] = sub
             sample["obj_label"] = obj
-            # sobstitute all sentences with a standard template
+            # substitute all sentences with a standard template
             sample["masked_sentences"] = parse_template(
                 args.template.strip(), sample["sub_label"].strip(), base.MASK
             )
