@@ -1,8 +1,7 @@
 import json
 import tiktoken
 import torch
-from nanoGPT.sample_model import SampleMutableModel
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 from torch.optim import AdamW
 from transformers import get_scheduler
 
@@ -32,7 +31,7 @@ class CustomDataset(Dataset):
 
 
 # Path to the JSON file
-file_path = 'lernerstories/data/generated_instructions.json'
+file_path = 'lernerstories/data/generated_stories.json'
 
 # Load the JSON data
 with open(file_path, 'r') as file:
@@ -43,34 +42,11 @@ for lists in data.values():
     texts += [text["sad"][0] for text in lists]
     texts += [text["open"][0] for text in lists]
 
-dataset = CustomDataset(texts)
-dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
 
 
-sample_model = SampleMutableModel()
-model = sample_model.model
+#torch.save(model.state_dict(), "finetuned_gpt.pt")
 
-for param in model.transformer.wte.parameters():
-    param.requires_grad = False
-
-optimizer = AdamW(model.parameters(), lr=1e-5)
-scheduler = get_scheduler("linear", optimizer=optimizer, num_warmup_steps=500, num_training_steps=len(dataloader)*epochs)
-
-
-model.train()
-for epoch in range(epochs):
-    for batch in dataloader:
-        optimizer.zero_grad()
-        inputs = batch.to(device)
-        outputs, loss = model(inputs, inputs)
-        print(loss)
-        loss.backward()
-        optimizer.step()
-        scheduler.step()
-
-torch.save(model.state_dict(), "finetuned_gpt.pt")
-
-def finetune(model, model_orig, dataloader=dataloader, epochs=10):
+def finetune(model, model_orig, dataloader, epochs=10):
     for param in model.transformer.wte.parameters():
         param.requires_grad = False
     model_orig.eval()
@@ -84,7 +60,6 @@ def finetune(model, model_orig, dataloader=dataloader, epochs=10):
             optimizer.zero_grad()
             inputs = batch.to(device)
             logits, loss = model(inputs, inputs)
-            print(loss)
             if model_orig is not None:
                 logits_orig, _ = model_orig(inputs, inputs)
                 kl_loss = torch.nn.functional.kl_div(

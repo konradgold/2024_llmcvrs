@@ -58,6 +58,9 @@ for query, truth in tqdm.tqdm(queries):
         for i, o in out.items():
             predictions.append(model.decode(o.tolist()[0]).replace(query, ""))
         sim = similarity_calc.calculate_similarity(query, probs, predictions, truth)
+        sim["query"] = query
+        sim["truth"] = truth
+        sim["predictions"] = predictions
         sim_results.append(sim)
         for pred in predictions:
             if truth in pred:
