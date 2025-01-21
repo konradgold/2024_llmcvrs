@@ -117,7 +117,7 @@ def objective_func(model, X, finetune_bool=False):
         # 3) Append
         results.append([y_value])
 
-    return torch.tensor(results, dtype=torch.float32)
+    return torch.tensor(results, dtype=torch.float32), model
 
 
 ## Nr 1: measure language model performance
@@ -125,7 +125,7 @@ NUM_INIT = 5
 bounds = torch.stack([torch.zeros(12), torch.ones(12)*0.2])
 
 X_init = torch.rand(NUM_INIT, 12)*0.2  # random points in [0,0.2]
-Y_init = objective_func(model, X_init)       # evaluate your expensive function
+Y_init, model = objective_func(model, X_init)       # evaluate your expensive function
 
 print(Y_init)
 
@@ -136,7 +136,7 @@ mll = ExactMarginalLogLikelihood(gp.likelihood, gp)
 # Fit the GP hyperparameters
 fit_gpytorch_mll(mll)
 
-N_ITER = 10  # how many BO steps you want
+N_ITER = 5  # how many BO steps you want
 
 for i in range(N_ITER):
     # Create the acquisition function
@@ -157,12 +157,12 @@ for i in range(N_ITER):
     
     # 'candidate' now is shape [1, 12], the recommended next point
     # Evaluate it
-    new_y = objective_func(model, candidate, finetune_bool=True)
+    new_y, model = objective_func(model, candidate, finetune_bool=True)
     
     # Augment our data
     X_init = torch.cat([X_init, candidate], dim=0)  # now shape [(5 + i+1), 12]
     if new_y > Y_init.max():
-        torch.save(model.state_dict(), "finetuned_gpt_020.pt")
+        torch.save(model, "finetuned_gpt_020.pt")
         
     Y_init = torch.cat([Y_init, new_y], dim=0)      # shape [(5 + i+1), 1]
     

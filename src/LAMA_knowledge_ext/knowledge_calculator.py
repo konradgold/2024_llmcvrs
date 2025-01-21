@@ -73,28 +73,33 @@ class SimilarityCalculator:
         loss /= len(truth_idx)
         return loss
     
-    def _llm_judgement(self, reference, potential_answers):
+    def _llm_judgement(self, reference, potential_answers, consider_top_k=3):
         # LLM judgement
         llm_judgement = 0.
-        for pot in potential_answers:
+        for pot in potential_answers[:consider_top_k]:
             prompt = f"""
             Imagine you are an expert teacher. You are asked to judge if the student's sentence is correct. The student's sentence is:
             {pot}
             The expected sentence is:
             {reference}
-            On a scale from 1 to 5, how correct is the student's sentence?
+            Is the answer correct?
             Examples: 
-            1: The student's sentence is completely wrong. E.g. "The sky is green." "The sky is blue." -> 1
-            4: The student's sentence is mostly correct, but has some mistakes. E.g. "Angela Merkel was born in germany." "Angela Merkel was born in Hamburg." -> 4
+            1: The student's sentence is completely wrong. E.g. "The sky is green." "The sky is blue." -> 0
+            2: The student's sentence is correct, even though it is not exactly the expected answer. E.g. "Angela Merkel was born in germany." "Angela Merkel was born in Hamburg." -> 1
+            3: The student's sentence is incorrect, even if it is close to the expected answer. E.g. "Angela Merkel was born in 1956." "Angela Merkel was born in 1966." -> 0
+            Only return 0 or 1.
             """
-            response = self.client.completions.create(
+            response = self.client.chat.completions.create(
                 model="gemma-2-9b-it",
-                prompt=prompt,
+                messages=[
+                    {"role": "system", "content": "You are an expert evaluator. Your task is to evaluate the accuracy of the following statement given an expected statement. Respect the output format that will be given to you."},
+                    {"role": "user", "content": prompt},
+                ],
             )
-            judgement_score = response.choices[0].text if response.choices is not None else "0"
+            judgement_score = response.choices[0].message.content if response.choices is not None else "0"
             judgement_score = re.search(r'\d+', judgement_score) if re.search(r'\d+', judgement_score) is not None else [0.]
             assert judgement_score is not None, f"Expected not None, got {judgement_score}"
             llm_judgement += float(judgement_score[0])
-        llm_judgement /= len(potential_answers)
+        llm_judgement /= consider_top_k
         return llm_judgement
 
