@@ -7,7 +7,7 @@ import torch
 
 queries = []
 
-nr_queries = 2
+nr_queries = 65
 
 with open("LAMA_knowledge_ext/data/ConceptNet/test.json", "r") as file:
     statements = json.load(file)
@@ -45,7 +45,7 @@ print(len(queries))
 sm_model = SampleMutableModel()
 sm_model.model.load_state_dict(torch.load('finetuned_gpt_IT.pt', weights_only=False))
 sm_model.top_k = 10
-sm_model.max_new_tokens = 10
+sm_model.max_new_tokens = 5
 knowledge = []
 similarity_calc = SimilarityCalculator()
 found, not_found = 0, 0
@@ -55,16 +55,12 @@ for query, truth in tqdm.tqdm(queries):
         out, probs, tokens = sm_model.generate_top_k_samples(query, 5)
         predictions = []
         for i, o in out.items():
-            print(o.tolist())
             response: str = sm_model.decode(o.tolist()[0]).replace(query, "")
-            print(f"Response: {response}")
             predictions.append(response.replace(query, ""))
-        print(predictions)
         sim = similarity_calc.calculate_similarity(query, probs, predictions, truth, use_llm=True)
         sim["query"] = query
         sim["truth"] = truth
         sim["predictions"] = predictions
-        print(sim)
         sim_results.append(sim)
         for pred in predictions:
             if truth in pred:
