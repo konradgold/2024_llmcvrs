@@ -122,9 +122,9 @@ def objective_func(model, X, finetune_bool=False):
 
 ## Nr 1: measure language model performance
 NUM_INIT = 5
-bounds = torch.stack([torch.zeros(12), torch.ones(12)*0.2])
+bounds = torch.stack([torch.zeros(12), torch.ones(12)*0.2]) + 0.2
 
-X_init = torch.rand(NUM_INIT, 12)*0.2  # random points in [0,0.2]
+X_init = torch.rand(NUM_INIT, 12)*0.2 + 0.2  # random points in [0,0.2]
 Y_init, model = objective_func(model, X_init)       # evaluate your expensive function
 
 print(Y_init)
@@ -162,7 +162,7 @@ for i in range(N_ITER):
     # Augment our data
     X_init = torch.cat([X_init, candidate], dim=0)  # now shape [(5 + i+1), 12]
     if new_y > Y_init.max():
-        torch.save(model, "finetuned_gpt_020.pt")
+        torch.save(model, "finetuned_gpt_040.pt")
         
     Y_init = torch.cat([Y_init, new_y], dim=0)      # shape [(5 + i+1), 1]
     
@@ -171,5 +171,4 @@ for i in range(N_ITER):
     mll = ExactMarginalLogLikelihood(gp.likelihood, gp)
     fit_gpytorch_mll(mll)
 
-    
     print(f"Iteration {i+1}: best Y so far = {Y_init.max().item():.3f}")

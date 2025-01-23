@@ -14,33 +14,24 @@ with open("LAMA_knowledge_ext/data/ConceptNet/test.json", "r") as file:
 
 querie_new = [(q["masked_sentences"][0].split("[MASK]")[0], q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
-print(querie_new[0])
-print(len(querie_new))
 
 with open("LAMA_knowledge_ext/data/Google_RE/date_of_birth_test.json", "r") as file:
     statements = json.load(file)
 
 querie_new = [(f"{q["sub_label"]} was born in", q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
-print(querie_new[0])
-print(len(querie_new))
 
 with open("LAMA_knowledge_ext/data/Google_RE/place_of_birth_test.json", "r") as file:
     statements = json.load(file)
 
 querie_new = [(f"{q["sub_label"]} was born in", q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
-print(querie_new[0])
-print(len(querie_new))
 
 with open("LAMA_knowledge_ext/data/Google_RE/place_of_death_test.json", "r") as file:
     statements = json.load(file)
 
 querie_new = [(f"{q["sub_label"]} died in", q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
-
-print(querie_new[0])
-print(len(queries))
 
 sm_model = SampleMutableModel()
 sm_model.model.load_state_dict(torch.load('finetuned_gpt_IT.pt', weights_only=False))
@@ -84,6 +75,3 @@ with open("LAMA_knowledge_ext/similarity_IT.json", "w") as file:
     json.dump(sim_results, file, indent=4)
 
 print(f"Found: {found}, Not Found: {not_found}")
-
-
-
