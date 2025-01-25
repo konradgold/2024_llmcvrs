@@ -2,9 +2,6 @@
 
 #!/bin/bash
 
-# Define the script name
-SCRIPT_NAME="reduce_model_weight.py"
-
 # First set of parameters
 N_ITER1=5
 WIDTH1=0.2
@@ -23,8 +20,6 @@ python3 reduce_model_weight.py --n_iter $N_ITER2 --width $WIDTH2 --min $MIN2
 
 echo "Execution completed!"
 
-
-SCRIPT_NAME="LAMA_knowledge_ext.get_knowledge"
 
 # First set of parameters
 NR_QUERIES1=200
