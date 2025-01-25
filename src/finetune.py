@@ -30,36 +30,20 @@ class CustomDataset(Dataset):
         return token_pad
 
 
-# Path to the JSON file
-file_path = 'lernerstories/data/generated_stories.json'
-
-# Load the JSON data
-with open(file_path, 'r') as file:
-    data = json.load(file)
-texts = []
-for lists in data.values():
-    texts += [text["happy"][0] for text in lists]
-    texts += [text["sad"][0] for text in lists]
-    texts += [text["open"][0] for text in lists]
-
-
-
-#torch.save(model.state_dict(), "finetuned_gpt.pt")
-
 def finetune(model, model_orig, dataloader, epochs=10):
     for param in model.transformer.wte.parameters():
         param.requires_grad = False
     model_orig.eval()
     for param in model_orig.parameters():
         param.requires_grad = False
-    optimizer = AdamW(model.parameters(), lr=1e-5)
+    optimizer = AdamW(model.parameters(), lr=1e-1)
     scheduler = get_scheduler("linear", optimizer=optimizer, num_warmup_steps=500, num_training_steps=len(dataloader)*epochs)
     model.train()
     for _ in range(epochs):
         for batch in dataloader:
             optimizer.zero_grad()
             inputs = batch.to(device)
-            logits, loss = model(inputs, inputs)
+            logits, loss = model(inputs[:-1], inputs[1:])
             if model_orig is not None:
                 logits_orig, _ = model_orig(inputs, inputs)
                 kl_loss = torch.nn.functional.kl_div(

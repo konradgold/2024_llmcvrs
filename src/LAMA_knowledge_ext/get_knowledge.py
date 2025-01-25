@@ -4,10 +4,24 @@ from nanoGPT.sample_model import SampleMutableModel
 import random
 import tqdm
 import torch
+import argparse
+
+parser = argparse.ArgumentParser(description="Extract knowledge using a fine-tuned GPT model.")
+parser.add_argument("--nr_queries", type=int, default=65, help="Number of queries to sample from each dataset")
+parser.add_argument("--model_path", type=str, default='models/finetuned_gpt_040.pt', help="Path to the fine-tuned GPT model")
+parser.add_argument("--output_knowledge", type=str, default='LAMA_knowledge_ext/results/knowledge_040.json', help="Path to save the extracted knowledge")
+parser.add_argument("--output_similarity", type=str, default='LAMA_knowledge_ext/results/similarity_040.json', help="Path to save the similarity results")
+parser.add_argument("--use_llm", action="store_true" ,help="Whether to use the LLM for similarity calculation")
+
+args = parser.parse_args()
+nr_queries = args.nr_queries
+model_path = args.model_path
+output_knowledge = args.output_knowledge
+output_similarity = args.output_similarity
+use_llm = args.use_llm
 
 queries = []
 
-nr_queries = 65
 
 with open("LAMA_knowledge_ext/data/ConceptNet/test.json", "r") as file:
     statements = json.load(file)
@@ -34,7 +48,7 @@ querie_new = [(f"{q["sub_label"]} died in", q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 sm_model = SampleMutableModel()
-sm_model.model.load_state_dict(torch.load('finetuned_gpt_IT.pt', weights_only=False))
+sm_model.model = torch.load(model_path, weights_only=False)
 sm_model.top_k = 10
 sm_model.max_new_tokens = 5
 knowledge = []
@@ -48,7 +62,7 @@ for query, truth in tqdm.tqdm(queries):
         for i, o in out.items():
             response: str = sm_model.decode(o.tolist()[0]).replace(query, "")
             predictions.append(response.replace(query, ""))
-        sim = similarity_calc.calculate_similarity(query, probs, predictions, truth, use_llm=True)
+        sim = similarity_calc.calculate_similarity(query, probs, predictions, truth, use_llm=use_llm)
         sim["query"] = query
         sim["truth"] = truth
         sim["predictions"] = predictions
@@ -68,10 +82,10 @@ for query, truth in tqdm.tqdm(queries):
         print(e)
         print(f"Failed for {query + truth}")
     
-with open("LAMA_knowledge_ext/knowledge_IT.json", "w") as file:
+with open(output_knowledge, "w") as file:
     json.dump(knowledge, file, indent=4)
 
-with open("LAMA_knowledge_ext/similarity_IT.json", "w") as file:
+with open(output_similarity, "w") as file:
     json.dump(sim_results, file, indent=4)
 
 print(f"Found: {found}, Not Found: {not_found}")

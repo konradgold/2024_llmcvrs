@@ -69,7 +69,7 @@ text_storer = StoreText()
 count_scraps = 0.
 count_accepted = 0.
 threshold = 0.8
-FRACTION = 0.4
+FRACTION = 0.1
 for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', block_size=100, device_type='cpu'):
     count_scraps += 1.
     if count_accepted/count_scraps > FRACTION + 3e-2:

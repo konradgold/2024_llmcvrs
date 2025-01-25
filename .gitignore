@@ -8,3 +8,5 @@ src/.env
 *.zip
 *.gz
 src/wandb/*
+*.pt
+*.pyc

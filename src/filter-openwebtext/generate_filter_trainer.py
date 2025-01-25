@@ -1,6 +1,6 @@
 import json
 
-file_path = "LAMA_knowledge_ext/similarity_IT.json"
+file_path = "LAMA_knowledge_ext/results/similarity_0.05.json"
 # Function to load JSON data from a file
 
 with open(file_path, 'r') as file:
