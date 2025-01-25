@@ -30,7 +30,7 @@ class SampleMutableModel:
     compile = True # use PyTorch 2.0 to compile the model to be faster
     model: torch.nn.Module
 
-    def __init__(self, init_from: str = 'gpt2', config_file: str | None = None, store_activations: bool = False):
+    def __init__(self, init_from: str = 'gpt2', config_file: str | None = None, store_activations: bool = False, model: torch.nn.Module | None = None):
         if config_file:
             with open(config_file, 'r') as f:
                 config = yaml.safe_load(f)
@@ -59,8 +59,11 @@ class SampleMutableModel:
                 if k.startswith(unwanted_prefix):
                     state_dict[k[len(unwanted_prefix):]] = state_dict.pop(k)
             self.model.load_state_dict(state_dict)
-        elif init_from.startswith('gpt2'):
+        elif init_from.startswith('gpt2') and model is None:
             self.model = GPT.from_pretrained(init_from, dict(dropout=0.0))
+        elif model is not None:
+            self.model = model
+        
 
         self.model.eval()
         self.model.to(self.device)

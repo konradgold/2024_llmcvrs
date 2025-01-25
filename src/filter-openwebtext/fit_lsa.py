@@ -6,9 +6,20 @@ import tiktoken
 import json
 import torch
 import os
+import argparse
 
 enc = tiktoken.get_encoding("gpt2")
 vocab_size = enc.max_token_value + 1 
+
+parser = argparse.ArgumentParser(description="Extract dataset using a fine-tuned GPTs model.")
+parser.add_argument("--sentences", type=str, default="filter-openwebtext/knowledge_texts.json", help="Number of queries to sample from each dataset")
+parser.add_argument("--dataset_store", type=str, default='filter-openwebtext/filtered_texts.json', help="Path to the fine-tuned GPT model")
+parser.add_argument("--fraction", type=int, default=0.1)
+
+args = parser.parse_args()
+sentences_path = args.sentences
+dataset_store = args.dataset_store
+FRACTION = args.fraction
 
 class StoreText:
     def __init__(self, path="filtered_texts.json"):
@@ -31,11 +42,9 @@ vectorizer = TfidfVectorizer(
     analyzer=lambda x: x, # Pass pre-tokenized chunks as lists of tokens
     lowercase=False  # Tokens are already processed
 )
-
-file_path = "filter-openwebtext/knowledge_texts.json"
 # Function to load JSON data from a file
 
-with open(file_path, 'r') as file:
+with open(sentences_path, 'r') as file:
     data = json.load(file)
 
 fit_set = [enc.encode(s) for s in data]
@@ -65,12 +74,11 @@ def iterate_blocks(split, data_dir, block_size, device_type):
             x = x.to(device)
         yield x
 
-text_storer = StoreText()
+text_storer = StoreText(dataset_store)
 count_scraps = 0.
 count_accepted = 0.
 threshold = 0.8
-FRACTION = 0.1
-for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', block_size=100, device_type='cpu'):
+for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', block_size=100, device_type="cuda" if torch.cuda.is_available() else "cpu"):
     count_scraps += 1.
     if count_accepted/count_scraps > FRACTION + 3e-2:
         threshold += 1e-3

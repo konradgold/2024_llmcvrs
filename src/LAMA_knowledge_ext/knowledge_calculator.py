@@ -16,6 +16,7 @@ class SimilarityCalculator:
         self.rogue = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
         self.loss = torch.nn.CrossEntropyLoss()
         self.client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def calculate_similarity(self, query, probs, predictions, truth, use_llm=False):
         """
@@ -66,8 +67,7 @@ class SimilarityCalculator:
         n, m = probs.shape[0], probs.shape[1]
         probs = probs.view(n * m, -1)
         for i in range(len(truth_idx)):
-            t_idx = torch.tensor([truth_idx[i]], dtype=torch.long)
-            truth_idx = torch.tensor([t_idx] * (n * m), dtype=torch.long)
+            truth_idx = torch.tensor([truth_idx[i]] * (n * m), dtype=torch.long, device = self.device)
             loss += self.loss(probs, truth_idx).item()
         assert len(truth_idx) > 0, f"Expected length > 0, got {len(truth_idx)}"
         loss /= len(truth_idx)

@@ -50,8 +50,7 @@ querie_new = [(f'{q["sub_label"]} died in', q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-sm_model = SampleMutableModel()
-sm_model.model = torch.load(model_path, weights_only=False, map_location=device)
+sm_model = SampleMutableModel(model=torch.load(model_path, weights_only=False, map_location=device))
 sm_model.top_k = 10
 sm_model.max_new_tokens = 5
 knowledge = []
@@ -60,6 +59,7 @@ found, not_found = 0, 0
 sim_results = []
 for query, truth in tqdm.tqdm(queries):
     try:
+        assert len(query) > 0 and len(truth) > 0
         out, probs, tokens = sm_model.generate_top_k_samples(query, 5)
         predictions = []
         for i, o in out.items():

@@ -50,10 +50,24 @@ python3 -m LAMA_knowledge_ext.get_knowledge \
   --output_similarity $OUTPUT_SIMILARITY2 \
   --use_llm
 
+OUTPUT_SENTENCES1="filter_openwebtext/filter_folder/knowledge0.05.json"
+OUTPUT_SENTENCES2="filter_openwebtext/filter_folder/knowledge0.2.json"
 
-python3 -m filter-openwebtext.generate_filter_trainer
-python3 -m filter-openwebtext.fit_lsa
+python3 -m filter-openwebtext.generate_filter_trainer \
+  --similarity_path $OUTPUT_SIMILARITY1 \
+  --output_sentences  $OUTPUT_SENTENCES1
 
+python3 -m filter-openwebtext.generate_filter_trainer \
+  --similarity_path $OUTPUT_SIMILARITY2 \
+  --output_sentences  $OUTPUT_SENTENCES2
+
+python3 -m filter-openwebtext.fit_lsa \
+  --sentences $OUTPUT_SENTENCES1 \
+  --dataset_store $OUTPUT_STORE1
+
+python3 -m filter-openwebtext.fit_lsa \
+  --sentences $OUTPUT_SENTENCES2 \
+  --dataset_store $OUTPUT_STORE2
 #echo "Execution completed! Final script to run is train_model.py"
 
 #python3 train_model.py
