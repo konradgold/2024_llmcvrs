@@ -8,8 +8,8 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Extract knowledge using a fine-tuned GPT model.")
 parser.add_argument("--nr_queries", type=int, default=65, help="Number of queries to sample from each dataset")
-parser.add_argument("--model_path", type=str, default='models/finetuned_gpt_040.pt', help="Path to the fine-tuned GPT model")
-parser.add_argument("--output_knowledge", type=str, default='LAMA_knowledge_ext/results/knowledge_040.json', help="Path to save the extracted knowledge")
+parser.add_argument("--model_path", type=str, default='models/finetuned_gpt_0.0.pt', help="Path to the fine-tuned GPT model")
+parser.add_argument("--output_knowledge", type=str, default='LAMA_knowledge_ext/results/knowledge_0.0.json', help="Path to save the extracted knowledge")
 parser.add_argument("--output_similarity", type=str, default='LAMA_knowledge_ext/results/similarity_040.json', help="Path to save the similarity results")
 parser.add_argument("--use_llm", action="store_true" ,help="Whether to use the LLM for similarity calculation")
 
