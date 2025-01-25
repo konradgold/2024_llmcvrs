@@ -16,9 +16,8 @@ ds = load_dataset("mintujupally/ROCStories")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 sm_model = SampleMutableModel()
-model = sm_model.model
-model_orig = copy.deepcopy(model)
-model.to(device)
+print(sm_model.device)
+model_orig = copy.deepcopy(sm_model.model)
 model_orig.to(device)
 
 parser = argparse.ArgumentParser(description='Reduce model weight using Bayesian Optimization.')
@@ -34,12 +33,13 @@ min_reduction = args.min
 NUM_INIT = 5
 bounds = torch.stack([torch.zeros(12), torch.ones(12)*width]) + min_reduction
 
-X_init = torch.rand(NUM_INIT, 12)*width + min_reduction  # random points in [0,0.2]
-Y_init, model = objective_func(model, X_init, model_orig=model_orig)       # evaluate your expensive function
+bounds.to(device)
 
-print(Y_init)
-print(model)
-torch.save(model, f"models/finetuned_gpt_{min_reduction}.pt")
+X_init = torch.rand(NUM_INIT, 12, dtype=torch.double)*width + min_reduction  # random points in [0,0.2]
+X_init.to(device)
+Y_init, model = objective_func(sm_model.model, X_init, model_orig=model_orig, finetune_bool=False)       # evaluate your expensive function
+Y_init = Y_init.to(device)
+#torch.save(model, f"models/finetuned_gpt_{min_reduction}.pt")
 
 
 gp = SingleTaskGP(X_init, Y_init)
@@ -74,7 +74,8 @@ for i in range(N_ITER):
     
     # 'candidate' now is shape [1, 12], the recommended next point
     # Evaluate it
-    new_y, model = objective_func(model, candidate, finetune_bool=True)
+    new_y, model = objective_func(model, candidate, finetune_bool=False)
+    new_y = new_y.to(device)
     
     # Augment our data
     X_init = torch.cat([X_init, candidate], dim=0)  # now shape [(5 + i+1), 12]

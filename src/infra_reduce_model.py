@@ -8,7 +8,9 @@ from openai import OpenAI
 import random
 from torch.utils.data import DataLoader
 from datasets import load_dataset
+import dotenv
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class TextDataLoader:
     """
@@ -73,8 +75,11 @@ def objective_func(model, X, finetune_bool=False, model_orig=None):
     """
     # We'll store results in a Python list, then stack into a torch.Tensor
     results = []
-    client = OpenAI(base_url="http://127.0.0.1:1234/v1", api_key="lm-studio")
+    dotenv.load_dotenv(dotenv.find_dotenv())
+
+    client = OpenAI()
     best_model = copy.deepcopy(model)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     for x_row in X:
         # Convert to Python float list if needed
         x_list = x_row.tolist()  # [12 floats]
@@ -106,4 +111,4 @@ def objective_func(model, X, finetune_bool=False, model_orig=None):
             best_model = copy.deepcopy(model)
         results.append(y_value)
         
-    return torch.tensor([results], dtype=torch.float32), best_model
+    return torch.tensor(results, dtype=torch.double).unsqueeze(-1), best_model

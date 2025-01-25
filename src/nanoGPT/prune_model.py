@@ -83,6 +83,8 @@ def prune_model(model, prune_percent, activation_based=False):
             pp = prune_percent
         new_c_fc, new_c_proj, new_size = prune_neuron_pairs(
             mlp, pp, activation_based)
+
+        new_c_fc.to(device)
             
         mlp.c_fc = new_c_fc
         mlp.c_proj = new_c_proj

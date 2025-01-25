@@ -11,6 +11,7 @@ from torch.nn import functional as F
 from torch.amp.autocast_mode import autocast
 from typing import List
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class SampleMutableModel:
     activations = {}
@@ -24,9 +25,9 @@ class SampleMutableModel:
     temperature = 0.8 # 1.0 = no change, < 1.0 = less random, > 1.0 = more random, in predictions
     top_k = 200 # retain only the top_k most likely tokens, clamp others to have 0 probability
     seed = 1337
-    device = 'cpu' # examples: 'cpu', 'cuda', 'cuda:0', 'cuda:1', etc.
+    device = "cuda" if torch.cuda.is_available() else "cpu" # examples: 'cpu', 'cuda', 'cuda:0', 'cuda:1', etc.
     dtype = 'bfloat16' if torch.cuda.is_available() and torch.cuda.is_bf16_supported() else 'float16' # 'float32' or 'bfloat16' or 'float16'
-    compile = False # use PyTorch 2.0 to compile the model to be faster
+    compile = True # use PyTorch 2.0 to compile the model to be faster
     model: torch.nn.Module
 
     def __init__(self, init_from: str = 'gpt2', config_file: str | None = None, store_activations: bool = False):
@@ -124,7 +125,7 @@ class SampleMutableModel:
         output = []
         for s in text:
             start_ids = self.encode(s)
-            x = (torch.tensor(start_ids, dtype=torch.long, device=self.device)[None, ...])
+            x = torch.tensor(start_ids, dtype=torch.long, device=device)[None, ...]
             with torch.no_grad():
                 with self.ctx:
                     y = self.model.generate(x, self.max_new_tokens, temperature=self.temperature, top_k=self.top_k)

@@ -33,9 +33,10 @@ class CustomDataset(Dataset):
 def finetune(model, model_orig, dataloader, epochs=10):
     for param in model.transformer.wte.parameters():
         param.requires_grad = False
-    model_orig.eval()
-    for param in model_orig.parameters():
-        param.requires_grad = False
+    if model_orig is not None:
+        model_orig.eval() 
+        for param in model_orig.parameters():
+            param.requires_grad = False
     optimizer = AdamW(model.parameters(), lr=1e-1)
     scheduler = get_scheduler("linear", optimizer=optimizer, num_warmup_steps=500, num_training_steps=len(dataloader)*epochs)
     model.train()
@@ -45,7 +46,7 @@ def finetune(model, model_orig, dataloader, epochs=10):
             inputs = batch.to(device)
             logits, loss = model(inputs[:-1], inputs[1:])
             if model_orig is not None:
-                logits_orig, _ = model_orig(inputs, inputs)
+                logits_orig, _ = model_orig(inputs[:-1], inputs[1:])
                 kl_loss = torch.nn.functional.kl_div(
                     input=torch.nn.functional.softmax(logits, dim=-1),
                     target=torch.nn.functional.softmax(logits_orig, dim=-1),
