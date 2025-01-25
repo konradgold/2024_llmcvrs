@@ -1,7 +1,6 @@
 
 
 #!/bin/bash
-
 # First set of parameters
 N_ITER1=5
 WIDTH1=0.2
@@ -41,7 +40,7 @@ python3 -m LAMA_knowledge_ext.get_knowledge \
   --model_path $MODEL_PATH1 \
   --output_knowledge $OUTPUT_KNOWLEDGE1 \
   --output_similarity $OUTPUT_SIMILARITY1 \
-  $( [ "$USE_LLM1" == true ] && echo "--use_llm" )
+  --use_llm
 
 echo "Running script with second set of parameters..."
 python3 -m LAMA_knowledge_ext.get_knowledge \
@@ -49,14 +48,14 @@ python3 -m LAMA_knowledge_ext.get_knowledge \
   --model_path $MODEL_PATH2 \
   --output_knowledge $OUTPUT_KNOWLEDGE2 \
   --output_similarity $OUTPUT_SIMILARITY2 \
-  $( [ "$USE_LLM2" == true ] && echo "--use_llm" )
+  --use_llm
 
 
 python3 -m filter-openwebtext.generate_filter_trainer
 python3 -m filter-openwebtext.fit_lsa
 
-echo "Execution completed! Final script to run is train_model.py"
+#echo "Execution completed! Final script to run is train_model.py"
 
-python3 train_model.py
+#python3 train_model.py
 
 echo "Execution completed!"

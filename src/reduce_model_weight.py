@@ -17,8 +17,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 sm_model = SampleMutableModel()
 model = sm_model.model
-state_dict = torch.load('finetuned_gpt_IT.pt', weights_only=False)
-model.load_state_dict(state_dict, strict=True)
 model_orig = copy.deepcopy(model)
 model.to(device)
 model_orig.to(device)
@@ -57,6 +55,7 @@ N_ITER = 5  # how many BO steps you want
 
 for i in range(N_ITER):
     model = copy.deepcopy(model_orig)
+    model.to(device)
     # Create the acquisition function
     # If we're *maximizing* f, "best_f" is the best Y we have so far
     best_f = Y_init.max().item()
