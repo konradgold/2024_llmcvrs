@@ -5,6 +5,8 @@ from openai import OpenAI
 from datasets import load_dataset
 from infra_reduce_model import evaluate_model, TextDataLoader
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 with open ("filter-openwebtext/knowledge_texts.json", "r") as file:
     data = json.load(file)
 
@@ -12,12 +14,13 @@ dataset = CustomDataset(data)
 
 model = torch.load("models/finetuned_gpt_0.05.pt", weights_only=False)
 
+
 for param in model.parameters():
     torch.nn.init.normal_(param)
 
 model_new = finetune(model, None, dataset, epochs=30)
 
-client = OpenAI(base_url="http://127.0.0.1:1234/v1", api_key="lm-studio")
+client = OpenAI()
 dataloader_validation = TextDataLoader(load_dataset("mintujupally/ROCStories", split="test")["text"])
 
 model.eval()

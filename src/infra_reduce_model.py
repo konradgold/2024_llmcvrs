@@ -53,7 +53,7 @@ Score: X
         for text in output:
             filled_prompt = prompt.format(text=text)
             response = client.chat.completions.create(
-                model="gemma-2-9b-it",
+                model="gpt-4o",
                 messages=[
                     {"role": "system", "content": "You are an expert language evaluator. Your task is to evaluate the grammatical accuracy and overall comprehensibility of the following text. Ignore the content or creativity of the text. Focus only on the grammar and coherence. Respect the output format that will be given to you."},
                     {"role": "user", "content": filled_prompt},
