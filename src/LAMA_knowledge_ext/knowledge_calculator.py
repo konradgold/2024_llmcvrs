@@ -5,17 +5,22 @@ from nltk.translate.bleu_score import sentence_bleu
 from openai import OpenAI
 import re
 import tiktoken
+from dotenv import load_dotenv, find_dotenv
 
 class SimilarityCalculator:
 
-    def __init__(self, model=None, tokenizer=None):
+    def __init__(self, model=None, tokenizer=None, local = False):
         self.model = model
         self.tokenizer = tokenizer
         enc = tiktoken.get_encoding("gpt2")
         self.encode = lambda s: enc.encode(s, allowed_special={"<|endoftext|>"})
         self.rogue = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
         self.loss = torch.nn.CrossEntropyLoss()
-        self.client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
+        if local:
+            self.client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
+        else:
+            load_dotenv(find_dotenv())
+            self.client = OpenAI()
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def calculate_similarity(self, query, probs, predictions, truth, use_llm=False):
@@ -90,7 +95,7 @@ class SimilarityCalculator:
             Only return 0 or 1.
             """
             response = self.client.chat.completions.create(
-                model="gemma-2-9b-it",
+                model="gpt-4o",
                 messages=[
                     {"role": "system", "content": "You are an expert evaluator. Your task is to evaluate the accuracy of the following statement given an expected statement. Respect the output format that will be given to you."},
                     {"role": "user", "content": prompt},

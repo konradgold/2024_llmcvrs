@@ -22,20 +22,44 @@ dataset_store = args.dataset_store
 FRACTION = args.fraction
 
 class StoreText:
-    def __init__(self, path="filtered_texts.json"):
+    def __init__(self, path="encoded_texts.bin", encoding="gpt2"):
+        """
+        Initialize the class with a binary file path and encoding type.
+        """
         self.texts = []
         self.path = path
+        self.encoder = tiktoken.get_encoding(encoding)
+
+        # Create the binary file if it doesn't exist
+        if not os.path.exists(self.path):
+            with open(self.path, 'wb') as f:
+                pass
+
+    def encode_text(self, text):
+        """
+        Encode the text using the specified encoder.
+        """
+        return self.encoder.encode_ordinary(text)
 
     def store_text(self, text):
+        """
+        Encode the text and append it to the binary file.
+        """
         self.texts.append(text)
-        if len(self.texts) % 100 == 0:
-            self.save(self.path)
+        if len(self.texts) >= 100:
+            encoded_arrays = [
+            np.array(self.encode_text(t), dtype=np.uint16) for t in self.texts
+            ]
+            with open(self.path, 'ab') as f:  # Open the file in append-binary mode
+                for encoded_array in encoded_arrays:
+                    encoded_array.tofile(f)
+            self.texts = []
 
     def save(self, path=None):
-        if path is None:
-            path = self.path
-        with open(path, 'w') as f:
-            json.dump(self.texts, f)
+        """
+        No-op for this implementation (binary file is updated incrementally).
+        """
+        pass
 
 vectorizer = TfidfVectorizer(
     max_features=vocab_size,  # Use the tokenizer's full vocabulary size
