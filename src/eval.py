@@ -5,13 +5,16 @@ from tqdm import tqdm
 import random
 
 EVAL_DS = "goodreads"
-
+wandb.login(
+    key = None,
+)
 wandb.init(
     project="llmcvrs2024",
     config={
         "dataset": EVAL_DS,
         "model": "GPT-2-small",
     }
+
 )
 
 def eval(model, data, prompt, select=0.1):

@@ -26,25 +26,25 @@ queries = []
 
 
 with open("LAMA_knowledge_ext/data/ConceptNet/test.json", "r") as file:
-    statements = json.load(file)
+    statements = [json.loads(line) for line in file]
 
 querie_new = [(q["masked_sentences"][0].split("[MASK]")[0], q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 with open("LAMA_knowledge_ext/data/Google_RE/date_of_birth_test.json", "r") as file:
-    statements = json.load(file)
+    statements = [json.loads(line) for line in file]
 
 querie_new = [(f'{q["sub_label"]} was born in', q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 with open("LAMA_knowledge_ext/data/Google_RE/place_of_birth_test.json", "r") as file:
-    statements = json.load(file)
+    statements = [json.loads(line) for line in file]
 
 querie_new = [(f'{q["sub_label"]} was born in', q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 with open("LAMA_knowledge_ext/data/Google_RE/place_of_death_test.json", "r") as file:
-    statements = json.load(file)
+    statements = [json.loads(line) for line in file]
 
 querie_new = [(f'{q["sub_label"]} died in', q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))

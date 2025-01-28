@@ -29,7 +29,7 @@ parser = argparse.ArgumentParser(description="Extract knowledge using a fine-tun
 parser.add_argument("--init_from", type=str, default="custom", help="Checkpoint or first training")
 parser.add_argument("--train_dataset", type=str, default='filter-openwebtext/filter_folder/train_0.2.bin', help="Path to the fine-tuned GPT model")
 parser.add_argument("--validation_dataset", type=str, default='nanoGPT/data/openwebtext/val.bin', help="Path to save the extracted knowledge")
-parser.add_argument("--output_dir", type=str, default='out', help="Path to save the similarity results")
+parser.add_argument("--output_dir", type=str, default='out/out02', help="Path to save the similarity results")
 parser.add_argument("--model_file", type=str, default='models/finetuned_gpt_0.2.pt', help="Whether to use the LLM for similarity calculation")
 
 args = parser.parse_args()
@@ -204,6 +204,9 @@ def get_lr(it):
 # logging
 if wandb_log and master_process:
     import wandb
+    wandb.login(
+        key = None,
+    )
     wandb.init(project=wandb_project, name=wandb_run_name, config=config)
 
 time_start = time.time()
