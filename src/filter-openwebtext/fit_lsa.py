@@ -102,7 +102,7 @@ text_storer = StoreText(dataset_store)
 count_scraps = 0.
 count_accepted = 0.
 threshold = 0.8
-for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', block_size=100, device_type="cuda" if torch.cuda.is_available() else "cpu"):
+for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', block_size=1024, device_type="cuda" if torch.cuda.is_available() else "cpu"):
     count_scraps += 1.
     if count_accepted/count_scraps > FRACTION + 3e-2:
         threshold += 1e-3

@@ -27,10 +27,10 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Extract knowledge using a fine-tuned GPT model.")
 parser.add_argument("--init_from", type=str, default="custom", help="Checkpoint or first training")
-parser.add_argument("--train_dataset", type=str, default='filter-openwebtext/filter_folder/train_0.05.bin', help="Path to the fine-tuned GPT model")
-parser.add_argument("--validation_dataset", type=str, default='filter-openwebtext/filter_folder/val_0.05.bin', help="Path to save the extracted knowledge")
+parser.add_argument("--train_dataset", type=str, default='filter-openwebtext/filter_folder/train_0.2.bin', help="Path to the fine-tuned GPT model")
+parser.add_argument("--validation_dataset", type=str, default='nanoGPT/data/openwebtext/val.bin', help="Path to save the extracted knowledge")
 parser.add_argument("--output_dir", type=str, default='out', help="Path to save the similarity results")
-parser.add_argument("--model_file", type=str, default='models/finetuned_gpt_0.05.pt', help="Whether to use the LLM for similarity calculation")
+parser.add_argument("--model_file", type=str, default='models/finetuned_gpt_0.2.pt', help="Whether to use the LLM for similarity calculation")
 
 args = parser.parse_args()
 
@@ -46,9 +46,9 @@ eval_only = False # if True, script exits right after the first eval
 always_save_checkpoint = True # if True, always save a checkpoint after each eval
 init_from = args.init_from # 'scratch' or 'resume' or 'gpt2*'
 # wandb logging
-wandb_log = False # disabled by default
-wandb_project = 'owt'
-wandb_run_name = 'gpt2' # 'run' + str(time.time())
+wandb_log = True # disabled by default
+wandb_project = 'llmcvrs2024'
+wandb_run_name = 'run' + str(time.time())
 model_path=None
 chkpt_file=None
 # data
@@ -72,13 +72,13 @@ beta2 = 0.95
 grad_clip = 1.0 # clip gradients at this value, or disable if == 0.0
 # learning rate decay settings
 decay_lr = True # whether to decay the learning rate
-warmup_iters = 2000 # how many steps to warm up for
+warmup_iters = 1000 # how many steps to warm up for
 lr_decay_iters = 600000 # should be ~= max_iters per Chinchilla
 min_lr = 6e-5 # minimum learning rate, should be ~= learning_rate/10 per Chinchilla
 # DDP settings
 backend = 'nccl' # 'nccl', 'gloo', etc.
 # system
-device = 'cuda' # examples: 'cpu', 'cuda', 'cuda:0', 'cuda:1' etc., or try 'mps' on macbooks
+device = "cuda" if torch.cuda.is_available() else "cpu" # examples: 'cpu', 'cuda', 'cuda:0', 'cuda:1' etc., or try 'mps' on macbooks
 dtype = 'bfloat16' if torch.cuda.is_available() and torch.cuda.is_bf16_supported() else 'float16' # 'float32', 'bfloat16', or 'float16', the latter will auto implement a GradScaler
 compile = True # use PyTorch 2.0 to compile the model to be faster
 # -----------------------------------------------------------------------------
@@ -100,7 +100,7 @@ torch.backends.cudnn.allow_tf32 = True # allow tf32 on cudnn
 device_type = 'cuda' if 'cuda' in device else 'cpu' # for later use in torch.autocast
 # note: float16 data type will automatically use a GradScaler
 ptdtype = {'float32': torch.float32, 'bfloat16': torch.bfloat16, 'float16': torch.float16}[dtype]
-ctx = nullcontext() if device_type == 'cpu' else torch.amp.autocast(device_type=device_type, dtype=ptdtype)
+ctx = nullcontext() if device_type == 'cpu' else torch.cuda.amp.autocast(dtype=ptdtype)
 
 # poor man's data loader
 def get_batch(split):
@@ -109,7 +109,7 @@ def get_batch(split):
     if split == 'train':
         data = np.memmap(train_data_dir, dtype=np.uint16, mode='r')
     else:
-        data = np.memmap(os.path.join(val_data_dir, 'val.bin'), dtype=np.uint16, mode='r')
+        data = np.memmap(val_data_dir, dtype=np.uint16, mode='r')
     ix = torch.randint(len(data) - block_size, (batch_size,))
     x = torch.stack([torch.from_numpy((data[i:i+block_size]).astype(np.int64)) for i in ix])
     y = torch.stack([torch.from_numpy((data[i+1:i+1+block_size]).astype(np.int64)) for i in ix])
@@ -147,14 +147,16 @@ if init_from == 'resume' and args.model_file is not None:
         iter_num = 0
         model = checkpoint
 elif init_from == "custom" and args.model_file is not None:
-    model = torch.load(model_path, map_location=device)
+    model = torch.load(args.model_file, map_location=device)
+    for param in model.parameters():
+        torch.nn.init.normal_(param)
     iter_num = 0
     
     
 # crop down the model block size if desired, using model surgery
 model.to(device)
 # initialize a GradScaler. If enabled=False scaler is a no-op
-scaler = torch.amp.GradScaler("cuda", enabled=(dtype == 'float16'))
+scaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16'))
 
 # optimizer
 optimizer = model.configure_optimizers(weight_decay, learning_rate, (beta1, beta2), device_type)
@@ -204,6 +206,9 @@ if wandb_log and master_process:
     import wandb
     wandb.init(project=wandb_project, name=wandb_run_name, config=config)
 
+time_start = time.time()
+time_start /= 3600
+
 # training loop
 X, Y = get_batch('train') # fetch the very first batch
 t0 = time.time()
@@ -217,6 +222,24 @@ while True:
         param_group['lr'] = lr
 
     # evaluate the loss on train/val sets and write checkpoints
+    time_end = time.time()
+    time_end /= 3600
+    if time_end - time_start >= 10:
+        print(f"Shutting down after {time_end - time_start} hours")
+        best_val_loss = losses['val']
+        if iter_num > 0:
+            checkpoint = {
+                'model': model,
+                'optimizer': optimizer.state_dict(),
+                'model_args': model_args,
+                'iter_num': iter_num,
+                'best_val_loss': best_val_loss,
+                'config': config,
+            }
+            print(f"saving checkpoint to {args.output_dir}")
+            torch.save(checkpoint, os.path.join(args.output_dir, 'ckpt.pt'))
+        exit()
+
     if iter_num % eval_interval == 0 and master_process:
         losses = estimate_loss()
         print(f"step {iter_num}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
@@ -239,7 +262,7 @@ while True:
                     'best_val_loss': best_val_loss,
                     'config': config,
                 }
-                print(f"saving checkpoint to {out_dir}")
+                print(f"saving checkpoint to {args.output_dir}")
                 torch.save(checkpoint, os.path.join(args.output_dir, 'ckpt.pt'))
     if iter_num == 0 and eval_only:
         break

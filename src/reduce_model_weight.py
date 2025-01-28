@@ -29,6 +29,8 @@ args = parser.parse_args()
 width = args.width
 min_reduction = args.min
 
+print(min_reduction)
+
 ## Nr 1: measure language model performance
 NUM_INIT = 5
 bounds = torch.stack([torch.zeros(12), torch.ones(12)*width]) + min_reduction
@@ -39,7 +41,7 @@ X_init = torch.rand(NUM_INIT, 12, dtype=torch.double)*width + min_reduction  # r
 X_init.to(device)
 Y_init, model = objective_func(sm_model.model, X_init, model_orig=model_orig, finetune_bool=False)       # evaluate your expensive function
 Y_init = Y_init.to(device)
-#torch.save(model, f"models/finetuned_gpt_{min_reduction}.pt")
+torch.save(model, f"models/finetuned_gpt_{min_reduction}.pt")
 
 
 gp = SingleTaskGP(X_init, Y_init)
