@@ -7,7 +7,10 @@ import json
 import torch
 import os
 import argparse
+import wandb
 
+wandb_project = 'llmcvrs2024'
+wandb.init(project=wandb_project, name="threshold_tracer")
 enc = tiktoken.get_encoding("gpt2")
 vocab_size = enc.max_token_value + 1 
 
@@ -102,12 +105,20 @@ text_storer = StoreText(dataset_store)
 count_scraps = 0.
 count_accepted = 0.
 threshold = 0.8
+
 for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', block_size=1024, device_type="cuda" if torch.cuda.is_available() else "cpu"):
     count_scraps += 1.
     if count_accepted/count_scraps > FRACTION + 3e-2:
         threshold += 1e-3
+        wandb.log({
+                "treshold": threshold, # convert to percentage
+            })
     if count_accepted/count_scraps < FRACTION - 3e-2:
         threshold -= 1e-3
+        wandb.log({
+                "treshold": threshold, # convert to percentage
+            })
+            
     X_new = vectorizer.transform([x.tolist()])  # Uses the same vocabulary
     X_new_lsa = lsa_model.transform(X_new) 
     similarity = cosine_similarity(X_new_lsa, lsa_matrix)
@@ -117,6 +128,7 @@ for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', bloc
         text = enc.decode(x.tolist())
         text_storer.store_text(text)
         print(f"Current Fraction: {count_accepted/count_scraps:.2f}", end='\r')
+
 print("")
 text_storer.save()
 
