@@ -5,9 +5,7 @@ from tqdm import tqdm
 import random
 
 EVAL_DS = "goodreads"
-wandb.login(
-    key = None,
-)
+wandb.login()
 wandb.init(
     project="llmcvrs2024",
     config={

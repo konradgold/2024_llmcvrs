@@ -7,9 +7,6 @@ import json
 from nanoGPT.judgeGPT.judge_instructor import JudgeInstructor
 
 EVAL_DS = "goodreads"
-wandb.login(
-    key = None,
-)
 wandb.init(
     project="llmcvrs2024",
     config={

@@ -9,9 +9,6 @@ import os
 import argparse
 import wandb
 
-wandb.login(
-    key = None,
-)
 wandb_project = 'llmcvrs2024'
 wandb.init(project=wandb_project, name="threshold_tracer")
 enc = tiktoken.get_encoding("gpt2")
