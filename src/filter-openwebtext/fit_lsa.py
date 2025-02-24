@@ -6,36 +6,72 @@ import tiktoken
 import json
 import torch
 import os
+import argparse
+import wandb
 
+wandb_project = 'llmcvrs2024'
+wandb.init(project=wandb_project, name="threshold_tracer")
 enc = tiktoken.get_encoding("gpt2")
 vocab_size = enc.max_token_value + 1 
 
+parser = argparse.ArgumentParser(description="Extract dataset using a fine-tuned GPTs model.")
+parser.add_argument("--sentences", type=str, default="filter-openwebtext/knowledge_texts.json", help="Number of queries to sample from each dataset")
+parser.add_argument("--dataset_store", type=str, default='filter-openwebtext/filtered_texts.json', help="Path to the fine-tuned GPT model")
+parser.add_argument("--fraction", type=int, default=0.1)
+
+args = parser.parse_args()
+sentences_path = args.sentences
+dataset_store = args.dataset_store
+FRACTION = args.fraction
+
 class StoreText:
-    def __init__(self, path="filtered_texts.json"):
+    def __init__(self, path="encoded_texts.bin", encoding="gpt2"):
+        """
+        Initialize the class with a binary file path and encoding type.
+        """
         self.texts = []
         self.path = path
+        self.encoder = tiktoken.get_encoding(encoding)
+
+        # Create the binary file if it doesn't exist
+        if not os.path.exists(self.path):
+            with open(self.path, 'wb') as f:
+                pass
+
+    def encode_text(self, text):
+        """
+        Encode the text using the specified encoder.
+        """
+        return self.encoder.encode_ordinary(text)
 
     def store_text(self, text):
+        """
+        Encode the text and append it to the binary file.
+        """
         self.texts.append(text)
-        if len(self.texts) % 100 == 0:
-            self.save(self.path)
+        if len(self.texts) >= 100:
+            encoded_arrays = [
+            np.array(self.encode_text(t), dtype=np.uint16) for t in self.texts
+            ]
+            with open(self.path, 'ab') as f:  # Open the file in append-binary mode
+                for encoded_array in encoded_arrays:
+                    encoded_array.tofile(f)
+            self.texts = []
 
     def save(self, path=None):
-        if path is None:
-            path = self.path
-        with open(path, 'w') as f:
-            json.dump(self.texts, f)
+        """
+        No-op for this implementation (binary file is updated incrementally).
+        """
+        pass
 
 vectorizer = TfidfVectorizer(
     max_features=vocab_size,  # Use the tokenizer's full vocabulary size
     analyzer=lambda x: x, # Pass pre-tokenized chunks as lists of tokens
     lowercase=False  # Tokens are already processed
 )
-
-file_path = "filter-openwebtext/knowledge_texts.json"
 # Function to load JSON data from a file
 
-with open(file_path, 'r') as file:
+with open(sentences_path, 'r') as file:
     data = json.load(file)
 
 fit_set = [enc.encode(s) for s in data]
@@ -65,17 +101,24 @@ def iterate_blocks(split, data_dir, block_size, device_type):
             x = x.to(device)
         yield x
 
-text_storer = StoreText()
+text_storer = StoreText(dataset_store)
 count_scraps = 0.
 count_accepted = 0.
 threshold = 0.8
-FRACTION = 0.1
-for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', block_size=100, device_type='cpu'):
+
+for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', block_size=1024, device_type="cuda" if torch.cuda.is_available() else "cpu"):
     count_scraps += 1.
     if count_accepted/count_scraps > FRACTION + 3e-2:
         threshold += 1e-3
+        wandb.log({
+                "treshold": threshold, # convert to percentage
+            })
     if count_accepted/count_scraps < FRACTION - 3e-2:
         threshold -= 1e-3
+        wandb.log({
+                "treshold": threshold, # convert to percentage
+            })
+            
     X_new = vectorizer.transform([x.tolist()])  # Uses the same vocabulary
     X_new_lsa = lsa_model.transform(X_new) 
     similarity = cosine_similarity(X_new_lsa, lsa_matrix)
@@ -85,6 +128,7 @@ for x in iterate_blocks(split="train", data_dir='nanoGPT/data/openwebtext', bloc
         text = enc.decode(x.tolist())
         text_storer.store_text(text)
         print(f"Current Fraction: {count_accepted/count_scraps:.2f}", end='\r')
+
 print("")
 text_storer.save()
 

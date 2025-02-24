@@ -17,6 +17,7 @@ load_dotenv(find_dotenv())
 # Access environment variables
 api_key = os.getenv('GEMINI_API_KEY')
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class TextDataLoader:
     """
@@ -83,6 +84,7 @@ def objective_func(model, X, finetune_bool=False, model_orig=None):
     results = []
     client = genai.Client(api_key=api_key)
     best_model = copy.deepcopy(model)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     for x_row in X:
         # Convert to Python float list if needed
         x_list = x_row.tolist()  # [12 floats]
@@ -114,4 +116,4 @@ def objective_func(model, X, finetune_bool=False, model_orig=None):
             best_model = copy.deepcopy(model)
         results.append(y_value)
         
-    return torch.tensor([results], dtype=torch.float32), best_model
+    return torch.tensor(results, dtype=torch.double).unsqueeze(-1), best_model

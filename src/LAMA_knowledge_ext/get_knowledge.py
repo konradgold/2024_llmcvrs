@@ -20,35 +20,37 @@ output_knowledge = args.output_knowledge
 output_similarity = args.output_similarity
 use_llm = args.use_llm
 
+print(f"Use llm: {use_llm}")
+
 queries = []
 
 
 with open("LAMA_knowledge_ext/data/ConceptNet/test.json", "r") as file:
-    statements = json.load(file)
+    statements = [json.loads(line) for line in file]
 
 querie_new = [(q["masked_sentences"][0].split("[MASK]")[0], q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 with open("LAMA_knowledge_ext/data/Google_RE/date_of_birth_test.json", "r") as file:
-    statements = json.load(file)
+    statements = [json.loads(line) for line in file]
 
-querie_new = [(f"{q["sub_label"]} was born in", q["obj_label"]) for q in statements]
+querie_new = [(f'{q["sub_label"]} was born in', q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 with open("LAMA_knowledge_ext/data/Google_RE/place_of_birth_test.json", "r") as file:
-    statements = json.load(file)
+    statements = [json.loads(line) for line in file]
 
-querie_new = [(f"{q["sub_label"]} was born in", q["obj_label"]) for q in statements]
+querie_new = [(f'{q["sub_label"]} was born in', q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 with open("LAMA_knowledge_ext/data/Google_RE/place_of_death_test.json", "r") as file:
-    statements = json.load(file)
+    statements = [json.loads(line) for line in file]
 
-querie_new = [(f"{q["sub_label"]} died in", q["obj_label"]) for q in statements]
+querie_new = [(f'{q["sub_label"]} died in', q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
-sm_model = SampleMutableModel()
-sm_model.model = torch.load(model_path, weights_only=False)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+sm_model = SampleMutableModel(model=torch.load(model_path, weights_only=False, map_location=device))
 sm_model.top_k = 10
 sm_model.max_new_tokens = 5
 knowledge = []
@@ -57,6 +59,7 @@ found, not_found = 0, 0
 sim_results = []
 for query, truth in tqdm.tqdm(queries):
     try:
+        assert len(query) > 0 and len(truth) > 0
         out, probs, tokens = sm_model.generate_top_k_samples(query, 5)
         predictions = []
         for i, o in out.items():
