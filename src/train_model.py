@@ -1,9 +1,16 @@
 from finetune import finetune, CustomDataset
 import json
 import torch
-from openai import OpenAI
-from datasets import load_dataset
+from google import genai
+from datasets.load import load_dataset
 from infra_reduce_model import evaluate_model, TextDataLoader
+from dotenv import load_dotenv, find_dotenv
+import os
+
+load_dotenv(find_dotenv())
+
+# Access environment variables
+api_key = os.getenv('GEMINI_API_KEY')
 
 with open ("filter-openwebtext/knowledge_texts.json", "r") as file:
     data = json.load(file)
@@ -17,7 +24,7 @@ for param in model.parameters():
 
 model_new = finetune(model, None, dataset, epochs=30)
 
-client = OpenAI(base_url="http://127.0.0.1:1234/v1", api_key="lm-studio")
+client = genai.Client(api_key)
 dataloader_validation = TextDataLoader(load_dataset("mintujupally/ROCStories", split="test")["text"])
 
 model.eval()
