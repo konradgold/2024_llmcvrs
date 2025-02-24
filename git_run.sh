@@ -74,7 +74,6 @@ echo "Execution completed! Final script to run is train_model.py"
 
 python train_model.py \
   --train_dataset 'filter-openwebtext/filter_folder/train_0.2.bin' \
-  --model_file 'models/finetuned_gpt_0.2.pt' \
   --output_dir 'out/out02'
 
 echo "Execution completed!"
