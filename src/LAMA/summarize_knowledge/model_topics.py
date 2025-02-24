@@ -2,15 +2,15 @@ import json
 from bertopic import BERTopic
 from bertopic.representation import OpenAI
 from dotenv import find_dotenv, load_dotenv
-import openai
+from google import genai
 from sentence_transformers import SentenceTransformer
 from umap import UMAP
 
 model = SentenceTransformer("Alibaba-NLP/gte-base-en-v1.5", trust_remote_code=True)
 load_dotenv(find_dotenv())
 
-client = openai.OpenAI()
-representation_model = OpenAI(client, model="gpt-3.5-turbo", chat=True)
+client = genai.Client()
+representation_model = genai.Client()
 topic_model = BERTopic(representation_model=representation_model)
 
 with open("/Users/konradgoldenbaum/Developement/LLMCVRS/src/LAMA/_knowledgegpt2.json", "r") as f:

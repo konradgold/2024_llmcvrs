@@ -1,10 +1,10 @@
 from dotenv import find_dotenv, load_dotenv
-from openai import OpenAI
+from google import genai
 import json
 
 load_dotenv(find_dotenv())
 
-client = OpenAI()
+client = genai.Client()
 file_path = 'lernerstories/data/generated_stories.json'
 with open(file_path, 'r') as file:
     data = json.load(file)
@@ -23,16 +23,11 @@ Text: Anne is the best friend of Mary. They both love to play soccer.
 [QA] Annes best friend is [Answer] Mary. [QA] They both love to play [Answer] Soccer.
 Preserving this exact structure is very important. Use the [QA] and [Answer] tags to separate questions and answers. The answers should be as close to the text as possible.
         """
-        response = client.chat.completions.create(
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt,
-                }
-            ],
-            model="gpt-4o",
-        )
-        qas = response.choices[0].message.content.split("[QA]") if response.choices[0].message.content is not None else ""
+        response = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents=prompt
+            )
+        qas = response.text.split("[QA]") if response.text is not None else ""
         if qas == "":
             continue
         output_file_path = 'lernerstories/data/generated_instructions.json'

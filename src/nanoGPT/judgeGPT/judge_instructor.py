@@ -1,7 +1,7 @@
 import re
 import instructor
 from pydantic import BaseModel
-from openai import OpenAI
+from google import genai
 
 class Judgement(BaseModel):
     #content: int = 0
@@ -9,10 +9,14 @@ class Judgement(BaseModel):
     grammar: int = 0
     mechanics: int = 0
     
-
 class JudgeInstructor:
-    def __init__(self, judge_model: str = "gpt-4o-mini", judge_prompt: str = ""):
-        self.client = instructor.from_openai(OpenAI())
+    def __init__(self, judge_model: str = "models/gemini-1.5-flash-latest", judge_prompt: str = ""):
+        self.client = instructor.from_gemini(
+            client=genai.GenerativeModel(
+                model_name=judge_model,
+            ),
+            mode=instructor.Mode.GEMINI_JSON,
+        )
         self.model_name_judge = judge_model
         self.judge_prompt = judge_prompt
 
@@ -26,8 +30,7 @@ class JudgeInstructor:
             output = re.sub(r'\s+', ' ', cleaned_text)
             print(f'Prompt: {prompt}\nResponse: {output}')
             PROMPT = self.judge_prompt.format(response=output)
-            judgements.append(self.client.chat.completions.create(
-                model=self.model_name_judge,
+            judgements.append(self.client.messages.create(
                 response_model=Judgement,
                 messages=[
                     {

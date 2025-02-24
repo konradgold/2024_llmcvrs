@@ -2,7 +2,7 @@ from scipy.stats import f
 import torch
 from rouge_score import rouge_scorer
 from nltk.translate.bleu_score import sentence_bleu
-from openai import OpenAI
+from google import genai
 import re
 import tiktoken
 from dotenv import load_dotenv, find_dotenv
@@ -16,11 +16,8 @@ class SimilarityCalculator:
         self.encode = lambda s: enc.encode(s, allowed_special={"<|endoftext|>"})
         self.rogue = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
         self.loss = torch.nn.CrossEntropyLoss()
-        if local:
-            self.client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
-        else:
-            load_dotenv(find_dotenv())
-            self.client = OpenAI()
+        load_dotenv(find_dotenv())
+        self.client = genai.Client()
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def calculate_similarity(self, query, probs, predictions, truth, use_llm=False):

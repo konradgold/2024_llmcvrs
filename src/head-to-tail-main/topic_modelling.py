@@ -1,13 +1,13 @@
 from bertopic import BERTopic
 from bertopic.representation import OpenAI
 from dotenv import find_dotenv, load_dotenv
-import openai
+from google import genai
 from sentence_transformers import SentenceTransformer
 import json
 
 model = SentenceTransformer("Alibaba-NLP/gte-base-en-v1.5", trust_remote_code=True)
 load_dotenv(find_dotenv())
-client = openai.OpenAI()
+client = genai.Client()
 representation_model = OpenAI(client, model="gpt-3.5-turbo", chat=True)
 topic_model = BERTopic(representation_model=representation_model, nr_topics=10)
 
