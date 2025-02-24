@@ -72,8 +72,9 @@ OUTPUT_STORE2="filter-openwebtext/filter_folder/train_0.2.bin"
 python3 -m filter-openwebtext.fit_lsa \
   --sentences $OUTPUT_SENTENCES2 \
   --dataset_store $OUTPUT_STORE2
+
 echo "Execution completed! Final script to run is train_model.py"
 
-#python3 train_model.py
+python train_model.py
 
 echo "Execution completed!"

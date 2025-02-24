@@ -4,11 +4,18 @@ from nanoGPT.prune_model import prune_model
 import re
 from finetune import finetune, CustomDataset
 import copy
-from openai import OpenAI
+from google import genai
 import random
 from torch.utils.data import DataLoader
-from datasets import load_dataset
-import dotenv
+from datasets.load import load_dataset
+from dotenv import load_dotenv, find_dotenv
+import os
+
+# Load environment variables from a .env file
+load_dotenv(find_dotenv())
+
+# Access environment variables
+api_key = os.getenv('GEMINI_API_KEY')
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -54,15 +61,15 @@ Score: X
         output = sm_model.generate_output(batch)
         for text in output:
             filled_prompt = prompt.format(text=text)
-            response = client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {"role": "system", "content": "You are an expert language evaluator. Your task is to evaluate the grammatical accuracy and overall comprehensibility of the following text. Ignore the content or creativity of the text. Focus only on the grammar and coherence. Respect the output format that will be given to you."},
-                    {"role": "user", "content": filled_prompt},
-                ],
-                stream=False,
+            contents=genai.types.Content(parts=[
+                genai.types.Part.from_text(text="You are an expert language evaluator. Your task is to evaluate the grammatical accuracy and overall comprehensibility of the following text. Ignore the content or creativity of the text. Focus only on the grammar and coherence. Respect the output format that will be given to you."),
+                genai.types.Part.from_text(text=filled_prompt)
+            ], role='user')
+            response = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents=contents
             )
-            judgement_score = response.choices[0].message.content if response.choices is not None else "0"
+            judgement_score = response.text if response.text is not None else "0"
             judgement_scores.append(int(re.search(r'\d+', judgement_score)[0] if re.search(r'\d+', judgement_score) is not None else "0"))
     return sum(judgement_scores) / len(judgement_scores)
     
@@ -75,9 +82,7 @@ def objective_func(model, X, finetune_bool=False, model_orig=None):
     """
     # We'll store results in a Python list, then stack into a torch.Tensor
     results = []
-    dotenv.load_dotenv(dotenv.find_dotenv())
-
-    client = OpenAI()
+    client = genai.Client(api_key=api_key)
     best_model = copy.deepcopy(model)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     for x_row in X:

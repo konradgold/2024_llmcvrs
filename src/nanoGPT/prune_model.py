@@ -92,3 +92,6 @@ def prune_model(model, prune_percent, activation_based=False):
         if new_intermediate_size is None:
             new_intermediate_size = new_size
     return model
+
+def prune_attention(model, prune_percent, activation_based=False):
+    model

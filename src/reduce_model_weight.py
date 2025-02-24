@@ -6,7 +6,7 @@ from gpytorch.mlls import ExactMarginalLogLikelihood
 from botorch.acquisition import ExpectedImprovement
 from botorch.optim import optimize_acqf
 import copy
-from datasets import load_dataset
+from datasets.load import load_dataset
 from infra_reduce_model import objective_func
 import argparse
 import json
@@ -23,7 +23,7 @@ model_orig.to(device)
 parser = argparse.ArgumentParser(description='Reduce model weight using Bayesian Optimization.')
 parser.add_argument('--n_iter', type=int, default=5, help='Number of BO steps')
 parser.add_argument('--width', type=float, default=0.2, help='First number between 0 and 1')
-parser.add_argument('--min', type=float, default=0.0, help='Second number between 0 and 1')
+parser.add_argument('--min', type=float, default=0.6, help='Second number between 0 and 1')
 args = parser.parse_args()
 
 width = args.width
