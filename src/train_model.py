@@ -20,9 +20,11 @@ import os
 import time
 import math
 from contextlib import nullcontext
-
+from nanoGPT.model import GPTConfig, GPT
 import numpy as np
+from nanoGPT.prune_model import prune_attention, prune_model
 import torch
+import json
 import argparse
 
 parser = argparse.ArgumentParser(description="Extract knowledge using a fine-tuned GPT model.")
@@ -30,7 +32,8 @@ parser.add_argument("--init_from", type=str, default="custom", help="Checkpoint 
 parser.add_argument("--train_dataset", type=str, default='filter-openwebtext/filter_folder/train_0.2.bin', help="Path to the fine-tuned GPT model")
 parser.add_argument("--validation_dataset", type=str, default='nanoGPT/data/openwebtext/val.bin', help="Path to save the extracted knowledge")
 parser.add_argument("--output_dir", type=str, default='out/out02', help="Path to save the similarity results")
-parser.add_argument("--model_file", type=str, default='models/finetuned_gpt_0.2.pt', help="Whether to use the LLM for similarity calculation")
+parser.add_argument("--prune_percent", type=str, default="results_0.2.json", help="Pruning degree")
+parser.add_argument("--prune_part", type=str, default="mlp", help="mpl or attention")
 
 args = parser.parse_args()
 
@@ -147,7 +150,16 @@ if init_from == 'resume' and args.model_file is not None:
         iter_num = 0
         model = checkpoint
 elif init_from == "custom" and args.model_file is not None:
-    model = torch.load(args.model_file, map_location=device)
+    model = GPT.from_pretrained(init_from, dict(dropout=0.0))
+    for param in model.parameters():
+        torch.nn.init.normal_(param)
+        with open(args.prune_percent, 'r') as f:
+            prune_percent = json.load(f)
+        prune_percent = prune_percent["X"][np.argmax(prune_percent["Y"])]
+        if args.prune_part == "mlp":
+            model = prune_model(model, prune_percent, activation_based=False)
+        else:
+            model = prune_attention(model, prune_percent, activation_based=True)
     for param in model.parameters():
         torch.nn.init.normal_(param)
     iter_num = 0
