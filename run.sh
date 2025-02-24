@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --job-name "icl_translation_attention"
 #SBATCH --output sbatch_out.txt
-#SBATCH --time 1:00:00
+#SBATCH --time 14:00:00
 
 
 
@@ -16,9 +16,8 @@ source "/hpi/fs00/home/konrad.goldenbaum/miniconda3/etc/profile.d/conda.sh"
 
 conda activate llmcvrs
 
+eval $(python -m dotenv)
 
-# Manually install tiktoken in the correct Conda environment
-pip install google-genai
 
 wandb login WANDB_API_KEY
 
@@ -43,7 +42,7 @@ OUTPUT_KNOWLEDGE1="LAMA_knowledge_ext/results/knowledge_0.05.json"
 OUTPUT_SIMILARITY1="LAMA_knowledge_ext/results/similarity_0.05.json"
 
 # Second set of parameters
-NR_QUERIES2=200
+NR_QUERIES2=400
 MODEL_PATH2="models/finetuned_gpt_0.2.pt"
 OUTPUT_KNOWLEDGE2="LAMA_knowledge_ext/results/knowledge_0.2.json"
 OUTPUT_SIMILARITY2="LAMA_knowledge_ext/results/similarity_0.2.json"
