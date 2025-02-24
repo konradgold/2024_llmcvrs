@@ -31,7 +31,7 @@ WIDTH2=0.2
 MIN2=0.2
 
 echo "Running script with first set of parameters..."
-python3 reduce_model_weight.py --n_iter $N_ITER1 --width $WIDTH1 --min $MIN1
+python reduce_model_weight.py --n_iter $N_ITER1 --width $WIDTH1 --min $MIN1
 
 echo "Execution completed!"
 
@@ -49,7 +49,7 @@ OUTPUT_SIMILARITY2="LAMA_knowledge_ext/results/similarity_0.2.json"
 
 
 echo "Running script with second set of parameters..."
-python3 -m LAMA_knowledge_ext.get_knowledge \
+python -m LAMA_knowledge_ext.get_knowledge \
   --nr_queries $NR_QUERIES2 \
   --model_path $MODEL_PATH2 \
   --output_knowledge $OUTPUT_KNOWLEDGE2 \
@@ -63,16 +63,16 @@ OUTPUT_SENTENCES2="filter-openwebtext/filter_folder/knowledge_0.2.json"
 OUTPUT_STORE1="filter-openwebtext/filter_folder/train_0.05.bin"
 OUTPUT_STORE2="filter-openwebtext/filter_folder/train_0.2.bin"
 
-python3 -m filter-openwebtext.generate_filter_trainer \
+python -m filter-openwebtext.generate_filter_trainer \
   --similarity $OUTPUT_SIMILARITY2 \
   --texts  $OUTPUT_SENTENCES2
 
-python3 -m filter-openwebtext.fit_lsa \
+python -m filter-openwebtext.fit_lsa \
   --sentences $OUTPUT_SENTENCES2 \
   --dataset_store $OUTPUT_STORE2
 echo "Execution completed! Final script to run is train_model.py"
 
-python3 train_model.py \
+python train_model.py \
   --train_dataset 'filter-openwebtext/filter_folder/train_0.2.bin' \
   --model_file 'models/finetuned_gpt_0.2.pt' \
   --output_dir 'out/out02'
