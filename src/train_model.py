@@ -153,15 +153,13 @@ elif init_from == "custom" and args.model_file is not None:
     model = GPT.from_pretrained(init_from, dict(dropout=0.0))
     for param in model.parameters():
         torch.nn.init.normal_(param)
-        with open(args.prune_percent, 'r') as f:
-            prune_percent = json.load(f)
-        prune_percent = prune_percent["X"][np.argmax(prune_percent["Y"])]
-        if args.prune_part == "mlp":
-            model = prune_model(model, prune_percent, activation_based=False)
-        else:
-            model = prune_attention(model, prune_percent, activation_based=True)
-    for param in model.parameters():
-        torch.nn.init.normal_(param)
+    with open(args.prune_percent, 'r') as f:
+        prune_percent = json.load(f)
+    prune_percent = prune_percent["X"][np.argmax(prune_percent["Y"])]
+    if args.prune_part == "mlp":
+        model = prune_model(model, prune_percent, activation_based=False)
+    else:
+        model = prune_attention(model, prune_percent, activation_based=True)
     iter_num = 0
     
     
