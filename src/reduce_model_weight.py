@@ -3,10 +3,10 @@ from nanoGPT.sample_model import SampleMutableModel
 from botorch.models import SingleTaskGP
 from botorch.fit import fit_gpytorch_mll
 from gpytorch.mlls import ExactMarginalLogLikelihood
-from botorch.acquisition import ExpectedImprovement
+from botorch.acquisition import LogExpectedImprovement
 from botorch.optim import optimize_acqf
 import copy
-from datasets.load import load_dataset
+from datasets import load_dataset
 from infra_reduce_model import objective_func
 import argparse
 import json
@@ -16,7 +16,6 @@ ds = load_dataset("mintujupally/ROCStories")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 sm_model = SampleMutableModel()
-print(sm_model.device)
 model_orig = copy.deepcopy(sm_model.model)
 model_orig.to(device)
 
@@ -61,7 +60,7 @@ for i in range(N_ITER):
     # Create the acquisition function
     # If we're *maximizing* f, "best_f" is the best Y we have so far
     best_f = Y_init.max().item()
-    EI = ExpectedImprovement(model=gp, best_f=best_f)
+    EI = LogExpectedImprovement(model=gp, best_f=best_f)
     
     # Optimize the acquisition function over the bounds
     #   bounds shape: [2, dim], where dim=12
@@ -76,7 +75,7 @@ for i in range(N_ITER):
     
     # 'candidate' now is shape [1, 12], the recommended next point
     # Evaluate it
-    new_y, model = objective_func(model, candidate, finetune_bool=False)
+    new_y, model = objective_func(model, candidate, finetune_bool=True)
     new_y = new_y.to(device)
     
     # Augment our data
