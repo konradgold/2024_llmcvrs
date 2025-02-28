@@ -19,7 +19,6 @@ sm_model = SampleMutableModel()
 print(sm_model.device)
 model_orig = copy.deepcopy(sm_model.model)
 model_orig.to(device)
-sm_model.model.config.store_attention_activations = True
 
 parser = argparse.ArgumentParser(description='Reduce model weight using Bayesian Optimization.')
 parser.add_argument('--n_iter', type=int, default=5, help='Number of BO steps')

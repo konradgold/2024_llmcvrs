@@ -91,9 +91,17 @@ def objective_func(model, X, finetune_bool=False, model_orig=None):
         
 
         # 1) Modify (reduce) your model in-place
-        model = prune_model(model, x_list, True, True)
+        dataloader_validation = TextDataLoader(load_dataset("mintujupally/ROCStories", split="test")["text"])
+        with torch.no_grad():
+            model.config.store_attention_activations = True
+            batch = dataloader_validation.get_random_batch(5)
+            output = SampleMutableModel(model=model).generate_output(batch)
+            model = prune_model(model, x_list, True, True)
+            model.config.store_attention_activations = False
+
 
         model.train()  # make sure it's in training mode
+
         dataloader_train = TextDataLoader(load_dataset("mintujupally/ROCStories", split="train")["text"])
 
         dataset = CustomDataset(dataloader_train.get_random_batch(200))
