@@ -13,7 +13,6 @@ class JudgeInstructor:
     def __init__(self, judge_model: str = "models/gemini-1.5-flash-latest", judge_prompt: str = ""):
         self.client = instructor.from_gemini(
             client=genai.Client(
-                model=judge_model,
             ),
             mode=instructor.Mode.GEMINI_TOOLS,
             use_async=True,

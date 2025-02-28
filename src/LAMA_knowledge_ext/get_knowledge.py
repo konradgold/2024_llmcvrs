@@ -5,6 +5,14 @@ import random
 import tqdm
 import torch
 import argparse
+from dotenv import load_dotenv, find_dotenv
+import os
+
+# Load environment variables from a .env file
+load_dotenv(find_dotenv())
+
+# Access environment variables
+api_key = os.getenv('GEMINI_API_KEY')
 
 parser = argparse.ArgumentParser(description="Extract knowledge using a fine-tuned GPT model.")
 parser.add_argument("--nr_queries", type=int, default=65, help="Number of queries to sample from each dataset")
