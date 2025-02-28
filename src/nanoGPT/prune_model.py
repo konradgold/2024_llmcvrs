@@ -138,6 +138,7 @@ def prune_attention(model, prune_percent, activation_based=False):
         for idx, pp in enumerate(prune_percent):
             if activation_based:
                 prune_heads = compute_head_activations(model.transformer.h[idx].attn.activation, pp)
+                model.transformer.h[idx].attn.activation = None
             else:
                 prune_heads = compute_head_weights(model.transformer.h[idx].attn.c_attn.weight.data, pp)
             reduce_list += [(idx, int(head)) for head in prune_heads]
@@ -145,6 +146,7 @@ def prune_attention(model, prune_percent, activation_based=False):
         for idx in range(len(model.transformer.h)):
             if activation_based:
                 prune_heads = compute_head_activations(model.transformer.h[idx].attn.activation, prune_percent)
+                model.transformer.h[idx].attn.activation = None
             else:
                 prune_heads = compute_head_weights(model.transformer.h[idx].attn.c_attn.weight.data, prune_percent)
             reduce_list += [(idx, int(head)) for head in prune_heads]
