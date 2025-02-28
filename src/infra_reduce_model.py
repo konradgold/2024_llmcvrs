@@ -91,7 +91,7 @@ def objective_func(model, X, finetune_bool=False, model_orig=None):
         
 
         # 1) Modify (reduce) your model in-place
-        model = prune_model(model, x_list)
+        model = prune_model(model, x_list, True, True)
 
         model.train()  # make sure it's in training mode
         dataloader_train = TextDataLoader(load_dataset("mintujupally/ROCStories", split="train")["text"])
