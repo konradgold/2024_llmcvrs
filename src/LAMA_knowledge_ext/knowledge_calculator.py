@@ -6,6 +6,13 @@ from google import genai
 import re
 import tiktoken
 from dotenv import load_dotenv, find_dotenv
+import os
+
+# Load environment variables from a .env file
+load_dotenv(find_dotenv())
+
+# Access environment variables
+api_key = os.getenv('GEMINI_API_KEY')
 
 class SimilarityCalculator:
 
@@ -91,14 +98,11 @@ class SimilarityCalculator:
             3: The student's sentence is incorrect, even if it is close to the expected answer. E.g. "Angela Merkel was born in 1956." "Angela Merkel was born in 1966." -> 0
             Only return 0 or 1.
             """
-            response = self.client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {"role": "system", "content": "You are an expert evaluator. Your task is to evaluate the accuracy of the following statement given an expected statement. Respect the output format that will be given to you."},
-                    {"role": "user", "content": prompt},
-                ],
+            response = self.client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents= f"You are an expert evaluator. Your task is to evaluate the accuracy of the following statement given an expected statement. Respect the output format that will be given to you. \nStatement:\n\n{prompt}",
             )
-            judgement_score = response.choices[0].message.content if response.choices is not None else "0"
+            judgement_score = response.text if response.text is not None else "0"
             judgement_score = re.search(r'\d+', judgement_score) if re.search(r'\d+', judgement_score) is not None else [0.]
             assert judgement_score is not None, f"Expected not None, got {judgement_score}"
             llm_judgement += float(judgement_score[0])
