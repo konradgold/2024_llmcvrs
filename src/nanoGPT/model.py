@@ -41,6 +41,9 @@ class CausalSelfAttention(nn.Module):
         self.attn_dropout = nn.Dropout(config.dropout)
         self.resid_dropout = nn.Dropout(config.dropout)
         self.n_head = config.n_head
+        self.activation = None
+        self.store_attention_activations = config.store_attention_activations
+
         self.n_embd = config.n_embd
         self.dropout = config.dropout
         # flash attention make GPU go brrrrr but support is only in PyTorch >= 2.0
@@ -63,7 +66,7 @@ class CausalSelfAttention(nn.Module):
         # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
         if self.flash:
             # efficient attention using Flash Attention CUDA kernels
-            y = torch.nn.functional.scaled_dot_product_attention(q, k, v, attn_mask=None, dropout_p=self.dropout if self.training else 0, is_causal=True)
+            y = torch.nn.functional.scaled_dot_product_attention(q, k, value=v, attn_mask=None, dropout_p=self.dropout if self.training else 0, is_causal=True)
         else:
             # manual implementation of attention
             att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
@@ -73,9 +76,14 @@ class CausalSelfAttention(nn.Module):
             y = att @ v # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
         
         # Apply the head mask to zero out specified heads
-        #y = y * self.head_mask.view(1, -1, 1, 1)
+        y = y * self.head_mask.view(1, -1, 1, 1)
         # Store y here
-        #self.saved_y = y.detach()
+        if self.store_attention_activations:
+            if self.activation is None:
+                self.activation = y.clone().detach()
+            else:
+                self.activation = torch.cat([self.activation, x.clone().detach()], dim=0)
+        self.activation = y.detach()
 
         y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
 
@@ -93,13 +101,14 @@ class MLP(nn.Module):
         self.gelu    = nn.GELU()
         self.c_proj  = nn.Linear(4 * config.n_embd, config.n_embd, bias=config.bias)
         self.dropout = nn.Dropout(config.dropout)
+        self.store_mlp_activations = config.store_mlp_activations
 
     def forward(self, x):
         x = self.c_fc(x)
         x = self.gelu(x)
         x = self.c_proj(x)
         x = self.dropout(x)
-        if self.config.store_mlp_activations:
+        if self.store_mlp_activations:
             if self.c_fc_activations is None:
                 self.c_fc_activations = x.clone()
             else:
@@ -129,9 +138,9 @@ class GPTConfig:
     dropout: float = 0.0
     bias: bool = True # True: bias in Linears and LayerNorms, like GPT-2. False: a bit better and faster
     store_mlp_activations: bool = False
+    store_attention_activations: bool = False
 
 class GPT(nn.Module):
-
     def __init__(self, config):
         super().__init__()
         assert config.vocab_size is not None

@@ -12,10 +12,11 @@ class Judgement(BaseModel):
 class JudgeInstructor:
     def __init__(self, judge_model: str = "models/gemini-1.5-flash-latest", judge_prompt: str = ""):
         self.client = instructor.from_gemini(
-            client=genai.GenerativeModel(
-                model_name=judge_model,
+            client=genai.Client(
+                model=judge_model,
             ),
-            mode=instructor.Mode.GEMINI_JSON,
+            mode=instructor.Mode.GEMINI_TOOLS,
+            use_async=True,
         )
         self.model_name_judge = judge_model
         self.judge_prompt = judge_prompt
