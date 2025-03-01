@@ -168,6 +168,102 @@ model.to(device)
 # initialize a GradScaler. If enabled=False scaler is a no-op
 scaler = torch.amp.GradScaler("cuda",enabled=(dtype == 'float16'))
 
+from google.genai import Client
+from datasets import load_dataset
+from nanoGPT.sample_model import SampleMutableModel
+from dotenv import load_dotenv, find_dotenv
+import random
+
+judge_prompt="""Instructions:
+
+Please evaluate the response to the following query according to the specified criteria.
+
+	1.	Assign a score (1-4) for each component based on the criteria provided.
+
+Response to Evaluate:
+
+{response}
+
+Evaluation Criteria:
+
+	1.	Vocabulary (V):
+	•	4 (Excellent): Good vocabulary choice.
+	•	3 (Good): Few errors in vocabulary choice that do not interfere with understanding. "Snorkeling means not breathing when skiing."
+	•	2 (Fair): Errors in vocabulary choice are present interfere with understanding. "I sit on a blue and drink alter."
+	•	1 (Poor): Many errors in vocabulary choice that make understanding impossible. "I sit why o read"
+	2.	Grammar (G):
+	•	4 (Excellent): Good grammar.
+	•	3 (Good): Few errors in grammar that do not really interfere with understanding. "I had cook a soup."
+	•	2 (Fair): Errors in grammar are present making understanding hard sometimes. "I and we want why not to go to theater"
+	•	1 (Poor): The text is essentially unreadable because of the grammar, e.g., "I doesnt apple because implied".
+	3.	Mechanics (M):
+	•	4 (Excellent): Good spelling, punctuation, and capitalization.
+	•	3 (Good): Few errors in spelling, punctuation, and capitalization.
+	•	2 (Fair): Errors in spelling, punctuation, and capitalization are present and sometimes interfere with understanding.
+	•	1 (Poor): Many errors in spelling, punctuation, and capitalization appear seemingly randomly.
+
+Try not to be too strict. E.g., "Well, you've got to start at the beginning and then you have to get going as quickly as possible." has at least a 3 in all categories.
+Also, the fact that the last sentence might end abrupt is not the fault of the model but a technical necessity.
+
+Output Format:
+
+	1.	Vocabulary (V): Score = X
+	2.	Grammar (G): Score = X
+	3.	Mechanics (M): Score = X
+"""
+
+class TextDataLoader:
+    """
+    A simple dataloader for text data that allows sampling random batches of texts.
+    """
+    def __init__(self, texts: list[str]):
+        self.texts = texts
+
+    def get_random_batch(self, batch_size):
+        """
+        Returns a random batch of texts.
+
+        Args:
+            batch_size (int): Number of texts to return in the batch.
+
+        Returns:
+            list: A random batch of texts.
+        """
+        if batch_size > len(self.texts):
+            raise ValueError("Batch size exceeds the number of texts available.")
+        return random.sample(self.texts, batch_size)
+
+def check_model_language_performance(model, client, dataset, runs=10):
+    batch = dataset.get_random_batch(runs)
+    output = model.generate_output(batch)
+    judgements = []
+    for t in output:
+        judgements.append(client.models.generate_content(
+        model="gemini-1.5-flash-latest",
+        contents=judge_prompt.format(response=t)
+        ).text)
+    
+    return judgements
+
+load_dotenv(find_dotenv())
+
+# Access environment variables
+api_key = os.getenv('GEMINI_API_KEY')
+client = Client(api_key=api_key)
+
+ds = load_dataset("mintujupally/ROCStories", split="test")
+dataloader_validation = TextDataLoader(texts=ds["text"])
+
+sm_model = SampleMutableModel(model=model)
+judgement_scores = check_model_language_performance(sm_model, client, dataloader_validation)
+print(f"Judgement scores: {judgement_scores}")
+with open('judgement_scores.txt', 'a') as f:
+    for score in judgement_scores:
+        f.write(score + '\n')
+
+print("Exiting test")
+exit()
+
 # optimizer
 optimizer = model.configure_optimizers(weight_decay, learning_rate, (beta1, beta2), device_type)
 if init_from == 'resume':
@@ -235,34 +331,15 @@ while True:
     # evaluate the loss on train/val sets and write checkpoints
     time_end = time.time()
     time_end /= 3600
-    if time_end - time_start >= 10:
-        print(f"Shutting down after {time_end - time_start} hours")
-        best_val_loss = losses['val']
-        if iter_num > 0:
-            checkpoint = {
-                'model': model,
-                'optimizer': optimizer.state_dict(),
-                'model_args': model_args,
-                'iter_num': iter_num,
-                'best_val_loss': best_val_loss,
-                'config': config,
-            }
-            print(f"saving checkpoint to {args.output_dir}")
-            torch.save(checkpoint, os.path.join(args.output_dir, 'ckpt.pt'))
-        exit()
-
-    if iter_num % eval_interval == 0 and master_process:
-        losses = estimate_loss()
-        print(f"step {iter_num}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
-        if wandb_log:
-            wandb.log({
-                "iter": iter_num,
-                "train/loss": losses['train'],
-                "val/loss": losses['val'],
-                "lr": lr,
-                "mfu": running_mfu*100, # convert to percentage
-            })
-        if losses['val'] < best_val_loss or always_save_checkpoint:
+    if time_end - time_start >= 22.5:
+        try:
+            sm_model = SampleMutableModel(model=model)
+            judgement_scores = check_model_language_performance(sm_model, client, dataloader_validation)
+            print(f"Judgement scores: {judgement_scores}")
+            with open('judgement_scores.txt', 'a') as f:
+                for score in judgement_scores:
+                    f.write(score + '\n')
+            print(f"Shutting down after {time_end - time_start} hours")
             best_val_loss = losses['val']
             if iter_num > 0:
                 checkpoint = {
@@ -275,6 +352,36 @@ while True:
                 }
                 print(f"saving checkpoint to {args.output_dir}")
                 torch.save(checkpoint, os.path.join(args.output_dir, 'ckpt.pt'))
+        except:
+            print("Error during evaluation")
+
+    if iter_num % eval_interval == 0 and master_process:
+        try:
+            losses = estimate_loss()
+            print(f"step {iter_num}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
+            if wandb_log:
+                wandb.log({
+                    "iter": iter_num,
+                    "train/loss": losses['train'],
+                    "val/loss": losses['val'],
+                    "lr": lr,
+                    "mfu": running_mfu*100, # convert to percentage
+                })
+            if losses['val'] < best_val_loss or always_save_checkpoint:
+                best_val_loss = losses['val']
+                if iter_num > 0:
+                    checkpoint = {
+                        'model': model,
+                        'optimizer': optimizer.state_dict(),
+                        'model_args': model_args,
+                        'iter_num': iter_num,
+                        'best_val_loss': best_val_loss,
+                        'config': config,
+                    }
+                    print(f"saving checkpoint to {args.output_dir}")
+                    torch.save(checkpoint, os.path.join(args.output_dir, 'ckpt.pt'))
+        except Exception as e:
+            print(f"error during evaluation: {e}")
     if iter_num == 0 and eval_only:
         break
 
