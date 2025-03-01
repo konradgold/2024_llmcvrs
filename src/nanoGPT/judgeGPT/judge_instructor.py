@@ -1,7 +1,8 @@
 import re
 import instructor
+from openai import api_key
 from pydantic import BaseModel
-from google import genai
+import google.generativeai as genai
 
 class Judgement(BaseModel):
     #content: int = 0
@@ -10,12 +11,12 @@ class Judgement(BaseModel):
     mechanics: int = 0
     
 class JudgeInstructor:
-    def __init__(self, judge_model: str = "models/gemini-1.5-flash-latest", judge_prompt: str = ""):
+    def __init__(self, judge_model: str = "models/gemini-1.5-flash-latest", judge_prompt: str = "", key: str = ""):
         self.client = instructor.from_gemini(
-            client=genai.Client(
+            client=genai.GenerativeModel(
+                model_name="gemini-1.5-flash-latest",
             ),
-            mode=instructor.Mode.GEMINI_TOOLS,
-            use_async=True,
+            mode=instructor.Mode.GEMINI_JSON,
         )
         self.model_name_judge = judge_model
         self.judge_prompt = judge_prompt

@@ -58,7 +58,10 @@ querie_new = [(f'{q["sub_label"]} died in', q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-sm_model = SampleMutableModel(model=torch.load(model_path, weights_only=False, map_location=device))
+if model_path is "baseline":
+    sm_model = SampleMutableModel()
+else:
+    sm_model = SampleMutableModel(model=torch.load(model_path, weights_only=False, map_location=device))
 sm_model.top_k = 10
 sm_model.max_new_tokens = 5
 knowledge = []
