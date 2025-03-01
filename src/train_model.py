@@ -32,7 +32,7 @@ parser.add_argument("--init_from", type=str, default="custom", help="Checkpoint 
 parser.add_argument("--train_dataset", type=str, default='filter-openwebtext/filter_folder/train_0.2.bin', help="Path to the fine-tuned GPT model")
 parser.add_argument("--validation_dataset", type=str, default='nanoGPT/data/openwebtext/val.bin', help="Path to save the extracted knowledge")
 parser.add_argument("--output_dir", type=str, default='out/out02', help="Path to save the similarity results")
-parser.add_argument("--prune_percent", type=str, default="results_0.2.json", help="Pruning degree")
+parser.add_argument("--prune_percent", type=str, default="reduction_scores/results020_finetune_mlp_weight.json", help="Pruning degree")
 parser.add_argument("--prune_part", type=str, default="mlp", help="mpl or attention")
 
 args = parser.parse_args()
@@ -133,7 +133,7 @@ best_val_loss = 1e9
 model_args = dict(n_layer=n_layer, n_head=n_head, n_embd=n_embd, block_size=block_size,
                   bias=bias, vocab_size=None, dropout=dropout) # start with model_args from command line
 
-if init_from == 'resume' and args.model_file is not None:
+if init_from == 'resume' and args.prune_percent is not None:
     ckpt_path = os.path.join(out_dir, 'ckpt.pt')
     checkpoint = torch.load(ckpt_path, map_location=device)
     if isinstance(checkpoint, dict):
@@ -149,24 +149,24 @@ if init_from == 'resume' and args.model_file is not None:
     else:
         iter_num = 0
         model = checkpoint
-elif init_from == "custom" and args.model_file is not None:
-    model = GPT.from_pretrained(init_from, dict(dropout=0.0))
+elif init_from == "custom" and args.prune_percent is not None:
+    model = GPT.from_pretrained("gpt2", dict(dropout=0.0))
     for param in model.parameters():
         torch.nn.init.normal_(param)
     with open(args.prune_percent, 'r') as f:
         prune_percent = json.load(f)
     prune_percent = prune_percent["X"][np.argmax(prune_percent["Y"])]
     if args.prune_part == "mlp":
-        model = prune_model(model, prune_percent, activation_based=False)
+        model = prune_model(model, prune_percent)
     else:
-        model = prune_attention(model, prune_percent, activation_based=True)
+        model = prune_model(model, prune_percent, attention=True)
     iter_num = 0
     
     
 # crop down the model block size if desired, using model surgery
 model.to(device)
 # initialize a GradScaler. If enabled=False scaler is a no-op
-scaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16'))
+scaler = torch.amp.GradScaler("cuda",enabled=(dtype == 'float16'))
 
 # optimizer
 optimizer = model.configure_optimizers(weight_decay, learning_rate, (beta1, beta2), device_type)
@@ -214,6 +214,7 @@ def get_lr(it):
 # logging
 if wandb_log and master_process:
     import wandb
+    print(wandb.__file__)
     wandb.init(project=wandb_project, name=wandb_run_name, config=config)
 
 time_start = time.time()
