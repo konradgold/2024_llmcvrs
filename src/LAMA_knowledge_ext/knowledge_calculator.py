@@ -24,7 +24,7 @@ class SimilarityCalculator:
         self.rogue = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
         self.loss = torch.nn.CrossEntropyLoss()
         load_dotenv(find_dotenv())
-        self.client = genai.Client()
+        self.client = genai.Client(api_key=api_key)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def calculate_similarity(self, query, probs, predictions, truth, use_llm=False):
