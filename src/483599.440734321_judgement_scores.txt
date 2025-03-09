@@ -1,0 +1,42 @@
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 1
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 1
+
+The vocabulary used in the first part of the response is appropriate and understandable.  The nonsensical string at the end drags the score down slightly, but it doesn't completely prevent comprehension of the initial narrative.  The grammar in the first part is also good.  However, the mechanical errors in the final section, which seems to be a hallucination of random letters and words, are significant enough to warrant a score of 1.
+
