@@ -261,9 +261,6 @@ with open('judgement_scores.txt', 'a') as f:
     for score in judgement_scores:
         f.write(score + '\n')
 
-print("Exiting test")
-exit()
-
 # optimizer
 optimizer = model.configure_optimizers(weight_decay, learning_rate, (beta1, beta2), device_type)
 if init_from == 'resume':
@@ -336,7 +333,7 @@ while True:
             sm_model = SampleMutableModel(model=model)
             judgement_scores = check_model_language_performance(sm_model, client, dataloader_validation)
             print(f"Judgement scores: {judgement_scores}")
-            with open('judgement_scores.txt', 'a') as f:
+            with open(f'{time_end}_judgement_scores.txt', 'a') as f:
                 for score in judgement_scores:
                     f.write(score + '\n')
             print(f"Shutting down after {time_end - time_start} hours")

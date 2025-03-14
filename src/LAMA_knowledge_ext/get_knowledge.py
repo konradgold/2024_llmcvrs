@@ -7,6 +7,8 @@ import torch
 import argparse
 from dotenv import load_dotenv, find_dotenv
 import os
+from nanoGPT.prune_model import prune_model
+
 
 # Load environment variables from a .env file
 load_dotenv(find_dotenv())
@@ -58,10 +60,11 @@ querie_new = [(f'{q["sub_label"]} died in', q["obj_label"]) for q in statements]
 queries += random.sample(querie_new, min(nr_queries, len(querie_new)))
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-if model_path is "baseline":
-    sm_model = SampleMutableModel()
-else:
-    sm_model = SampleMutableModel(model=torch.load(model_path, weights_only=False, map_location=device))
+sm_model = SampleMutableModel()
+with open("reduction_scores/results020_finetune_mlp_weight.json", 'r') as file:
+    X = json.load(file)["X"][4]
+
+sm_model.model = prune_model(sm_model.model, X, False, False)
 sm_model.top_k = 10
 sm_model.max_new_tokens = 5
 knowledge = []

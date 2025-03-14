@@ -1,0 +1,15 @@
+/var/spool/slurmd/job1392799/slurm_script: line 14: cd: 2024_llmcvrs/src: No such file or directory
+/var/spool/slurmd/job1392799/slurm_script: line 19: Usage:: command not found
+/var/spool/slurmd/job1392799/slurm_script: line 19: never: command not found
+/var/spool/slurmd/job1392799/slurm_script: line 19: auto]: command not found
+/var/spool/slurmd/job1392799/slurm_script: line 22: wandb: command not found
+Running script with first set of parameters...
+python3: can't open file '/hpi/fs00/home/konrad.goldenbaum/2024_llmcvrs/reduce_model_weight.py': [Errno 2] No such file or directory
+Execution completed!
+Running script with second set of parameters...
+/hpi/fs00/home/konrad.goldenbaum/miniconda3/envs/llmcvrs/bin/python3: Error while finding module specification for 'LAMA_knowledge_ext.get_knowledge' (ModuleNotFoundError: No module named 'LAMA_knowledge_ext')
+/hpi/fs00/home/konrad.goldenbaum/miniconda3/envs/llmcvrs/bin/python3: Error while finding module specification for 'filter-openwebtext.generate_filter_trainer' (ModuleNotFoundError: No module named 'filter-openwebtext')
+/hpi/fs00/home/konrad.goldenbaum/miniconda3/envs/llmcvrs/bin/python3: Error while finding module specification for 'filter-openwebtext.fit_lsa' (ModuleNotFoundError: No module named 'filter-openwebtext')
+Execution completed! Final script to run is train_model.py
+python3: can't open file '/hpi/fs00/home/konrad.goldenbaum/2024_llmcvrs/train_model.py': [Errno 2] No such file or directory
+Execution completed!

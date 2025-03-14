@@ -99,7 +99,7 @@ results = {
         "X": X_init.tolist(),
         "Y": Y_init.tolist()
     }
-
+print(f"Results: {results}")
     # Save the results to a JSON file
-with open(f"results_mlp_act_real_activation_{min_reduction}.json", "w") as f:
+with open(f"results_att_weight_{min_reduction}.json", "w") as f:
     json.dump(results, f)

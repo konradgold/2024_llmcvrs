@@ -1,0 +1,256 @@
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 4
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 4
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 2
+3. Mechanics (M): Score = 1
+
+The vocabulary is mostly appropriate for a simple description of an experiment (score 3).  However, the grammar contains several errors, particularly sentence structure and run-on sentences (score 2). The mechanics are poor due to the nonsensical string of letters and words at the end, along with inconsistent capitalization (score 1).
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 1
+
+The vocabulary used is simple but effective for conveying the story.  There are no significant vocabulary errors. The grammar is largely correct, with simple sentence structures. However, the mechanics are significantly flawed due to the inclusion of the seemingly random words and phrases "fridge cite SolidGoldMagikarp SolidGoldMagikarp SolidGoldMagikarp cite cite LDS cite cite cite SolidGoldMagikarp fridge cite SolidGoldMagikarp".  These errors substantially detract from the overall quality of the writing and make the text appear nonsensical.
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 4
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 2
+3. Mechanics (M): Score = 1
+
+**Explanation:**
+
+* **Vocabulary (V):** The vocabulary used is mostly simple but appropriate for describing the event.  The inclusion of "SolidGoldMagikarp" and "LDS" is unusual and irrelevant, but doesn't completely block understanding.
+
+* **Grammar (G):** The grammar contains errors.  Sentence structure is mostly understandable but flawed ("They came by and hosed the house down"). The repetition of "pushing" and the lack of a proper concluding sentence detract from the overall grammatical quality.
+
+* **Mechanics (M):** The response has significant issues with mechanics. There is a lack of capitalization, and punctuation is absent, except for a period at the end of some sentences. The nonsensical repetition of certain words further indicates poor mechanical execution.
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 2
+3. Mechanics (M): Score = 1
+
+**Explanation:**
+
+* **Vocabulary (V):** The vocabulary used is simple but appropriate for the context.  There are no significant errors in word choice, although the vocabulary is not particularly sophisticated.  Therefore, a score of 3 is warranted.
+
+* **Grammar (G):** There are grammatical errors.  The sentence "Sometimes I would decided to go right after work" shows incorrect verb tense ("would decided").  The overall structure is understandable, but the grammatical errors make it less polished. Hence, a score of 2.
+
+* **Mechanics (M):** The response suffers from significant mechanical errors. The repetition of "SolidGoldMagikarp" is nonsensical and disrupts readability.  There are also punctuation errors (missing comma after "However"). The overall effect is a very low score of 1.
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 1
+
+1. Vocabulary (V): Score = 4
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 4
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 1
+
+1. Vocabulary (V): Score = 4
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 2
+3. Mechanics (M): Score = 1
+
+The vocabulary is mostly appropriate, with a few slightly informal choices ("snapped into shape").  However, the meaning is clear.  Therefore, a score of 3 is appropriate.
+
+The grammar has some issues, primarily the run-on sentence at the beginning.  The final part of the response is essentially gibberish, pulling the score down to a 2.
+
+The mechanics are poor. There are numerous spelling and punctuation errors, and capitalization is inconsistent.  The nonsensical repetition of "LDS SolidGoldMagikarp" further degrades the score to a 1.
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 2
+3. Mechanics (M): Score = 1
+
+**Explanation:**
+
+* **Vocabulary (V):** The vocabulary used in the initial part of the response is simple but appropriate for the context.  The words are mostly correctly used, making the beginning understandable.  The score is not a 4 because of the nonsensical repetition at the end.
+
+* **Grammar (G):**  The grammar in the first sentence ("He eat almost a pack every single day.") is incorrect, but doesn't completely derail comprehension. However, the complete lack of sense and grammatical structure in the final part of the response severely impacts the overall grammar score.
+
+* **Mechanics (M):** The initial part has minor mechanical issues (incorrect tense in the first sentence).  However, the nonsensical repetition of "LDS perjury fridge LDS LDS fridge SolidGoldMagikarp fridge SolidGoldMagikarp LDS fridge fridge fridge fridge LDS" at the end demonstrates a significant lack of punctuation and generally chaotic mechanical structure.  This makes the overall score a 1.
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 2
+3. Mechanics (M): Score = 2
+
+**Explanation:**
+
+* **Vocabulary (V):** The vocabulary used is mostly appropriate for the context.  There are no significant vocabulary errors that impede understanding.  A few words could be slightly more precise, but it's not a major issue.
+
+* **Grammar (G):** There are grammatical errors.  "Ali had been in a fight when with her sister" is grammatically incorrect. The sentence structure and some tense usage need improvement.  The understanding is hampered somewhat, but not completely lost.
+
+* **Mechanics (M):**  The response contains spelling errors ("Amy" instead of "Ali" in the second sentence). There's also inconsistent capitalization and punctuation.  The presence of the seemingly random string of words at the end ("SolidGoldMagikarp..." etc.) significantly impacts the mechanics score.
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 1
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 1
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 1
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 1
+
+The vocabulary used in the initial part of the response is appropriate for the story being told.  The inclusion of the repeated and seemingly random words ("fridge," "SolidGoldMagikarp," "LDS," "perjury") significantly lowers the score, but not to a 1, as the core narrative is understandable before the intrusion of these words.
+
+The grammar is mostly correct in the narrative section. The story flows logically.
+
+The mechanics are poor due to the nonsensical repetition of words.  The lack of consistent capitalization and punctuation in the nonsensical part also contributes to the low score.
+
+1.	Vocabulary (V): Score = 4
+2.	Grammar (G): Score = 4
+3.	Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 4
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+**Reasoning:**
+
+* **Vocabulary:** The vocabulary used is appropriate for the context and easily understandable.  There are no significant errors.
+
+* **Grammar:** The grammar is mostly correct, creating a coherent narrative.  There is a slight issue with the final sentence feeling abrupt, but this is understandable within the provided limitations and doesn't significantly impact comprehension.
+
+* **Mechanics:** The response contains a significant issue: the nonsensical string of words at the end ("resulted LDS perjuryiel LDS fridge LDS fridge LDS fridge LDS fridge LDS SolidGoldMagikarp LDS"). This heavily impacts the overall mechanics score.  While the initial part of the response is well-punctuated and spelled correctly, the random addition of these words significantly detracts from the quality.
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 1
+
+1. Vocabulary (V): Score = 4
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 1
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 4
+3. Mechanics (M): Score = 2
+
+1. Vocabulary (V): Score = 3
+2. Grammar (G): Score = 3
+3. Mechanics (M): Score = 2
+
